@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "skillcloaks:item/attack_cloak"
+    "layer0": "skillcloaks:items/attack_cloak"
   }
 }

@@ -1,10 +1,11 @@
 package net.mindoth.skillcloaks.item.sack;
 
 import net.mindoth.skillcloaks.item.SackItem;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -27,16 +28,16 @@ public class RedSackItem extends SackItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
         if ( !Screen.hasShiftDown() ) {
-            tooltip.add(Component.translatable("tooltip.skillcloaks.loot_sack"));
+            tooltip.add(new TranslatableComponent("tooltip.skillcloaks.loot_sack"));
         }
         if ( Screen.hasShiftDown() ) {
-            tooltip.add(Component.literal("Attack").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("Defence").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("Hitpoints").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("Magic").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("Prayer").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("Ranging").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("Strength").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Attack").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Defence").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Hitpoints").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Magic").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Prayer").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Ranging").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Strength").withStyle(ChatFormatting.GRAY));
         }
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
@@ -50,38 +51,38 @@ public class RedSackItem extends SackItem {
             Random r = new Random();
             int number = r.nextInt(7);
             if (number == 0) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.ATTACK_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.ATTACK_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.ATTACK_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.ATTACK_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 1) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.DEFENCE_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.DEFENCE_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.DEFENCE_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.DEFENCE_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 2) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.HITPOINTS_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.HITPOINTS_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.HITPOINTS_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.HITPOINTS_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 3) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.MAGIC_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.MAGIC_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.MAGIC_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.MAGIC_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 4) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.PRAYER_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.PRAYER_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.PRAYER_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.PRAYER_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 5) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.RANGING_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.RANGING_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.RANGING_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.RANGING_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 6) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.STRENGTH_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.STRENGTH_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.STRENGTH_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.STRENGTH_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             else {

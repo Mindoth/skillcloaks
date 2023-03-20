@@ -1,12 +1,14 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.SkillCloaks;
+import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -33,18 +35,18 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
+@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID)
 public class HerbloreCloakItem extends CurioItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(Component.translatable("tooltip.skillcloaks.herblore_cloak"));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslatableComponent("tooltip.skillcloaks.herblore_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
-                    .append(Component.translatable("tooltip.skillcloaks.armor_value")));
+        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            tooltip.add(new TranslatableComponent("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
+                    .append(new TranslatableComponent("tooltip.skillcloaks.armor_value")));
         }
 
         super.appendHoverText(stack, world, tooltip, flagIn);
@@ -54,28 +56,28 @@ public class HerbloreCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
 
     @SubscribeEvent
     public static void onPlayerUse(final PlayerInteractEvent.RightClickItem event) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
-        Player player = event.getEntity();
-        if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.HERBLORE_CLOAK.get()).isPresent()
-                || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
+        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        Player player = event.getPlayer();
+        if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.HERBLORE_CLOAK.get()).isPresent()
+                || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.MAX_CLOAK.get()).isPresent() ) {
 
-            ItemStack potionStack = BrewingRecipeRegistry.getOutput(player.getItemBySlot(EquipmentSlot.MAINHAND), player.getItemBySlot(EquipmentSlot.OFFHAND));
+            ItemStack potionStack = BrewingRecipeRegistry.getOutput(event.getPlayer().getItemBySlot(EquipmentSlot.MAINHAND), event.getPlayer().getItemBySlot(EquipmentSlot.OFFHAND));
             ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), potionStack);
 
-            ItemStack potionStack2 = BrewingRecipeRegistry.getOutput(player.getItemBySlot(EquipmentSlot.OFFHAND), player.getItemBySlot(EquipmentSlot.MAINHAND));
+            ItemStack potionStack2 = BrewingRecipeRegistry.getOutput(event.getPlayer().getItemBySlot(EquipmentSlot.OFFHAND), event.getPlayer().getItemBySlot(EquipmentSlot.MAINHAND));
             ItemEntity drop2 = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), potionStack2);
 
             if ( potionStack.getItem() instanceof PotionItem || potionStack2.getItem() instanceof PotionItem) {
-                player.getItemBySlot(EquipmentSlot.MAINHAND).shrink(1);
-                player.getItemBySlot(EquipmentSlot.OFFHAND).shrink(1);
+                event.getPlayer().getItemBySlot(EquipmentSlot.MAINHAND).shrink(1);
+                event.getPlayer().getItemBySlot(EquipmentSlot.OFFHAND).shrink(1);
                 drop.setDeltaMovement(0, 0, 0);
                 drop.setNoPickUpDelay();
                 player.level.addFreshEntity(drop);

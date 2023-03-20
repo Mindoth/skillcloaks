@@ -1,10 +1,11 @@
 package net.mindoth.skillcloaks.item.sack;
 
 import net.mindoth.skillcloaks.item.SackItem;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -27,14 +28,14 @@ public class GreenSackItem extends SackItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
         if ( !Screen.hasShiftDown() ) {
-            tooltip.add(Component.translatable("tooltip.skillcloaks.loot_sack"));
+            tooltip.add(new TranslatableComponent("tooltip.skillcloaks.loot_sack"));
         }
         if ( Screen.hasShiftDown() ) {
-            tooltip.add(Component.literal("Farming").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("Fishing").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("Hunter").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("Mining").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("Woodcutting").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Farming").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Fishing").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Hunter").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Mining").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("Woodcutting").withStyle(ChatFormatting.GRAY));
         }
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
@@ -48,28 +49,28 @@ public class GreenSackItem extends SackItem {
             Random r = new Random();
             int number = r.nextInt(5);
             if (number == 0) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.FARMING_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.FARMING_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.FARMING_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.FARMING_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 1) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.FISHING_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.FISHING_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.FISHING_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.FISHING_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 2) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.HUNTER_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.HUNTER_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.HUNTER_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.HUNTER_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 3) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.MINING_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.MINING_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.MINING_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.MINING_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 4) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.WOODCUTTING_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.WOODCUTTING_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.WOODCUTTING_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.WOODCUTTING_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             else {

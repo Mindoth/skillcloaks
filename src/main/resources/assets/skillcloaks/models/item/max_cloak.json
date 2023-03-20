@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "skillcloaks:item/max_cloak"
+    "layer0": "skillcloaks:items/max_cloak"
   }
 }

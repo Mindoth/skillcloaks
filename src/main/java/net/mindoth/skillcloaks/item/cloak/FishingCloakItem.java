@@ -1,11 +1,13 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.SkillCloaks;
+import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -26,12 +28,12 @@ public class FishingCloakItem extends CurioItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(Component.translatable("tooltip.skillcloaks.fishing_cloak"));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslatableComponent("tooltip.skillcloaks.fishing_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
-                    .append(Component.translatable("tooltip.skillcloaks.armor_value")));
+        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            tooltip.add(new TranslatableComponent("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
+                    .append(new TranslatableComponent("tooltip.skillcloaks.armor_value")));
         }
 
         super.appendHoverText(stack, world, tooltip, flagIn);
@@ -41,10 +43,10 @@ public class FishingCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) result.put(Attributes.LUCK, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "fishing_cloak_luck").toString(), SkillcloaksCommonConfig.FISHING_LUCK.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) result.put(Attributes.LUCK, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "fishing_cloak_luck").toString(), SkillCloaksCommonConfig.FISHING_LUCK.get(), AttributeModifier.Operation.ADDITION));
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }

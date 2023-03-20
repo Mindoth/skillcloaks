@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "skillcloaks:item/woodcutting_cloak"
+    "layer0": "skillcloaks:items/woodcutting_cloak"
   }
 }

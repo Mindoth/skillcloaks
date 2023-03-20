@@ -1,13 +1,15 @@
 package net.mindoth.skillcloaks.network.message;
 
 import net.mindoth.skillcloaks.client.InventoryCraftingMenu;
-import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
+import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -54,7 +56,7 @@ public class CloakAbilityPacket {
         return new CloakAbilityPacket(buffer.readInt());
     }
 
-    private static final Component CONTAINER_TITLE = Component.translatable("container.crafting");
+    private static final Component CONTAINER_TITLE = new TranslatableComponent("container.crafting");
 
     public static MenuProvider getMenuProvider(Level pLevel, BlockPos pPos) {
         return new SimpleMenuProvider((p_52229_, p_52230_, p_52231_) -> {
@@ -63,7 +65,7 @@ public class CloakAbilityPacket {
     }
 
     public static void handle(CloakAbilityPacket message, Supplier<NetworkEvent.Context> contextSupplier) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> {
             //Player
@@ -77,16 +79,16 @@ public class CloakAbilityPacket {
 
 
             //Max Cloak
-            if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent()
-                    && !player.getCooldowns().isOnCooldown(SkillcloaksItems.MAX_CLOAK.get())
+            if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.MAX_CLOAK.get()).isPresent()
+                    && !player.getCooldowns().isOnCooldown(SkillCloaksItems.MAX_CLOAK.get())
                     && player.isCrouching() ) {
 
                 switch ( maxData.getInt(TAG_MAX_MODE) ) {
                     case 1:
                         maxData.putInt(TAG_MAX_MODE, 2);
                         playerMaxData.put(Player.PERSISTED_NBT_TAG, maxData);
-                        player.displayClientMessage(Component.translatable("message.skillcloaks.max.mode.construction"), true);
-                        player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
+                        player.displayClientMessage(new TranslatableComponent("message.skillcloaks.max.mode.construction"), true);
+                        player.getCooldowns().addCooldown(SkillCloaksItems.MAX_CLOAK.get(), 20);
                         break;
                     case 2:
                         if (ModList.get().isLoaded("lucent")) {
@@ -94,20 +96,20 @@ public class CloakAbilityPacket {
                         }
                         else maxData.putInt(TAG_MAX_MODE, 3);
                         playerMaxData.put(Player.PERSISTED_NBT_TAG, maxData);
-                        player.displayClientMessage(Component.translatable("message.skillcloaks.max.mode.crafting"), true);
-                        player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
+                        player.displayClientMessage(new TranslatableComponent("message.skillcloaks.max.mode.crafting"), true);
+                        player.getCooldowns().addCooldown(SkillCloaksItems.MAX_CLOAK.get(), 20);
                         break;
                     case 3:
                         maxData.putInt(TAG_MAX_MODE, 1);
                         playerMaxData.put(Player.PERSISTED_NBT_TAG, maxData);
-                        player.displayClientMessage(Component.translatable("message.skillcloaks.max.mode.firemaking"), true);
-                        player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
+                        player.displayClientMessage(new TranslatableComponent("message.skillcloaks.max.mode.firemaking"), true);
+                        player.getCooldowns().addCooldown(SkillCloaksItems.MAX_CLOAK.get(), 20);
                         break;
                     default:
                         maxData.putInt(TAG_MAX_MODE, 2);
                         playerMaxData.put(Player.PERSISTED_NBT_TAG, maxData);
-                        player.displayClientMessage(Component.translatable("message.skillcloaks.max.mode.construction"), true);
-                        player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
+                        player.displayClientMessage(new TranslatableComponent("message.skillcloaks.max.mode.construction"), true);
+                        player.getCooldowns().addCooldown(SkillCloaksItems.MAX_CLOAK.get(), 20);
                         break;
                 }
             }
@@ -115,14 +117,14 @@ public class CloakAbilityPacket {
 
 
             //Crafting Cloak, open a crafting menu
-            if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.CRAFTING_CLOAK.get()).isPresent()
-                    || (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() && !player.isCrouching()) ) {
+            if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.CRAFTING_CLOAK.get()).isPresent()
+                    || (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.MAX_CLOAK.get()).isPresent() && !player.isCrouching()) ) {
                 if (ModList.get().isLoaded("lucent")) {
-                    if (maxData.getInt(TAG_MAX_MODE) == 1 || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.CRAFTING_CLOAK.get()).isPresent()) {
+                    if (maxData.getInt(TAG_MAX_MODE) == 1 || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.CRAFTING_CLOAK.get()).isPresent()) {
                         player.openMenu(getMenuProvider(player.level, player.blockPosition()));
                     }
                 }
-                else if (maxData.getInt(TAG_MAX_MODE) == 3 || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.CRAFTING_CLOAK.get()).isPresent()) {
+                else if (maxData.getInt(TAG_MAX_MODE) == 3 || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.CRAFTING_CLOAK.get()).isPresent()) {
                     player.openMenu(getMenuProvider(player.level, player.blockPosition()));
                 }
             }
@@ -130,11 +132,11 @@ public class CloakAbilityPacket {
 
 
             //Construction cloak, TP player to their bed and give them the cooldown
-            if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.CONSTRUCTION_CLOAK.get()).isPresent()
-                    || ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() && maxData.getInt(TAG_MAX_MODE) == 2
+            if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.CONSTRUCTION_CLOAK.get()).isPresent()
+                    || ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.MAX_CLOAK.get()).isPresent() && maxData.getInt(TAG_MAX_MODE) == 2
                     && !player.isCrouching()) ) {
 
-                if (!player.getCooldowns().isOnCooldown(SkillcloaksItems.CONSTRUCTION_CLOAK.get()) && !player.getCooldowns().isOnCooldown(SkillcloaksItems.MAX_CLOAK.get())) {
+                if (!player.getCooldowns().isOnCooldown(SkillCloaksItems.CONSTRUCTION_CLOAK.get()) && !player.getCooldowns().isOnCooldown(SkillCloaksItems.MAX_CLOAK.get())) {
 
                     //Getting player's bed location
                     ServerLevel respawnWorld = player.server.getLevel(player.getRespawnDimension());
@@ -173,20 +175,20 @@ public class CloakAbilityPacket {
                                     }
                                 }
                             } else {
-                                player.displayClientMessage(Component.translatable("message.skillcloaks.construction.cantfind"), true);
-                                player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE.get(), SoundSource.PLAYERS, 1, 0.5f);
+                                player.displayClientMessage(new TranslatableComponent("message.skillcloaks.construction.cantfind"), true);
+                                player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE, SoundSource.PLAYERS, 1, 0.5f);
                             }
                         } else {
-                            player.displayClientMessage(Component.translatable("message.skillcloaks.construction.wrongdim"), true);
-                            player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE.get(), SoundSource.PLAYERS, 1, 0.5f);
+                            player.displayClientMessage(new TranslatableComponent("message.skillcloaks.construction.wrongdim"), true);
+                            player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE, SoundSource.PLAYERS, 1, 0.5f);
                         }
                         //Add cooldown to player
-                        player.getCooldowns().addCooldown(SkillcloaksItems.CONSTRUCTION_CLOAK.get(), 20);
-                        player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
+                        player.getCooldowns().addCooldown(SkillCloaksItems.CONSTRUCTION_CLOAK.get(), 20);
+                        player.getCooldowns().addCooldown(SkillCloaksItems.MAX_CLOAK.get(), 20);
                     }
                     else {
-                        player.displayClientMessage(Component.translatable("message.skillcloaks.construction.cantfind"), true);
-                        player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE.get(), SoundSource.PLAYERS, 1, 0.5f);
+                        player.displayClientMessage(new TranslatableComponent("message.skillcloaks.construction.cantfind"), true);
+                        player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE, SoundSource.PLAYERS, 1, 0.5f);
                     }
                 }
             }
@@ -195,12 +197,12 @@ public class CloakAbilityPacket {
 
             if (!ModList.get().isLoaded("lucent")) {
                 //Firemaking Cloak, give the player a torch and put the ability on cooldown
-                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FIREMAKING_CLOAK.get()).isPresent()
-                        || (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() && maxData.getInt(TAG_MAX_MODE) == 1
+                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.FIREMAKING_CLOAK.get()).isPresent()
+                        || (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.MAX_CLOAK.get()).isPresent() && maxData.getInt(TAG_MAX_MODE) == 1
                         && !player.isCrouching()) ) {
 
                     //Either give the player a torch or drop it on them
-                    if (!player.getCooldowns().isOnCooldown(SkillcloaksItems.FIREMAKING_CLOAK.get()) && !player.getCooldowns().isOnCooldown(SkillcloaksItems.MAX_CLOAK.get())) {
+                    if (!player.getCooldowns().isOnCooldown(SkillCloaksItems.FIREMAKING_CLOAK.get()) && !player.getCooldowns().isOnCooldown(SkillCloaksItems.MAX_CLOAK.get())) {
 
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
 
@@ -211,8 +213,8 @@ public class CloakAbilityPacket {
                         player.level.addFreshEntity(drop);
 
                         //Add cooldown to player
-                        player.getCooldowns().addCooldown(SkillcloaksItems.FIREMAKING_CLOAK.get(), 20);
-                        player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
+                        player.getCooldowns().addCooldown(SkillCloaksItems.FIREMAKING_CLOAK.get(), 20);
+                        player.getCooldowns().addCooldown(SkillCloaksItems.MAX_CLOAK.get(), 20);
                     }
                 }
             }

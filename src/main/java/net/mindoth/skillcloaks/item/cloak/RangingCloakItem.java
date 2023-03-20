@@ -1,12 +1,14 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.SkillCloaks;
+import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -30,18 +32,18 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
+@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID)
 public class RangingCloakItem extends CurioItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(Component.translatable("tooltip.skillcloaks.ranging_cloak"));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslatableComponent("tooltip.skillcloaks.ranging_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
-                    .append(Component.translatable("tooltip.skillcloaks.armor_value")));
+        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            tooltip.add(new TranslatableComponent("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
+                    .append(new TranslatableComponent("tooltip.skillcloaks.armor_value")));
         }
 
         super.appendHoverText(stack, world, tooltip, flagIn);
@@ -51,16 +53,16 @@ public class RangingCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
 
     @SubscribeEvent
     public static void onItemUseFinish(final LivingEntityUseItemEvent.Stop event) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
-        if (event.getEntity() instanceof Player player) {
+        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (event.getEntityLiving() instanceof Player player) {
             if (!player.level.isClientSide) {
                 ItemStack pStack = event.getItem();
                 boolean flag = player.getAbilities().instabuild || EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, pStack) > 0;
@@ -83,7 +85,7 @@ public class RangingCloakItem extends CurioItem {
                                 Random r = new Random();
                                 double randomValue = r.nextDouble();
 
-                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.RANGING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) && randomValue < SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get()) {
+                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.RANGING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.MAX_CLOAK.get()).isPresent() ) && randomValue < SkillCloaksCommonConfig.ARROW_RETURN_CHANCE.get()) {
                                     ItemStack returnArrow = new ItemStack(itemstack.getItem(), 1);
                                     PotionUtils.setPotion(returnArrow, PotionUtils.getPotion(itemstack));
                                     PotionUtils.setCustomEffects(returnArrow, PotionUtils.getCustomEffects(itemstack));

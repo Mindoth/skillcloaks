@@ -6,7 +6,7 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader="javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion="[43,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[36,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license="All rights reserved"
@@ -20,7 +20,7 @@ modId="skillcloaks" #mandatory
 # ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
 # see the associated build.gradle script for how to populate this completely automatically during a build
 version="${file.jarVersion}" #mandatory
-# A display name for the mod
+ # A display name for the mod
 displayName="Skillcloaks" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
@@ -35,38 +35,23 @@ authors="Mindoth" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
 '''
-
-[[dependencies.skillcloaks]] #optional
-    modId="forge" #mandatory
-    mandatory=true #mandatory
-    versionRange="[44.1.0,)" #mandatory
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.skillcloaks]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.19.3,)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.skillcloaks]]
+[[dependencies.curios]]
     modId="curios"
     mandatory=true
-    versionRange="[1.19.3-5.1.3.1,)"
+    versionRange="[1.18.2-5.0.7.1,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.skillcloaks]]
+[[dependencies.caelus]]
     modId="caelus"
     mandatory=false
-    versionRange="[1.19.3-3.0.0.7,)"
+    versionRange="[1.18.1-3.0.0.2,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.skillcloaks]]
+[[dependencies.lucent]]
     modId="lucent"
     mandatory=false
-    versionRange="[1.5.0,]"
+    versionRange="[1.18.2-1.2.2,]"
     ordering="NONE"
-    side="BOTH"
+    side="CLIENT"
