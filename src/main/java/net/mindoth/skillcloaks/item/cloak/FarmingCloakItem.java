@@ -1,31 +1,29 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.SkillCloaks;
+import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BoneMealItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockState;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.minecraft.block.*;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.BoneMealItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -39,18 +37,18 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
+@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID)
 public class FarmingCloakItem extends CurioItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(Component.translatable("tooltip.skillcloaks.farming_cloak"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.farming_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
-                    .append(Component.translatable("tooltip.skillcloaks.armor_value")));
+        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            tooltip.add(new TranslationTextComponent("curios.modifiers.cloak").withStyle(TextFormatting.GRAY));
+            tooltip.add(new TranslationTextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(TextFormatting.BLUE)
+                    .append(new TranslationTextComponent("tooltip.skillcloaks.armor_value")));
         }
 
         super.appendHoverText(stack, world, tooltip, flagIn);
@@ -60,60 +58,60 @@ public class FarmingCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
 
+
+
     @SubscribeEvent
-    public static void doBonemealEvent(final PlayerInteractEvent.RightClickBlock event) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
-        Player player = event.getEntity();
-        Level level = event.getLevel();
+    public static void onPlayerUseFarming(final PlayerInteractEvent.RightClickBlock event) {
+        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        PlayerEntity player = event.getPlayer();
+        World level = event.getWorld();
         BlockPos pos = event.getPos();
-        if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FARMING_CLOAK.get()).isPresent()
-                || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
+        if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.FARMING_CLOAK.get(), player).isPresent()
+                || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
             if ( event.getItemStack().getItem().equals(Items.BONE_MEAL) ) {
-                if ( pos == player.getOnPos() || level.getBlockState(pos).getBlock() instanceof BonemealableBlock ) {
-                    event.setCancellationResult(InteractionResult.SUCCESS);
+                if ( pos == player.getEntity().blockPosition() || level.getBlockState(pos).getBlock() instanceof IGrowable ) {
+                    event.setCancellationResult(ActionResultType.SUCCESS);
                     event.setCanceled(true);
                 }
-                BlockPos.MutableBlockPos mutableblockpos = new BlockPos.MutableBlockPos();
+                BlockPos.Mutable mutableblockpos = new BlockPos.Mutable();
 
-                int xRange = SkillcloaksCommonConfig.FARMING_RANGE.get();;
-                int zRange = SkillcloaksCommonConfig.FARMING_RANGE.get();;
+                int xRange = SkillCloaksCommonConfig.FARMING_RANGE.get();
+                int zRange = SkillCloaksCommonConfig.FARMING_RANGE.get();
 
                 for (int xPos = pos.getX() - xRange; xPos <= pos.getX() + xRange; xPos++)
                     for (int zPos = pos.getZ() - zRange; zPos <= pos.getZ() + zRange; zPos++) {
 
-                            BlockPos position = mutableblockpos.set(xPos, pos.getY(), zPos);
+                        BlockPos position = mutableblockpos.set(xPos, pos.getY(), zPos);
 
-                            Block block = level.getBlockState(position).getBlock();
+                        Block block = level.getBlockState(position).getBlock();
 
-                            if ( block instanceof BonemealableBlock ) {
-                                BoneMealItem.applyBonemeal(new ItemStack(Items.BONE_MEAL), level, position, player);
-                                if ( !level.isClientSide ) {
-                                    addGrowthParticles((ServerLevel) level, position, (ServerPlayer) player);
-                                }
-                                level.playSound(null, position,
-                                        SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1, 1);
+                        if ( block instanceof IGrowable ) {
+                            BoneMealItem.applyBonemeal(new ItemStack(Items.BONE_MEAL), level, position, player);
+                            if ( !level.isClientSide ) {
+                                addGrowthParticles((ServerWorld) level, position, (ServerPlayerEntity) player);
                             }
+                        }
                     }
                 if ( !player.isCreative() ) event.getItemStack().shrink(1);
             }
         }
     }
 
-    private static void addGrowthParticles(ServerLevel level, BlockPos pos, ServerPlayer player) {
+    private static void addGrowthParticles(ServerWorld level, BlockPos pos, ServerPlayerEntity player) {
         Random random = new Random();
         int numParticles = 2;
 
         BlockState blockstate = level.getBlockState(pos);
-        if (!blockstate.isAir()) {
+        if (!blockstate.isAir(level, pos)) {
             double d0 = 0.5D;
             double d1;
-            if (blockstate.equals(Blocks.WATER)) {
+            if (blockstate.is(Blocks.WATER)) {
                 numParticles *= 3;
                 d1 = 1.0D;
                 d0 = 3.0D;

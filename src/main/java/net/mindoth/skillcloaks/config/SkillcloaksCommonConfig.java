@@ -2,7 +2,7 @@ package net.mindoth.skillcloaks.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class SkillcloaksCommonConfig {
+public class SkillCloaksCommonConfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec SPEC;
 
@@ -52,7 +52,7 @@ public class SkillcloaksCommonConfig {
                 .define("Fishing luck", 10);
 
         STRENGTH_KNOCKBACK_RESISTANCE = BUILDER.comment("The Amount of knockback resistance the Strength Cloak gives (Default = 1)")
-                .define("Strength knockback resistance", 1);
+                .define("Strength knockback resistance", 10);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

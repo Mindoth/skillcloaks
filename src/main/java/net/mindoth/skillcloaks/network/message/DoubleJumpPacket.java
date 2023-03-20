@@ -1,31 +1,31 @@
 package net.mindoth.skillcloaks.network.message;
 
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
 public class DoubleJumpPacket {
 
     @SuppressWarnings("unused")
-    public DoubleJumpPacket(FriendlyByteBuf buffer) {
+    public DoubleJumpPacket(PacketBuffer buffer) {
     }
 
     public DoubleJumpPacket() {
     }
 
     @SuppressWarnings("unused")
-    void encode(FriendlyByteBuf buffer) {
+    void encode(PacketBuffer buffer) {
     }
 
     void handle(Supplier<NetworkEvent.Context> context) {
-        ServerPlayer player = context.get().getSender();
+        ServerPlayerEntity player = context.get().getSender();
         if ( player != null ) {
             context.get().enqueueWork(() -> {
-                SkillcloaksItems.AGILITY_CLOAK.get().jump(player);
+                SkillCloaksItems.AGILITY_CLOAK.get().jump(player);
                     double motionX = player.getRandom().nextGaussian() * 0.02;
                     double motionY = player.getRandom().nextGaussian() * 0.02 + 0.20;
                     double motionZ = player.getRandom().nextGaussian() * 0.02;

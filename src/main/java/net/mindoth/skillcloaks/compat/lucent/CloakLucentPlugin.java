@@ -3,11 +3,10 @@ package net.mindoth.skillcloaks.compat.lucent;
 import com.legacy.lucent.api.EntityBrightness;
 import com.legacy.lucent.api.plugin.ILucentPlugin;
 import com.legacy.lucent.api.plugin.LucentPlugin;
-import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
+import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.fml.ModList;
 import top.theillusivec4.curios.api.CuriosApi;
 
@@ -15,22 +14,17 @@ import top.theillusivec4.curios.api.CuriosApi;
 public class CloakLucentPlugin implements ILucentPlugin {
 
     @Override
-    public String ownerModID() {
-        return Skillcloaks.MOD_ID;
-    }
-
-    @Override
     public void getEntityLightLevel(EntityBrightness entityBrightness) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
         Entity entity = entityBrightness.getEntity();
 
-        if (entity instanceof Player) {
-            Player player = (Player)entity;
-            if (ModList.get().isLoaded("curios")) {
-                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FIREMAKING_CLOAK.get()).isPresent()) {
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity)entity;
+            if (ModList.get().isLoaded("curios") && ModList.get().isLoaded("lucent")) {
+                if (CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.FIREMAKING_CLOAK.get(), player).isPresent()) {
                     entityBrightness.setLightLevel(15);
                 }
-                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent()) {
+                if (CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), player).isPresent()) {
                     entityBrightness.setLightLevel(15);
                 }
             }

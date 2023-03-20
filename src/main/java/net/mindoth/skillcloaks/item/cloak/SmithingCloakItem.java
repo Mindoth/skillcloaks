@@ -1,29 +1,30 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.SkillCloaks;
+import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.FlintAndSteelItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.crafting.BlastingRecipe;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.FlintAndSteelItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.BlastingRecipe;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -36,19 +37,19 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
+@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID)
 public class SmithingCloakItem extends CurioItem {
-    //Most of the code is in skillcloaks/network/message/CloakAbilityPacket
+    //Most of the code is in skillcloaks\network\message\CloakAbilityPacket
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(Component.translatable("tooltip.skillcloaks.smithing_cloak"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.smithing_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
-                    .append(Component.translatable("tooltip.skillcloaks.armor_value")));
+        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            tooltip.add(new TranslationTextComponent("curios.modifiers.cloak").withStyle(TextFormatting.GRAY));
+            tooltip.add(new TranslationTextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(TextFormatting.BLUE)
+                    .append(new TranslationTextComponent("tooltip.skillcloaks.armor_value")));
         }
 
         super.appendHoverText(stack, world, tooltip, flagIn);
@@ -58,28 +59,27 @@ public class SmithingCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
 
-    private static BlastingRecipe getBlastingRecipe(Player player, Container inv)
-    {
-        return player.level.getRecipeManager().getRecipeFor(RecipeType.BLASTING, inv, player.level).orElse(null);
+    private static BlastingRecipe getBlastingRecipe(PlayerEntity player, IInventory inv) {
+        return player.level.getRecipeManager().getRecipeFor(IRecipeType.BLASTING, inv, player.level).orElse(null);
     }
 
     @SubscribeEvent
-    public static void onPlayerUseSmithingBlock(final PlayerInteractEvent.RightClickBlock event) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
-        Player player = event.getEntity();
-        if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.SMITHING_CLOAK.get()).isPresent()
-                || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
+    public static void onPlayerUseCookingBlock(final PlayerInteractEvent.RightClickBlock event) {
+        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        PlayerEntity player = event.getPlayer();
+        if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.SMITHING_CLOAK.get(), player).isPresent()
+                || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
 
             ItemStack mainHandItemStack = player.getMainHandItem();
             ItemStack offHandItemStack = player.getOffhandItem();
-            Container slotInv = new SimpleContainer(mainHandItemStack);
-            Container slotInvOff = new SimpleContainer(offHandItemStack);
+            IInventory slotInv = new Inventory(mainHandItemStack);
+            IInventory slotInvOff = new Inventory(offHandItemStack);
             BlastingRecipe recipe = getBlastingRecipe(player, slotInv);
             BlastingRecipe recipeOff = getBlastingRecipe(player, slotInvOff);
 
@@ -92,23 +92,22 @@ public class SmithingCloakItem extends CurioItem {
 
     @SubscribeEvent
     public static void onPlayerUseSmithing(final PlayerInteractEvent.RightClickItem event) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
-        Player player = event.getEntity();
-        Level world = player.level;
-        if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.SMITHING_CLOAK.get()).isPresent()
-                || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
+        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        PlayerEntity player = event.getPlayer();
+        World world = player.level;
+        if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.SMITHING_CLOAK.get(), player).isPresent()
+                || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
 
             ItemStack mainHandItemStack = player.getMainHandItem();
             ItemStack offHandItemStack = player.getOffhandItem();
-            Container slotInv = new SimpleContainer(mainHandItemStack);
-            Container slotInvOff = new SimpleContainer(offHandItemStack);
+            IInventory slotInv = new Inventory(mainHandItemStack);
+            IInventory slotInvOff = new Inventory(offHandItemStack);
             BlastingRecipe recipe = getBlastingRecipe(player, slotInv);
             BlastingRecipe recipeOff = getBlastingRecipe(player, slotInvOff);
 
             if ( (recipe != null || recipeOff != null)
                     && (mainHandItemStack.getItem() instanceof FlintAndSteelItem || offHandItemStack.getItem() instanceof FlintAndSteelItem)) {
                 event.setCanceled(true);
-                //Check if Flint and Steel in offhand
                 if (offHandItemStack.getItem() instanceof FlintAndSteelItem) {
                     int size = mainHandItemStack.getCount();
                     for (int i = 0; i < size; ++i) {
@@ -123,13 +122,13 @@ public class SmithingCloakItem extends CurioItem {
                                 drop.setNoPickUpDelay();
                                 player.level.addFreshEntity(drop);
 
-                                offHandItemStack.hurtAndBreak(1, player, (holder) -> holder.broadcastBreakEvent(EquipmentSlot.OFFHAND));
+                                offHandItemStack.hurtAndBreak(1, player, (holder) -> holder.broadcastBreakEvent(EquipmentSlotType.OFFHAND));
                             }
                         }
                     }
                     //Sound
                     world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                            SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
+                            SoundEvents.FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 1, 1);
                 }
                 else if (mainHandItemStack.getItem() instanceof FlintAndSteelItem) {
                     int size = offHandItemStack.getCount();
@@ -144,13 +143,13 @@ public class SmithingCloakItem extends CurioItem {
                                 drop.setDeltaMovement(0, 0, 0);
                                 drop.setNoPickUpDelay();
                                 player.level.addFreshEntity(drop);
-                                mainHandItemStack.hurtAndBreak(1, player, (holder) -> holder.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                                mainHandItemStack.hurtAndBreak(1, player, (holder) -> holder.broadcastBreakEvent(EquipmentSlotType.MAINHAND));
                             }
                         }
                     }
                     //Sound
                     world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                            SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
+                            SoundEvents.FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 1, 1);
                 }
             }
         }

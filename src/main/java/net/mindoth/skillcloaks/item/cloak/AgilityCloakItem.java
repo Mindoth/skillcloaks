@@ -1,29 +1,30 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.SkillCloaks;
+import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
 import net.mindoth.skillcloaks.network.message.DoubleJumpPacket;
-import net.mindoth.skillcloaks.network.message.SkillcloaksNetwork;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
-import net.minecraft.ChatFormatting;
+import net.mindoth.skillcloaks.network.message.SkillCloaksNetwork;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -46,13 +47,13 @@ public class AgilityCloakItem extends CurioItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(Component.translatable("tooltip.skillcloaks.agility_cloak"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.agility_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
-                    .append(Component.translatable("tooltip.skillcloaks.armor_value")));
+        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            tooltip.add(new TranslationTextComponent("curios.modifiers.cloak").withStyle(TextFormatting.GRAY));
+            tooltip.add(new TranslationTextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(TextFormatting.BLUE)
+                    .append(new TranslationTextComponent("tooltip.skillcloaks.armor_value")));
         }
 
         super.appendHoverText(stack, world, tooltip, flagIn);
@@ -62,16 +63,14 @@ public class AgilityCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
 
-
-
-    protected <T extends LivingEvent> void addListener(EventPriority priority, Class<T> eventClass, BiConsumer<T, LivingEntity> listener) {
-        addListener(priority, eventClass, listener, LivingEvent::getEntity);
+    public boolean isEquippedBy(@Nullable LivingEntity entity) {
+        return CuriosApi.getCuriosHelper().findEquippedCurio(this, entity).isPresent();
     }
 
     protected <T extends Event, S extends LivingEntity> void addListener(EventPriority priority, Class<T> eventClass, BiConsumer<T, S> listener, Function<T, S> wearerSupplier) {
@@ -83,6 +82,18 @@ public class AgilityCloakItem extends CurioItem {
         });
     }
 
+    protected <T extends Event, S extends LivingEntity> void addListener(Class<T> eventClass, BiConsumer<T, S> listener, Function<T, S> wearerSupplier) {
+        addListener(EventPriority.NORMAL, eventClass, listener, wearerSupplier);
+    }
+
+    protected <T extends LivingEvent> void addListener(EventPriority priority, Class<T> eventClass, BiConsumer<T, LivingEntity> listener) {
+        addListener(priority, eventClass, listener, LivingEvent::getEntityLiving);
+    }
+
+    protected <T extends LivingEvent> void addListener(Class<T> eventClass, BiConsumer<T, LivingEntity> listener) {
+        addListener(EventPriority.NORMAL, eventClass, listener);
+    }
+
 
 
     //AGILITY CAPE
@@ -92,19 +103,19 @@ public class AgilityCloakItem extends CurioItem {
     }
 
     @Override
-    public void jump(Player player) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
+    public void jump(PlayerEntity player) {
+        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
         player.fallDistance = 0;
 
-        double upwardsMotion = 0.5D;
+        double upwardsMotion = 0.5;
 
-        Vec3 motion = player.getDeltaMovement();
+        Vector3d motion = player.getDeltaMovement();
         double motionMultiplier = 0;
-        float direction = (float) (player.getYRot() * Math.PI / 180);
+        float direction = (float) (player.yRot * Math.PI / 180);
         player.setDeltaMovement(player.getDeltaMovement().add(
-                -Mth.sin(direction) * motionMultiplier,
+                -MathHelper.sin(direction) * motionMultiplier,
                 upwardsMotion - motion.y,
-                Mth.cos(direction) * motionMultiplier)
+                MathHelper.cos(direction) * motionMultiplier)
         );
 
         player.hasImpulse = true;
@@ -132,8 +143,8 @@ public class AgilityCloakItem extends CurioItem {
         @OnlyIn(Dist.CLIENT)
         @SuppressWarnings("unused")
         public void onClientTick(TickEvent.ClientTickEvent event) {
-            if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
-            LocalPlayer player = Minecraft.getInstance().player;
+            if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+            ClientPlayerEntity player = Minecraft.getInstance().player;
 
             // noinspection ConstantConditions
             if ( event.phase == TickEvent.Phase.END && player != null && player.input != null ) {
@@ -144,10 +155,10 @@ public class AgilityCloakItem extends CurioItem {
                 else if ( !player.input.jumping ) {
                     hasReleasedJumpKey = true;
                 }
-                else if ( !player.getAbilities().flying && canDoubleJump && hasReleasedJumpKey ) {
+                else if ( !player.abilities.flying && canDoubleJump && hasReleasedJumpKey ) {
                     canDoubleJump = false;
-                    if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.AGILITY_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
-                        SkillcloaksNetwork.CHANNEL.sendToServer(new DoubleJumpPacket());
+                    if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.AGILITY_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
+                        SkillCloaksNetwork.CHANNEL.sendToServer(new DoubleJumpPacket());
                         jump(player);
                     }
                 }

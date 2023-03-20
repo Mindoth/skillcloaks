@@ -1,26 +1,27 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.SkillCloaks;
+import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
-import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
@@ -34,18 +35,19 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
+
+@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID)
 public class DefenceCloakItem extends CurioItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(Component.translatable("tooltip.skillcloaks.defence_cloak"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.defence_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
-                    .append(Component.translatable("tooltip.skillcloaks.armor_value")));
+        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            tooltip.add(new TranslationTextComponent("curios.modifiers.cloak").withStyle(TextFormatting.GRAY));
+            tooltip.add(new TranslationTextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(TextFormatting.BLUE)
+                    .append(new TranslationTextComponent("tooltip.skillcloaks.armor_value")));
         }
 
         super.appendHoverText(stack, world, tooltip, flagIn);
@@ -55,8 +57,8 @@ public class DefenceCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
@@ -66,28 +68,28 @@ public class DefenceCloakItem extends CurioItem {
     //Prevent death
     @SubscribeEvent
     public static void onDamageEvent(final LivingDamageEvent event) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
-        if ( !event.getEntity().level.isClientSide ) {
-            LivingEntity player = event.getEntity();
-            CompoundTag playerData = player.getPersistentData();
-            CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
+        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if ( !event.getEntityLiving().level.isClientSide ) {
+            LivingEntity player = event.getEntityLiving();
+            CompoundNBT playerData = player.getPersistentData();
+            CompoundNBT data = playerData.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
 
             //Check if the damage is lethal and that the player has the correct cloak equipped
-            if ( ( event.getAmount() >= event.getEntity().getHealth() )   &&   ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.DEFENCE_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) ) {
+            if ( ( event.getAmount() >= event.getEntityLiving().getHealth() )   &&   ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.DEFENCE_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), player).isPresent() ) ) {
 
                 //Check for cooldown
                 if ( data.getInt(TAG_DEFENCE_COOLDOWN) <= 0 ) {
                     event.setAmount(0);
                     player.setHealth(1.0F);
                     player.removeAllEffects();
-                    player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 900, 1));
-                    player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
-                    player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
-                    player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.TOTEM_USE, SoundSource.PLAYERS, 1, 1);
+                    player.addEffect(new EffectInstance(Effects.REGENERATION, 900, 1));
+                    player.addEffect(new EffectInstance(Effects.ABSORPTION, 100, 1));
+                    player.addEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 800, 0));
+                    player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.TOTEM_USE, SoundCategory.PLAYERS, 1, 1);
 
                     //Add cooldown of 24000
                     data.putInt(TAG_DEFENCE_COOLDOWN, 24000);
-                    playerData.put(Player.PERSISTED_NBT_TAG, data);
+                    playerData.put(PlayerEntity.PERSISTED_NBT_TAG, data);
                 }
             }
         }
@@ -96,9 +98,9 @@ public class DefenceCloakItem extends CurioItem {
     //Defence cloak timer
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
-        CompoundTag playerData = player.getPersistentData();
-        CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
+        PlayerEntity player = event.player;
+        CompoundNBT playerData = player.getPersistentData();
+        CompoundNBT data = playerData.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
         if ( !player.level.isClientSide ) {
 
             if ( player.tickCount % 2 == 0 ) {
@@ -107,14 +109,14 @@ public class DefenceCloakItem extends CurioItem {
 
                     //Lower cooldown by 1 each tick
                     data.putInt(TAG_DEFENCE_COOLDOWN, data.getInt(TAG_DEFENCE_COOLDOWN) - 1);
-                    playerData.put(Player.PERSISTED_NBT_TAG, data);
+                    playerData.put(PlayerEntity.PERSISTED_NBT_TAG, data);
                 }
             }
 
             //Inform the player that the cloak has recharged when 1 is left in cooldown so chat doesn't get spammed
             if ( data.getInt(TAG_DEFENCE_COOLDOWN) == 1 ) {
-                player.displayClientMessage(Component.translatable("message.skillcloaks.defence.recharged"), true);
-                player.playNotifySound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.PLAYERS, 1, 1);
+                player.displayClientMessage(new TranslationTextComponent("message.skillcloaks.defence.recharged"), true);
+                player.playNotifySound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundCategory.PLAYERS, 1, 1);
             }
 
             //Remove the cooldown tag
@@ -128,21 +130,21 @@ public class DefenceCloakItem extends CurioItem {
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         LivingEntity livingEntity = slotContext.getWearer();
-        if ( livingEntity instanceof Player ) {
-            Player player = (Player) livingEntity;
-            CompoundTag playerData = player.getPersistentData();
-            CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
+        if ( livingEntity instanceof PlayerEntity ) {
+            PlayerEntity player = (PlayerEntity) livingEntity;
+            CompoundNBT playerData = player.getPersistentData();
+            CompoundNBT data = playerData.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
             if ( !player.level.isClientSide && ( data.getInt(TAG_DEFENCE_COOLDOWN) > 0 ) ) {
                 int totalSecs = data.getInt(TAG_DEFENCE_COOLDOWN) / 20;
                 int mins = (totalSecs % 3600) / 60;
                 int secs = totalSecs % 60;
                 if ( mins > 0 ) {
-                    player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
-                            .append(Component.literal(mins + "m " + secs + "s")), true);
+                    player.displayClientMessage(new TranslationTextComponent("message.skillcloaks.defence.cooldown")
+                            .append(new TranslationTextComponent(mins + "m " + secs + "s")), true);
                 }
-                else player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
-                        .append(Component.literal( secs + "s")), true);
-                player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE.get(), SoundSource.PLAYERS, 1, 0.5f);
+                else player.displayClientMessage(new TranslationTextComponent("message.skillcloaks.defence.cooldown")
+                        .append(new TranslationTextComponent( secs + "s")), true);
+                player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE, SoundCategory.PLAYERS, 1, 0.5f);
             }
         }
     }

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "skillcloaks:item/agility_hood"
+    "layer0": "skillcloaks:items/agility_hood"
   }
 }
