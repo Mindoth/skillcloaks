@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.mindoth.skillcloaks.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AbstractClientPlayerMixin",
+    "ItemStackMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "mixins.skillcloaks.refmap.json"
+}

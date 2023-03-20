@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    "skillcloaks:agility_cloak",
+    "skillcloaks:attack_cloak",
+    "skillcloaks:construction_cloak",
+    "skillcloaks:defence_cloak",
+    "skillcloaks:farming_cloak",
+    "skillcloaks:firemaking_cloak",
+    "skillcloaks:woodcutting_cloak",
+    "skillcloaks:magic_cloak",
+    "skillcloaks:mining_cloak",
+    "skillcloaks:ranging_cloak",
+    "skillcloaks:fishing_cloak",
+    "skillcloaks:cooking_cloak",
+    "skillcloaks:hunter_cloak",
+    "skillcloaks:slayer_cloak",
+    "skillcloaks:runecraft_cloak",
+    "skillcloaks:prayer_cloak",
+    "skillcloaks:fletching_cloak",
+    "skillcloaks:smithing_cloak",
+    "skillcloaks:herblore_cloak",
+    "skillcloaks:crafting_cloak",
+    "skillcloaks:hitpoints_cloak",
+    "skillcloaks:strength_cloak",
+    "skillcloaks:thieving_cloak",
+    "skillcloaks:max_cloak"
+  ]
+}
