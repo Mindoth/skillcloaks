@@ -2,7 +2,7 @@ package net.mindoth.skillcloaks.item.sack;
 
 import net.mindoth.skillcloaks.item.CurioItem;
 import net.mindoth.skillcloaks.item.SackItem;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
@@ -70,117 +70,117 @@ public class BlackSackItem extends SackItem {
             for (int i = 0; i < player.getInventory().getContainerSize(); ++i) {
                 ItemStack cloakStack = player.getInventory().getItem(i);
                 if (cloakStack.getItem() instanceof CurioItem) {
-                    if ( !tag.contains("agility") && cloakStack.getItem() == SkillCloaksItems.AGILITY_CLOAK.get() ) {
+                    if ( !tag.contains("agility") && cloakStack.getItem() == SkillcloaksItems.AGILITY_CLOAK.get() ) {
                         tag.putBoolean("agility", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("attack") && cloakStack.getItem() == SkillCloaksItems.ATTACK_CLOAK.get() ) {
+                    if ( !tag.contains("attack") && cloakStack.getItem() == SkillcloaksItems.ATTACK_CLOAK.get() ) {
                         tag.putBoolean("attack", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("construction") && cloakStack.getItem() == SkillCloaksItems.CONSTRUCTION_CLOAK.get() ) {
+                    if ( !tag.contains("construction") && cloakStack.getItem() == SkillcloaksItems.CONSTRUCTION_CLOAK.get() ) {
                         tag.putBoolean("construction", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("cooking") && cloakStack.getItem() == SkillCloaksItems.COOKING_CLOAK.get() ) {
+                    if ( !tag.contains("cooking") && cloakStack.getItem() == SkillcloaksItems.COOKING_CLOAK.get() ) {
                         tag.putBoolean("cooking", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("crafting") && cloakStack.getItem() == SkillCloaksItems.CRAFTING_CLOAK.get() ) {
+                    if ( !tag.contains("crafting") && cloakStack.getItem() == SkillcloaksItems.CRAFTING_CLOAK.get() ) {
                         tag.putBoolean("crafting", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("defence") && cloakStack.getItem() == SkillCloaksItems.DEFENCE_CLOAK.get() ) {
+                    if ( !tag.contains("defence") && cloakStack.getItem() == SkillcloaksItems.DEFENCE_CLOAK.get() ) {
                         tag.putBoolean("defence", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("farming") && cloakStack.getItem() == SkillCloaksItems.FARMING_CLOAK.get() ) {
+                    if ( !tag.contains("farming") && cloakStack.getItem() == SkillcloaksItems.FARMING_CLOAK.get() ) {
                         tag.putBoolean("farming", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("firemaking") && cloakStack.getItem() == SkillCloaksItems.FIREMAKING_CLOAK.get() ) {
+                    if ( !tag.contains("firemaking") && cloakStack.getItem() == SkillcloaksItems.FIREMAKING_CLOAK.get() ) {
                         tag.putBoolean("firemaking", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("fishing") && cloakStack.getItem() == SkillCloaksItems.FISHING_CLOAK.get() ) {
+                    if ( !tag.contains("fishing") && cloakStack.getItem() == SkillcloaksItems.FISHING_CLOAK.get() ) {
                         tag.putBoolean("fishing", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("fletching") && cloakStack.getItem() == SkillCloaksItems.FLETCHING_CLOAK.get() ) {
+                    if ( !tag.contains("fletching") && cloakStack.getItem() == SkillcloaksItems.FLETCHING_CLOAK.get() ) {
                         tag.putBoolean("fletching", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("herblore") && cloakStack.getItem() == SkillCloaksItems.HERBLORE_CLOAK.get() ) {
+                    if ( !tag.contains("herblore") && cloakStack.getItem() == SkillcloaksItems.HERBLORE_CLOAK.get() ) {
                         tag.putBoolean("herblore", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("hitpoints") && cloakStack.getItem() == SkillCloaksItems.HITPOINTS_CLOAK.get() ) {
+                    if ( !tag.contains("hitpoints") && cloakStack.getItem() == SkillcloaksItems.HITPOINTS_CLOAK.get() ) {
                         tag.putBoolean("hitpoints", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("hunter") && cloakStack.getItem() == SkillCloaksItems.HUNTER_CLOAK.get() ) {
+                    if ( !tag.contains("hunter") && cloakStack.getItem() == SkillcloaksItems.HUNTER_CLOAK.get() ) {
                         tag.putBoolean("hunter", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("magic") && cloakStack.getItem() == SkillCloaksItems.MAGIC_CLOAK.get() ) {
+                    if ( !tag.contains("magic") && cloakStack.getItem() == SkillcloaksItems.MAGIC_CLOAK.get() ) {
                         tag.putBoolean("magic", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("mining") && cloakStack.getItem() == SkillCloaksItems.MINING_CLOAK.get() ) {
+                    if ( !tag.contains("mining") && cloakStack.getItem() == SkillcloaksItems.MINING_CLOAK.get() ) {
                         tag.putBoolean("mining", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("prayer") && cloakStack.getItem() == SkillCloaksItems.PRAYER_CLOAK.get() ) {
+                    if ( !tag.contains("prayer") && cloakStack.getItem() == SkillcloaksItems.PRAYER_CLOAK.get() ) {
                         tag.putBoolean("prayer", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("ranging") && cloakStack.getItem() == SkillCloaksItems.RANGING_CLOAK.get() ) {
+                    if ( !tag.contains("ranging") && cloakStack.getItem() == SkillcloaksItems.RANGING_CLOAK.get() ) {
                         tag.putBoolean("ranging", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("runecraft") && cloakStack.getItem() == SkillCloaksItems.RUNECRAFT_CLOAK.get() ) {
+                    if ( !tag.contains("runecraft") && cloakStack.getItem() == SkillcloaksItems.RUNECRAFT_CLOAK.get() ) {
                         tag.putBoolean("runecraft", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("slayer") && cloakStack.getItem() == SkillCloaksItems.SLAYER_CLOAK.get() ) {
+                    if ( !tag.contains("slayer") && cloakStack.getItem() == SkillcloaksItems.SLAYER_CLOAK.get() ) {
                         tag.putBoolean("slayer", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("smithing") && cloakStack.getItem() == SkillCloaksItems.SMITHING_CLOAK.get() ) {
+                    if ( !tag.contains("smithing") && cloakStack.getItem() == SkillcloaksItems.SMITHING_CLOAK.get() ) {
                         tag.putBoolean("smithing", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("strength") && cloakStack.getItem() == SkillCloaksItems.STRENGTH_CLOAK.get() ) {
+                    if ( !tag.contains("strength") && cloakStack.getItem() == SkillcloaksItems.STRENGTH_CLOAK.get() ) {
                         tag.putBoolean("strength", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("thieving") && cloakStack.getItem() == SkillCloaksItems.THIEVING_CLOAK.get() ) {
+                    if ( !tag.contains("thieving") && cloakStack.getItem() == SkillcloaksItems.THIEVING_CLOAK.get() ) {
                         tag.putBoolean("thieving", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
                     }
-                    if ( !tag.contains("woodcutting") && cloakStack.getItem() == SkillCloaksItems.WOODCUTTING_CLOAK.get() ) {
+                    if ( !tag.contains("woodcutting") && cloakStack.getItem() == SkillcloaksItems.WOODCUTTING_CLOAK.get() ) {
                         tag.putBoolean("woodcutting", true);
                         heldStack.setTag(tag);
                         cloakStack.shrink(1);
@@ -193,8 +193,8 @@ public class BlackSackItem extends SackItem {
                     && tag.contains("prayer") && tag.contains("ranging") && tag.contains("runecraft") && tag.contains("slayer") && tag.contains("smithing")
                     && tag.contains("strength") && tag.contains("thieving") && tag.contains("woodcutting") ) {
                 heldStack.shrink(1);
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.MAX_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.MAX_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.MAX_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.MAX_HOOD.get()));
                 this.giveItem(player, cloak, hood);
                 return new InteractionResultHolder<>(InteractionResult.SUCCESS, heldStack);
             }

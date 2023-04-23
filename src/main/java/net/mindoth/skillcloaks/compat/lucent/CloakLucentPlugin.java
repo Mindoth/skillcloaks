@@ -3,9 +3,9 @@ package net.mindoth.skillcloaks.compat.lucent;
 import com.legacy.lucent.api.EntityBrightness;
 import com.legacy.lucent.api.plugin.ILucentPlugin;
 import com.legacy.lucent.api.plugin.LucentPlugin;
-import net.mindoth.skillcloaks.SkillCloaks;
-import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.Skillcloaks;
+import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fml.ModList;
@@ -16,21 +16,21 @@ public class CloakLucentPlugin implements ILucentPlugin {
 
     @Override
     public String ownerModID() {
-        return SkillCloaks.MOD_ID;
+        return Skillcloaks.MOD_ID;
     }
 
     @Override
     public void getEntityLightLevel(EntityBrightness entityBrightness) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         Entity entity = entityBrightness.getEntity();
 
         if (entity instanceof Player) {
             Player player = (Player)entity;
             if (ModList.get().isLoaded("curios")) {
-                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.FIREMAKING_CLOAK.get()).isPresent()) {
+                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FIREMAKING_CLOAK.get()).isPresent()) {
                     entityBrightness.setLightLevel(15);
                 }
-                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.MAX_CLOAK.get()).isPresent()) {
+                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent()) {
                     entityBrightness.setLightLevel(15);
                 }
             }

@@ -2,7 +2,7 @@ package net.mindoth.skillcloaks;
 
 import net.mindoth.skillcloaks.client.curio.CurioRenderers;
 import net.mindoth.skillcloaks.network.message.CloakAbilityPacket;
-import net.mindoth.skillcloaks.network.message.SkillCloaksNetwork;
+import net.mindoth.skillcloaks.network.message.SkillcloaksNetwork;
 import net.mindoth.skillcloaks.registries.KeyBinds;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,18 +14,18 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-public class SkillCloaksClient {
+public class SkillcloaksClient {
 
     public static void registerHandlers() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modBus.addListener(SkillCloaksClient::clientSetup);
+        modBus.addListener(SkillcloaksClient::clientSetup);
     }
 
     public static void clientSetup(FMLClientSetupEvent event) {
         CurioRenderers.register();
     }
 
-    @Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
 
         @SubscribeEvent
@@ -37,12 +37,12 @@ public class SkillCloaksClient {
 
         private static void onInput(Minecraft mc, int key, int action) {
             if (mc.screen == null && KeyBinds.CLOAK_ABILITY.isDown()) {
-                SkillCloaksNetwork.CHANNEL.sendToServer(new CloakAbilityPacket(key));
+                SkillcloaksNetwork.CHANNEL.sendToServer(new CloakAbilityPacket(key));
             }
         }
     }
 
-    @Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModBusEvents {
 
         @SubscribeEvent

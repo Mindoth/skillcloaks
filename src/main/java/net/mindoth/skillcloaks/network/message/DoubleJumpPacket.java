@@ -1,6 +1,6 @@
 package net.mindoth.skillcloaks.network.message;
 
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,7 +25,7 @@ public class DoubleJumpPacket {
         ServerPlayer player = context.get().getSender();
         if ( player != null ) {
             context.get().enqueueWork(() -> {
-                SkillCloaksItems.AGILITY_CLOAK.get().jump(player);
+                SkillcloaksItems.AGILITY_CLOAK.get().jump(player);
                     double motionX = player.getRandom().nextGaussian() * 0.02;
                     double motionY = player.getRandom().nextGaussian() * 0.02 + 0.20;
                     double motionZ = player.getRandom().nextGaussian() * 0.02;

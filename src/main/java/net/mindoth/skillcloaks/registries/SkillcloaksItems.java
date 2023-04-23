@@ -1,20 +1,20 @@
 package net.mindoth.skillcloaks.registries;
 
-import net.mindoth.skillcloaks.SkillCloaks;
+import net.mindoth.skillcloaks.Skillcloaks;
 import net.mindoth.skillcloaks.item.CurioItem;
 import net.mindoth.skillcloaks.item.HoodItem;
 import net.mindoth.skillcloaks.item.cloak.*;
 import net.mindoth.skillcloaks.item.hood.*;
 import net.mindoth.skillcloaks.item.sack.*;
-import net.mindoth.skillcloaks.itemgroup.SkillCloaksItemGroup;
+import net.mindoth.skillcloaks.itemgroup.SkillcloaksItemGroup;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class SkillCloaksItems {
-    public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, SkillCloaks.MOD_ID);
+public class SkillcloaksItems {
+    public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Skillcloaks.MOD_ID);
 
     public static final RegistryObject<Item> BROWN_SACK = REGISTRY.register("brown_sack", BrownSackItem::new);
     public static final RegistryObject<Item> GREEN_SACK = REGISTRY.register("green_sack", GreenSackItem::new);
@@ -25,99 +25,99 @@ public class SkillCloaksItems {
     //Hoods
     public static final RegistryObject<Item> AGILITY_HOOD = REGISTRY.register("agility_hood",
             () -> new AgilityHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> ATTACK_HOOD = REGISTRY.register("attack_hood",
             () -> new AttackHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> CONSTRUCTION_HOOD = REGISTRY.register("construction_hood",
             () -> new ConstructionHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> COOKING_HOOD = REGISTRY.register("cooking_hood",
             () -> new CookingHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> CRAFTING_HOOD = REGISTRY.register("crafting_hood",
             () -> new CraftingHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> DEFENCE_HOOD = REGISTRY.register("defence_hood",
             () -> new DefenceHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> FARMING_HOOD = REGISTRY.register("farming_hood",
             () -> new FarmingHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> FIREMAKING_HOOD = REGISTRY.register("firemaking_hood",
             () -> new FiremakingHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> FISHING_HOOD = REGISTRY.register("fishing_hood",
             () -> new FishingHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> FLETCHING_HOOD = REGISTRY.register("fletching_hood",
             () -> new FletchingHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> HERBLORE_HOOD = REGISTRY.register("herblore_hood",
             () -> new HerbloreHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> HITPOINTS_HOOD = REGISTRY.register("hitpoints_hood",
             () -> new HitpointsHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> HUNTER_HOOD = REGISTRY.register("hunter_hood",
             () -> new HunterHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> MAGIC_HOOD = REGISTRY.register("magic_hood",
             () -> new MagicHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> MINING_HOOD = REGISTRY.register("mining_hood",
             () -> new MiningHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> PRAYER_HOOD = REGISTRY.register("prayer_hood",
             () -> new PrayerHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> RANGING_HOOD = REGISTRY.register("ranging_hood",
             () -> new RangingHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> RUNECRAFT_HOOD = REGISTRY.register("runecraft_hood",
             () -> new RunecraftHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> SLAYER_HOOD = REGISTRY.register("slayer_hood",
             () -> new SlayerHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> SMITHING_HOOD = REGISTRY.register("smithing_hood",
             () -> new SmithingHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> STRENGTH_HOOD = REGISTRY.register("strength_hood",
             () -> new StrengthHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> THIEVING_HOOD = REGISTRY.register("thieving_hood",
             () -> new ThievingHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> WOODCUTTING_HOOD = REGISTRY.register("woodcutting_hood",
             () -> new WoodcuttingHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     public static final RegistryObject<Item> MAX_HOOD = REGISTRY.register("max_hood",
             () -> new MaxHoodItem(HoodItem.MaterialHood.HOOD, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
+                    new Item.Properties().tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant().durability(0)));
 
     //Cloaks
     //When making a new cloak, create required fields to: textures, model, lang, AbstractClientPlayerMixin, ClientRenderers,

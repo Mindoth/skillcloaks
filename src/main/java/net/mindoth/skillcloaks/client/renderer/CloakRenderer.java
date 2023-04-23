@@ -2,25 +2,21 @@ package net.mindoth.skillcloaks.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
-import net.mindoth.skillcloaks.SkillCloaks;
-import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.Skillcloaks;
+import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.fml.ModList;
 import top.theillusivec4.caelus.api.CaelusApi;
@@ -34,7 +30,7 @@ public class CloakRenderer implements ICurioRenderer {
     private final HumanoidModel<LivingEntity> model;
 
     public CloakRenderer(String texturePath, HumanoidModel<LivingEntity> model) {
-        this(new ResourceLocation(SkillCloaks.MOD_ID, String.format("textures/entity/curio/%s.png", texturePath)), model);
+        this(new ResourceLocation(Skillcloaks.MOD_ID, String.format("textures/entity/curio/%s.png", texturePath)), model);
     }
 
     public CloakRenderer(ResourceLocation texture, HumanoidModel<LivingEntity> model) {
@@ -67,7 +63,7 @@ public class CloakRenderer implements ICurioRenderer {
     ) {
         HumanoidModel<LivingEntity> model = getModel();
 
-        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && slotContext.entity().isInvisible() && (CuriosApi.getCuriosHelper().findFirstCurio(slotContext.entity(), SkillCloaksItems.THIEVING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(slotContext.entity(), SkillCloaksItems.MAX_CLOAK.get()).isPresent()) ) return;
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && slotContext.entity().isInvisible() && (CuriosApi.getCuriosHelper().findFirstCurio(slotContext.entity(), SkillcloaksItems.THIEVING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(slotContext.entity(), SkillcloaksItems.MAX_CLOAK.get()).isPresent()) ) return;
 
 
         if ( ModList.get().isLoaded("caelus") ) {
