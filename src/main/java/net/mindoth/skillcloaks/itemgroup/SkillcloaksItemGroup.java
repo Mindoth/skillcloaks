@@ -1,23 +1,19 @@
 package net.mindoth.skillcloaks.itemgroup;
 
-import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.CreativeModeTabEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class SkillcloaksItemGroup {
+public class SkillCloaksItemGroup extends CreativeModeTab {
 
-    public static CreativeModeTab SKILL_CLOAKS_TAB;
+    public static final SkillCloaksItemGroup SKILL_CLOAKS_TAB = new SkillCloaksItemGroup(CreativeModeTab.TABS.length, "skill_cloaks_tab");
 
-    @SubscribeEvent
-    public static void registerCreativeModeTabs(CreativeModeTabEvent.Register event) {
-        SKILL_CLOAKS_TAB = event.registerCreativeModeTab(new ResourceLocation(Skillcloaks.MOD_ID, "skill_cloaks_tab"),
-                builder -> builder.icon(() -> new ItemStack(SkillcloaksItems.ATTACK_CLOAK.get())).title(Component.literal("Skillcloaks")).build());
+    public SkillCloaksItemGroup(int index, String label) {
+        super(index, label);
+    }
+
+    @Override
+    public ItemStack makeIcon() {
+        return new ItemStack(SkillCloaksItems.ATTACK_CLOAK.get());
     }
 }

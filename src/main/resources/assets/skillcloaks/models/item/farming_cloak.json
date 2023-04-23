@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "skillcloaks:item/farming_cloak"
+    "layer0": "skillcloaks:items/farming_cloak"
   }
 }

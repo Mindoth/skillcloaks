@@ -1,6 +1,6 @@
 package net.mindoth.skillcloaks.client.curio;
 
-import net.mindoth.skillcloaks.Skillcloaks;
+import net.mindoth.skillcloaks.SkillCloaks;
 import net.mindoth.skillcloaks.client.model.CloakModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -16,7 +16,7 @@ public class CurioLayers {
             SKILLCLOAK = createLayerLocation("skillcloak");
 
     public static ModelLayerLocation createLayerLocation(String name) {
-        return new ModelLayerLocation(new ResourceLocation(Skillcloaks.MOD_ID, name), name);
+        return new ModelLayerLocation(new ResourceLocation(SkillCloaks.MOD_ID, name), name);
     }
 
     private static Supplier<LayerDefinition> layer(MeshDefinition mesh, int textureWidth, int textureHeight) {

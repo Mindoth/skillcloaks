@@ -1,10 +1,10 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.SkillCloaks;
+import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
+import net.mindoth.skillcloaks.registries.SkillCloaksItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -35,18 +35,18 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
+@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID)
 public class WoodcuttingCloakItem extends CurioItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get())
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get())
             tooltip.add(Component.translatable("tooltip.skillcloaks.woodcutting_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
             tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
+            tooltip.add(Component.literal("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
                     .append(Component.translatable("tooltip.skillcloaks.armor_value")));
         }
 
@@ -57,8 +57,8 @@ public class WoodcuttingCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
@@ -95,11 +95,11 @@ public class WoodcuttingCloakItem extends CurioItem {
 
     @SubscribeEvent
     public static void onBlockBreak(final BlockEvent.BreakEvent event) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
         Level world = event.getPlayer().level;
         if (!world.isClientSide) {
-            if (CuriosApi.getCuriosHelper().findFirstCurio(event.getPlayer(), SkillcloaksItems.WOODCUTTING_CLOAK.get()).isPresent()
-                    || CuriosApi.getCuriosHelper().findFirstCurio(event.getPlayer(), SkillcloaksItems.MAX_CLOAK.get()).isPresent()) {
+            if (CuriosApi.getCuriosHelper().findFirstCurio(event.getPlayer(), SkillCloaksItems.WOODCUTTING_CLOAK.get()).isPresent()
+                    || CuriosApi.getCuriosHelper().findFirstCurio(event.getPlayer(), SkillCloaksItems.MAX_CLOAK.get()).isPresent()) {
                 if (!event.getPlayer().isCrouching()) {
                     if (event.getState().is(BlockTags.LOGS)) {
                         List<BlockPos> logs = WoodcuttingCloakItem.getLogsToBreak(world, event.getPos(), new ArrayList<BlockPos>());
