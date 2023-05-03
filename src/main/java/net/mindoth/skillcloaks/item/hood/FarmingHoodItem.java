@@ -7,7 +7,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
 public class FarmingHoodItem extends HoodItem {
-    public FarmingHoodItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
+    public FarmingHoodItem(ArmorMaterial pMaterial, Type pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
     }
 

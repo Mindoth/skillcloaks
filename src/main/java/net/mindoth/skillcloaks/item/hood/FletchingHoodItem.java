@@ -7,7 +7,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
 public class FletchingHoodItem extends HoodItem {
-    public FletchingHoodItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
+    public FletchingHoodItem(ArmorMaterial pMaterial, Type pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
     }
 

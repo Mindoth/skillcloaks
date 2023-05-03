@@ -7,7 +7,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
 public class FiremakingHoodItem extends HoodItem {
-    public FiremakingHoodItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
+    public FiremakingHoodItem(ArmorMaterial pMaterial, Type pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
     }
 

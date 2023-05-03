@@ -7,7 +7,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
 public class SmithingHoodItem extends HoodItem {
-    public SmithingHoodItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
+    public SmithingHoodItem(ArmorMaterial pMaterial, Type pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
     }
 

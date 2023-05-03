@@ -137,7 +137,7 @@ public class FarmingCloakItem extends CurioItem {
                 double x = pos.getX() + d5 + random.nextDouble() * d0 * 2.0D;
                 double y = pos.getY() + random.nextDouble() * d1;
                 double z = pos.getZ() + d5 + random.nextDouble() * d0 * 2.0D;
-                if (!level.getBlockState((new BlockPos(x, y, z)).below()).isAir()) {
+                if (!level.getBlockState((new BlockPos((int)x, (int)y, (int)z)).below()).isAir()) {
                     level.sendParticles(ParticleTypes.HAPPY_VILLAGER, x, y, z, numParticles, d2, d3, d4, 0.5);
                 }
             }

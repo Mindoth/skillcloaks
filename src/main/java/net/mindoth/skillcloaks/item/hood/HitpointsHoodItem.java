@@ -7,7 +7,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
 public class HitpointsHoodItem extends HoodItem {
-    public HitpointsHoodItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
+    public HitpointsHoodItem(ArmorMaterial pMaterial, Type pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
     }
 

@@ -119,7 +119,7 @@ public class CookingCloakItem extends CurioItem {
                         //Check if Flint and Steel has durability
                         if (offHandItemStack.getItem() instanceof FlintAndSteelItem && offHandItemStack.getDamageValue() <= offHandItemStack.getMaxDamage()) {
                             //Get result
-                            ItemStack result = recipe.assemble(slotInv);
+                            ItemStack result = recipe.assemble(slotInv, world.registryAccess());
                             if (!result.isEmpty()) {
                                 mainHandItemStack.shrink(1);
                                 ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), result);
@@ -161,7 +161,7 @@ public class CookingCloakItem extends CurioItem {
                         //Check if Flint and Steel has durability
                         if (mainHandItemStack.getItem() instanceof FlintAndSteelItem && mainHandItemStack.getDamageValue() <= mainHandItemStack.getMaxDamage()) {
                             //Get result
-                            ItemStack result = recipeOff.assemble(slotInv);
+                            ItemStack result = recipeOff.assemble(slotInv, world.registryAccess());
                             if (!result.isEmpty()) {
                                 offHandItemStack.shrink(1);
                                 ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), result);

@@ -15,7 +15,7 @@ import javax.swing.*;
 import java.util.function.Supplier;
 
 public class HoodItem extends ArmorItem {
-    public HoodItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
+    public HoodItem(ArmorMaterial pMaterial, Type pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
     }
 
@@ -48,13 +48,13 @@ public class HoodItem extends ArmorItem {
         }
 
         @Override
-        public int getDurabilityForSlot(EquipmentSlot slotIn) {
-            return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
+        public int getDurabilityForType(Type p_266807_) {
+            return 0;
         }
 
         @Override
-        public int getDefenseForSlot(EquipmentSlot slotIn) {
-            return this.damageReductionAmountArray[slotIn.getIndex()];
+        public int getDefenseForType(Type p_267168_) {
+            return 1;
         }
 
         @Override
