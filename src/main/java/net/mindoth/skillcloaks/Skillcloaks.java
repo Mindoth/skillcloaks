@@ -1,10 +1,9 @@
 package net.mindoth.skillcloaks;
 
 import net.mindoth.skillcloaks.client.curio.CurioLayers;
-import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
-import net.mindoth.skillcloaks.network.message.SkillCloaksNetwork;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
-import net.minecraft.resources.ResourceLocation;
+import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.network.message.SkillcloaksNetwork;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,24 +19,24 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
-@Mod(SkillCloaks.MOD_ID)
-public class SkillCloaks {
+@Mod(Skillcloaks.MOD_ID)
+public class Skillcloaks {
     public static final String MOD_ID = "skillcloaks";
 
-    public SkillCloaks() {
+    public Skillcloaks() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
-            SkillCloaksClient.registerHandlers();
+            SkillcloaksClient.registerHandlers();
         }
 
         addRegistries(modEventBus);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SkillCloaksCommonConfig.SPEC, "skillcloaks-common.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SkillcloaksCommonConfig.SPEC, "skillcloaks-common.toml");
     }
 
     private void addRegistries(final IEventBus modEventBus) {
-        SkillCloaksItems.REGISTRY.register(modEventBus);
+        SkillcloaksItems.REGISTRY.register(modEventBus);
         modEventBus.addListener(this::enqueueIMC);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onRegisterLayerDefinitions);
@@ -57,6 +56,6 @@ public class SkillCloaks {
     }
 
     public void commonSetup(final FMLCommonSetupEvent event) {
-        SkillCloaksNetwork.init();
+        SkillcloaksNetwork.init();
     }
 }

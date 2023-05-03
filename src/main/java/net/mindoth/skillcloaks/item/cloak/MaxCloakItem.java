@@ -1,8 +1,8 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.SkillCloaks;
-import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
+import net.mindoth.skillcloaks.Skillcloaks;
+import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID)
+@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
 public class MaxCloakItem extends CurioItem {
 
     private static final String TAG_DEFENCE_COOLDOWN = ("preventDeath");
@@ -40,11 +40,11 @@ public class MaxCloakItem extends CurioItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslatableComponent("tooltip.skillcloaks.max_cloak"));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslatableComponent("tooltip.skillcloaks.max_cloak"));
 
-        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
             tooltip.add(new TranslatableComponent("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(new TextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
+            tooltip.add(new TextComponent("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
                     .append(new TranslatableComponent("tooltip.skillcloaks.armor_value")));
         }
 
@@ -54,13 +54,13 @@ public class MaxCloakItem extends CurioItem {
     //Gives the curio one level of fortune by default
     @Override
     public int getFortuneLevel(SlotContext slotContext, LootContext lootContext, ItemStack stack) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return 0;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return 0;
         else return 1;
     }
 
     @Override
     public ICurio.DropRule getDropRule(SlotContext slotContext, DamageSource source, int lootingLevel, boolean recentlyHit, ItemStack stack) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return ICurio.DropRule.DEFAULT;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return ICurio.DropRule.DEFAULT;
         else return ICurio.DropRule.ALWAYS_KEEP;
     }
 
@@ -91,11 +91,11 @@ public class MaxCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) result.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "max_cloak_knockback_resistance").toString(), SkillCloaksCommonConfig.STRENGTH_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) result.put(Attributes.LUCK, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "fishing_cloak_luck").toString(), SkillCloaksCommonConfig.FISHING_LUCK.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) result.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "max_cloak_knockback_resistance").toString(), SkillcloaksCommonConfig.STRENGTH_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) result.put(Attributes.LUCK, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "fishing_cloak_luck").toString(), SkillcloaksCommonConfig.FISHING_LUCK.get(), AttributeModifier.Operation.ADDITION));
 
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }

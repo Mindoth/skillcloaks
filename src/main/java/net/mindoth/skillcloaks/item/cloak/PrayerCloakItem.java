@@ -1,10 +1,10 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.SkillCloaks;
-import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
+import net.mindoth.skillcloaks.Skillcloaks;
+import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -36,17 +36,17 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID)
+@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
 public class PrayerCloakItem extends CurioItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslatableComponent("tooltip.skillcloaks.prayer_cloak"));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslatableComponent("tooltip.skillcloaks.prayer_cloak"));
 
-        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
             tooltip.add(new TranslatableComponent("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(new TextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
+            tooltip.add(new TextComponent("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
                     .append(new TranslatableComponent("tooltip.skillcloaks.armor_value")));
         }
 
@@ -57,8 +57,8 @@ public class PrayerCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
@@ -67,15 +67,15 @@ public class PrayerCloakItem extends CurioItem {
 
     @Override
     public ICurio.DropRule getDropRule(SlotContext slotContext, DamageSource source, int lootingLevel, boolean recentlyHit, ItemStack stack) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return ICurio.DropRule.DEFAULT;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return ICurio.DropRule.DEFAULT;
         else return ICurio.DropRule.ALWAYS_KEEP;
     }
 
     @SubscribeEvent
     public static void onPlayerXpDrop(final LivingExperienceDropEvent event) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         if ( event.getEntity() instanceof ServerPlayer player ) {
-            if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.PRAYER_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.MAX_CLOAK.get()).isPresent() ) {
+            if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.PRAYER_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
                 event.setCanceled(true);
             }
         }
@@ -83,12 +83,12 @@ public class PrayerCloakItem extends CurioItem {
 
     @SubscribeEvent
     public static void onPlayerLethal(final LivingDamageEvent event) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         LivingEntity player = event.getEntityLiving();
         CompoundTag playerData = player.getPersistentData();
         CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
         if ( event.getAmount() >= player.getHealth() ) {
-            if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.PRAYER_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillCloaksItems.MAX_CLOAK.get()).isPresent() ) {
+            if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.PRAYER_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
                 if ( !data.getBoolean(TAG_HAS_PRAYER_CLOAK) ) {
                     data.putBoolean(TAG_HAS_PRAYER_CLOAK, true);
                     playerData.put(Player.PERSISTED_NBT_TAG, data);
@@ -99,7 +99,7 @@ public class PrayerCloakItem extends CurioItem {
 
     @SubscribeEvent
     public static void onPlayerClone(final PlayerEvent.Clone event) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         if ( event.isWasDeath() ) {
             CompoundTag playerData = event.getOriginal().getPersistentData();
             CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);

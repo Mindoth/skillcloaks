@@ -1,9 +1,9 @@
 package net.mindoth.skillcloaks.event;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.mindoth.skillcloaks.SkillCloaks;
-import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.Skillcloaks;
+import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -19,15 +19,15 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID)
+@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
 public class CommonEvents {
 
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event) {
-        if ( SkillCloaksCommonConfig.SACK_TRADES.get() ) {
+        if ( SkillcloaksCommonConfig.SACK_TRADES.get() ) {
             if (event.getType() == VillagerProfession.FLETCHER || event.getType() == VillagerProfession.TOOLSMITH) {
                 Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-                ItemStack stack = new ItemStack(SkillCloaksItems.BROWN_SACK.get(), 1);
+                ItemStack stack = new ItemStack(SkillcloaksItems.BROWN_SACK.get(), 1);
                 int villagerLevel = 5;
 
                 trades.get(villagerLevel).add((trader, rand) -> new MerchantOffer(
@@ -36,7 +36,7 @@ public class CommonEvents {
             }
             if (event.getType() == VillagerProfession.FARMER || event.getType() == VillagerProfession.FISHERMAN) {
                 Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-                ItemStack stack = new ItemStack(SkillCloaksItems.GREEN_SACK.get(), 1);
+                ItemStack stack = new ItemStack(SkillcloaksItems.GREEN_SACK.get(), 1);
                 int villagerLevel = 5;
 
                 trades.get(villagerLevel).add((trader, rand) -> new MerchantOffer(
@@ -45,7 +45,7 @@ public class CommonEvents {
             }
             if (event.getType() == VillagerProfession.ARMORER || event.getType() == VillagerProfession.WEAPONSMITH) {
                 Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-                ItemStack stack = new ItemStack(SkillCloaksItems.RED_SACK.get(), 1);
+                ItemStack stack = new ItemStack(SkillcloaksItems.RED_SACK.get(), 1);
                 int villagerLevel = 5;
 
                 trades.get(villagerLevel).add((trader, rand) -> new MerchantOffer(
@@ -54,7 +54,7 @@ public class CommonEvents {
             }
             if (event.getType() == VillagerProfession.LIBRARIAN || event.getType() == VillagerProfession.CLERIC) {
                 Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-                ItemStack stack = new ItemStack(SkillCloaksItems.BLUE_SACK.get(), 1);
+                ItemStack stack = new ItemStack(SkillcloaksItems.BLUE_SACK.get(), 1);
                 int villagerLevel = 5;
 
                 trades.get(villagerLevel).add((trader, rand) -> new MerchantOffer(
@@ -67,13 +67,13 @@ public class CommonEvents {
     @SubscribeEvent
     public static void getBlackSack(PlayerInteractEvent.EntityInteract event) {
         Player player = event.getPlayer();
-        if (SkillCloaksCommonConfig.SACK_TRADES.get()) {
+        if (SkillcloaksCommonConfig.SACK_TRADES.get()) {
             if (event.getTarget() instanceof Villager) {
                 Villager target = (Villager) event.getTarget();
                 if (target.getVillagerData().getProfession() == VillagerProfession.NITWIT) {
                     if (player.getItemInHand(event.getHand()).getItem() == Items.EMERALD && player.getItemInHand(event.getHand()).getCount() >= 64) {
                         player.getItemInHand(event.getHand()).shrink(64);
-                        ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.BLACK_SACK.get()));
+                        ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.BLACK_SACK.get()));
                         drop.setDeltaMovement(0, 0, 0);
                         drop.setNoPickUpDelay();
                         player.level.addFreshEntity(drop);

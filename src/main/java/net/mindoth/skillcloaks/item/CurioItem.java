@@ -1,6 +1,5 @@
 package net.mindoth.skillcloaks.item;
 
-import net.mindoth.skillcloaks.item.SkillCloaksCurio;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -13,7 +12,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurioItem extends SkillCloaksCurio implements ICurioItem {
+public class CurioItem extends SkillcloaksCurio implements ICurioItem {
 
     @Override
     public List<Component> getAttributesTooltip(List<Component> tooltips, ItemStack stack) {
