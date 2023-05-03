@@ -2,10 +2,9 @@ package net.mindoth.skillcloaks.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.mindoth.skillcloaks.SkillCloaks;
-import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
-import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.mindoth.skillcloaks.Skillcloaks;
+import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
@@ -16,7 +15,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModList;
 import top.theillusivec4.caelus.api.CaelusApi;
@@ -29,7 +27,7 @@ public class CloakRenderer implements CurioRenderer {
     private final BipedModel<LivingEntity> model;
 
     public CloakRenderer(String texturePath, BipedModel<LivingEntity> model) {
-        this(new ResourceLocation(SkillCloaks.MOD_ID, String.format("textures/entity/curio/%s.png", texturePath)), model);
+        this(new ResourceLocation(Skillcloaks.MOD_ID, String.format("textures/entity/curio/%s.png", texturePath)), model);
     }
 
     public CloakRenderer(ResourceLocation texture, BipedModel<LivingEntity> model) {
@@ -49,7 +47,7 @@ public class CloakRenderer implements CurioRenderer {
     public final void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer buffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ticks, float headYaw, float headPitch, ItemStack stack) {
         BipedModel<LivingEntity> model = getModel();
 
-        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && entity.isInvisible() && (CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.THIEVING_CLOAK.get(), entity).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), entity).isPresent()) ) return;
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && entity.isInvisible() && (CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.THIEVING_CLOAK.get(), entity).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), entity).isPresent()) ) return;
 
         if ( ModList.get().isLoaded("caelus") ) {
             if (!CaelusApi.canElytraFly(entity)) {

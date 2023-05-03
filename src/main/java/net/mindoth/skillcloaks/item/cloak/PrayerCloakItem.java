@@ -1,10 +1,10 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.SkillCloaks;
-import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
+import net.mindoth.skillcloaks.Skillcloaks;
+import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -34,17 +34,17 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID)
+@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
 public class PrayerCloakItem extends CurioItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.prayer_cloak"));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.prayer_cloak"));
 
-        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
             tooltip.add(new TranslationTextComponent("curios.modifiers.cloak").withStyle(TextFormatting.GRAY));
-            tooltip.add(new TranslationTextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(TextFormatting.BLUE)
+            tooltip.add(new TranslationTextComponent("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(TextFormatting.BLUE)
                     .append(new TranslationTextComponent("tooltip.skillcloaks.armor_value")));
         }
 
@@ -55,8 +55,8 @@ public class PrayerCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
@@ -65,16 +65,16 @@ public class PrayerCloakItem extends CurioItem {
 
     @Override
     public ICurio.DropRule getDropRule(LivingEntity livingEntity, ItemStack stack) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return ICurio.DropRule.DEFAULT;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return ICurio.DropRule.DEFAULT;
         else return ICurio.DropRule.ALWAYS_KEEP;
     }
 
     @SubscribeEvent
     public static void onPlayerXpDrop(final LivingExperienceDropEvent event) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         if ( event.getEntity() instanceof ServerPlayerEntity ) {
             ServerPlayerEntity player = (ServerPlayerEntity)event.getEntity();
-            if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.PRAYER_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
+            if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.PRAYER_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
                 event.setCanceled(true);
             }
         }
@@ -82,12 +82,12 @@ public class PrayerCloakItem extends CurioItem {
 
     @SubscribeEvent
     public static void onPlayerLethal(final LivingDamageEvent event) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         LivingEntity player = event.getEntityLiving();
         CompoundNBT playerData = player.getPersistentData();
         CompoundNBT data = playerData.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
         if ( event.getAmount() >= player.getHealth() ) {
-            if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.PRAYER_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
+            if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.PRAYER_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
                 if ( !data.getBoolean(TAG_HAS_PRAYER_CLOAK) ) {
                     data.putBoolean(TAG_HAS_PRAYER_CLOAK, true);
                     playerData.put(PlayerEntity.PERSISTED_NBT_TAG, data);
@@ -98,7 +98,7 @@ public class PrayerCloakItem extends CurioItem {
 
     @SubscribeEvent
     public static void onPlayerClone(final PlayerEvent.Clone event) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         if ( event.isWasDeath() ) {
             CompoundNBT playerData = event.getOriginal().getPersistentData();
             CompoundNBT data = playerData.getCompound(PlayerEntity.PERSISTED_NBT_TAG);

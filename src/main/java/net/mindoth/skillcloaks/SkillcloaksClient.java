@@ -5,11 +5,11 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-public class SkillCloaksClient {
+public class SkillcloaksClient {
 
     public static void registerHandlers() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modBus.addListener(SkillCloaksClient::clientSetup);
+        modBus.addListener(SkillcloaksClient::clientSetup);
     }
 
     public static void clientSetup(FMLClientSetupEvent event) {

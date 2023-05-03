@@ -1,10 +1,10 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.SkillCloaks;
-import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
+import net.mindoth.skillcloaks.Skillcloaks;
+import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -27,17 +27,17 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID)
+@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
 public class ThievingCloakItem extends CurioItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.thieving_cloak"));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.thieving_cloak"));
 
-        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
             tooltip.add(new TranslationTextComponent("curios.modifiers.cloak").withStyle(TextFormatting.GRAY));
-            tooltip.add(new TranslationTextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(TextFormatting.BLUE)
+            tooltip.add(new TranslationTextComponent("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(TextFormatting.BLUE)
                     .append(new TranslationTextComponent("tooltip.skillcloaks.armor_value")));
         }
 
@@ -48,17 +48,17 @@ public class ThievingCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
 
     @SubscribeEvent
     public static void visibilityModifier(LivingEvent.LivingVisibilityEvent event) {
-        if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.THIEVING_CLOAK.get(), event.getEntityLiving()).isPresent()
-                || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), event.getEntityLiving()).isPresent() ) {
-            event.modifyVisibility(SkillCloaksCommonConfig.THIEVING_MULTIPLIER.get());
+        if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.THIEVING_CLOAK.get(), event.getEntityLiving()).isPresent()
+                || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), event.getEntityLiving()).isPresent() ) {
+            event.modifyVisibility(SkillcloaksCommonConfig.THIEVING_MULTIPLIER.get());
         }
     }
 }

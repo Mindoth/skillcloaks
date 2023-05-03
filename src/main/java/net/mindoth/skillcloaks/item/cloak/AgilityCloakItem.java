@@ -1,12 +1,12 @@
 package net.mindoth.skillcloaks.item.cloak;
 
 import com.google.common.collect.Multimap;
-import net.mindoth.skillcloaks.SkillCloaks;
-import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
+import net.mindoth.skillcloaks.Skillcloaks;
+import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
 import net.mindoth.skillcloaks.network.message.DoubleJumpPacket;
-import net.mindoth.skillcloaks.network.message.SkillCloaksNetwork;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.network.message.SkillcloaksNetwork;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.util.ITooltipFlag;
@@ -48,11 +48,11 @@ public class AgilityCloakItem extends CurioItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.agility_cloak"));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.agility_cloak"));
 
-        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
             tooltip.add(new TranslationTextComponent("curios.modifiers.cloak").withStyle(TextFormatting.GRAY));
-            tooltip.add(new TranslationTextComponent("+" + (SkillCloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(TextFormatting.BLUE)
+            tooltip.add(new TranslationTextComponent("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(TextFormatting.BLUE)
                     .append(new TranslationTextComponent("tooltip.skillcloaks.armor_value")));
         }
 
@@ -63,8 +63,8 @@ public class AgilityCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillCloaksCommonConfig.COSMETIC_ONLY.get() && SkillCloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(SkillCloaks.MOD_ID, "cloak_armor").toString(), SkillCloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
@@ -104,7 +104,7 @@ public class AgilityCloakItem extends CurioItem {
 
     @Override
     public void jump(PlayerEntity player) {
-        if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         player.fallDistance = 0;
 
         double upwardsMotion = 0.5;
@@ -143,7 +143,7 @@ public class AgilityCloakItem extends CurioItem {
         @OnlyIn(Dist.CLIENT)
         @SuppressWarnings("unused")
         public void onClientTick(TickEvent.ClientTickEvent event) {
-            if (SkillCloaksCommonConfig.COSMETIC_ONLY.get()) return;
+            if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
             ClientPlayerEntity player = Minecraft.getInstance().player;
 
             // noinspection ConstantConditions
@@ -157,8 +157,8 @@ public class AgilityCloakItem extends CurioItem {
                 }
                 else if ( !player.abilities.flying && canDoubleJump && hasReleasedJumpKey ) {
                     canDoubleJump = false;
-                    if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.AGILITY_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
-                        SkillCloaksNetwork.CHANNEL.sendToServer(new DoubleJumpPacket());
+                    if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.AGILITY_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
+                        SkillcloaksNetwork.CHANNEL.sendToServer(new DoubleJumpPacket());
                         jump(player);
                     }
                 }

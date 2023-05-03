@@ -1,7 +1,7 @@
 package net.mindoth.skillcloaks.event;
 
-import net.mindoth.skillcloaks.SkillCloaks;
-import net.mindoth.skillcloaks.network.message.SkillCloaksNetwork;
+import net.mindoth.skillcloaks.Skillcloaks;
+import net.mindoth.skillcloaks.network.message.SkillcloaksNetwork;
 import net.mindoth.skillcloaks.network.message.CloakAbilityPacket;
 import net.mindoth.skillcloaks.registries.KeyBinds;
 import net.minecraft.client.Minecraft;
@@ -10,7 +10,7 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = SkillCloaks.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class InputEvents {
 
     @SubscribeEvent
@@ -29,7 +29,7 @@ public class InputEvents {
 
     private static void onInput(Minecraft mc, int key, int action) {
         if (mc.screen == null && KeyBinds.cloakAbility.isDown()) {
-            SkillCloaksNetwork.CHANNEL.sendToServer(new CloakAbilityPacket(key));
+            SkillcloaksNetwork.CHANNEL.sendToServer(new CloakAbilityPacket(key));
         }
     }
 }

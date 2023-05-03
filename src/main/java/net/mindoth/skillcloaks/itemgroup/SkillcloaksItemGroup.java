@@ -1,20 +1,20 @@
 package net.mindoth.skillcloaks.itemgroup;
 
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
-public class SkillCloaksItemGroup extends ItemGroup {
+public class SkillcloaksItemGroup extends ItemGroup {
 
-    public static final SkillCloaksItemGroup SKILL_CLOAKS_TAB = new SkillCloaksItemGroup(ItemGroup.TABS.length, "skill_cloaks_tab");
+    public static final SkillcloaksItemGroup SKILL_CLOAKS_TAB = new SkillcloaksItemGroup(ItemGroup.TABS.length, "skill_cloaks_tab");
 
 
-    public SkillCloaksItemGroup(int index, String label) {
+    public SkillcloaksItemGroup(int index, String label) {
         super(index, label);
     }
 
     @Override
     public ItemStack makeIcon() {
-        return new ItemStack(SkillCloaksItems.ATTACK_CLOAK.get());
+        return new ItemStack(SkillcloaksItems.ATTACK_CLOAK.get());
     }
 }

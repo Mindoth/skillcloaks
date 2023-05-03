@@ -2,7 +2,6 @@ package net.mindoth.skillcloaks.item;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.mindoth.skillcloaks.client.CurioRenderers;
-import net.mindoth.skillcloaks.item.SkillCloaksCurio;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,7 +14,7 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nullable;
 
-public class CurioItem extends SkillCloaksCurio implements ICurioItem {
+public class CurioItem extends SkillcloaksCurio implements ICurioItem {
 
     @Override
     public boolean showAttributesTooltip(String identifier, ItemStack stack) {

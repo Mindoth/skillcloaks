@@ -1,15 +1,15 @@
 package net.mindoth.skillcloaks.item;
 
-import net.mindoth.skillcloaks.itemgroup.SkillCloaksItemGroup;
+import net.mindoth.skillcloaks.itemgroup.SkillcloaksItemGroup;
 import net.minecraft.item.Item;
 
-public class SkillCloaksCurio extends Item {
+public class SkillcloaksCurio extends Item {
 
-    public SkillCloaksCurio(Properties properties) {
-        super(properties.stacksTo(1).tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant());
+    public SkillcloaksCurio(Properties properties) {
+        super(properties.stacksTo(1).tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant());
     }
 
-    public SkillCloaksCurio() {
+    public SkillcloaksCurio() {
         this(new Properties());
     }
 }

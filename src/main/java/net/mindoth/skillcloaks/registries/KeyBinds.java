@@ -1,6 +1,6 @@
 package net.mindoth.skillcloaks.registries;
 
-import net.mindoth.skillcloaks.SkillCloaks;
+import net.mindoth.skillcloaks.Skillcloaks;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -20,6 +20,6 @@ public class KeyBinds {
     }
 
     private static KeyBinding create(String name, int key) {
-        return new KeyBinding("key." + SkillCloaks.MOD_ID + "." + name, key, "key.category." + SkillCloaks.MOD_ID);
+        return new KeyBinding("key." + Skillcloaks.MOD_ID + "." + name, key, "key.category." + Skillcloaks.MOD_ID);
     }
 }

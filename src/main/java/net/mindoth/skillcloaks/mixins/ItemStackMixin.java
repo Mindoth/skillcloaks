@@ -1,7 +1,7 @@
 package net.mindoth.skillcloaks.mixins;
 
-import net.mindoth.skillcloaks.config.SkillCloaksCommonConfig;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
@@ -21,16 +21,16 @@ public abstract class ItemStackMixin {
 
     @Inject(method = "hurtAndBreak", at = @At("HEAD"), cancellable = true)
     public <T extends LivingEntity> void hurtAndBreak(int pAmount, T pEntity, Consumer<T> pOnBroken, CallbackInfo callback) {
-        if ( !SkillCloaksCommonConfig.COSMETIC_ONLY.get() ) {
-            if (CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.ATTACK_CLOAK.get(), pEntity).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), pEntity).isPresent()) {
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() ) {
+            if (CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.ATTACK_CLOAK.get(), pEntity).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), pEntity).isPresent()) {
                 Random r = new Random();
-                if (this.getItem() instanceof ArmorItem && r.nextDouble() < SkillCloaksCommonConfig.ARMOR_DURABILITY_CHANCE.get()) {
+                if (this.getItem() instanceof ArmorItem && r.nextDouble() < SkillcloaksCommonConfig.ARMOR_DURABILITY_CHANCE.get()) {
                     callback.cancel();
                 }
             }
-            if (CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.RUNECRAFT_CLOAK.get(), pEntity).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.MAX_CLOAK.get(), pEntity).isPresent()) {
+            if (CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.RUNECRAFT_CLOAK.get(), pEntity).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), pEntity).isPresent()) {
                 Random r = new Random();
-                if (!(this.getItem() instanceof ArmorItem) && r.nextDouble() < SkillCloaksCommonConfig.TOOL_DURABILITY_CHANCE.get()) {
+                if (!(this.getItem() instanceof ArmorItem) && r.nextDouble() < SkillcloaksCommonConfig.TOOL_DURABILITY_CHANCE.get()) {
                     callback.cancel();
                 }
             }

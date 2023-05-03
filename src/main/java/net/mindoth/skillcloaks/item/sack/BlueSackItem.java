@@ -1,7 +1,7 @@
 package net.mindoth.skillcloaks.item.sack;
 
 import net.mindoth.skillcloaks.item.SackItem;
-import net.mindoth.skillcloaks.registries.SkillCloaksItems;
+import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.ItemEntity;
@@ -32,6 +32,8 @@ public class BlueSackItem extends SackItem {
         }
         if ( Screen.hasShiftDown() ) {
             tooltip.add(new TranslationTextComponent("Agility").withStyle(TextFormatting.GRAY));
+            tooltip.add(new TranslationTextComponent("Construction").withStyle(TextFormatting.GRAY));
+            tooltip.add(new TranslationTextComponent("Firemaking").withStyle(TextFormatting.GRAY));
             tooltip.add(new TranslationTextComponent("Slayer").withStyle(TextFormatting.GRAY));
             tooltip.add(new TranslationTextComponent("Thieving").withStyle(TextFormatting.GRAY));
         }
@@ -45,20 +47,30 @@ public class BlueSackItem extends SackItem {
 
         if ( !world.isClientSide ) {
             Random r = new Random();
-            int number = r.nextInt(3);
+            int number = r.nextInt(5);
             if (number == 0) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.AGILITY_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.AGILITY_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.AGILITY_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.AGILITY_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 1) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.SLAYER_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.SLAYER_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.CONSTRUCTION_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.CONSTRUCTION_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 2) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.THIEVING_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillCloaksItems.THIEVING_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.FIREMAKING_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.FIREMAKING_HOOD.get()));
+                this.giveItem(player, cloak, hood);
+            }
+            if (number == 3) {
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.SLAYER_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.SLAYER_HOOD.get()));
+                this.giveItem(player, cloak, hood);
+            }
+            if (number == 4) {
+                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.THIEVING_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.THIEVING_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             else {

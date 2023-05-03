@@ -1,6 +1,6 @@
 package net.mindoth.skillcloaks.item;
 
-import net.mindoth.skillcloaks.itemgroup.SkillCloaksItemGroup;
+import net.mindoth.skillcloaks.itemgroup.SkillcloaksItemGroup;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 public class SackItem extends Item {
 
     public SackItem(Properties properties) {
-        super(properties.tab(SkillCloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant());
+        super(properties.tab(SkillcloaksItemGroup.SKILL_CLOAKS_TAB).fireResistant());
     }
 
     public SackItem() {
