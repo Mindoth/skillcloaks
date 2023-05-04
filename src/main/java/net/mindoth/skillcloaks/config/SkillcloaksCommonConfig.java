@@ -8,7 +8,9 @@ public class SkillcloaksCommonConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> COSMETIC_ONLY;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SACK_TRADES;
-    public static final ForgeConfigSpec.ConfigValue<Integer> CLOAK_ARMOR;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SKILL_CLOAK_ARMOR;
+    public static final ForgeConfigSpec.ConfigValue<Integer> INFERNAL_CLOAK_ARMOR;
+    public static final ForgeConfigSpec.ConfigValue<Integer> INFERNAL_CLOAK_ATTACK;
     public static final ForgeConfigSpec.ConfigValue<Double> SLAYER_THRESHOLD;
     public static final ForgeConfigSpec.ConfigValue<Double> ARROW_RETURN_CHANCE;
     public static final ForgeConfigSpec.ConfigValue<Double> ARMOR_DURABILITY_CHANCE;
@@ -27,8 +29,14 @@ public class SkillcloaksCommonConfig {
         SACK_TRADES = BUILDER.comment("Will villagers have a chance to offer a sack in a trade (Default = true)")
                 .define("Sack trades", true);
 
-        CLOAK_ARMOR = BUILDER.comment("How much armor will the cloaks give to the wearer. Only values greater than 0 will have any effect (Default = 0)")
-                .define("Cloak armor", 0);
+        SKILL_CLOAK_ARMOR = BUILDER.comment("How much armor will the cloaks give to the wearer. Only values greater than 0 will have any effect (Default = 0)")
+                .define("Skill Cloak armor", 0);
+
+        INFERNAL_CLOAK_ARMOR = BUILDER.comment("How much armor will the infernal cloak give to the wearer. Only values greater than 0 will have any effect (Default = 12)")
+                .define("Infernal Cloak armor", 12);
+
+        INFERNAL_CLOAK_ATTACK = BUILDER.comment("How much attack will the infernal cloak give to the wearer. Only values greater than 0 will have any effect (Default = 4)")
+                .define("Infernal Cloak attack", 4);
 
         SLAYER_THRESHOLD = BUILDER.comment("The percentage of health the target has to have left for Slayer Cloak to activate (Default = 0.25 = 25%)")
                 .defineInRange("Slayer threshold", 0.25, 0.0, 1.0);

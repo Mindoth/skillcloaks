@@ -145,4 +145,5 @@ public class SkillcloaksItems {
     public static final RegistryObject<CurioItem> THIEVING_CLOAK = REGISTRY.register("thieving_cloak", ThievingCloakItem::new);
     public static final RegistryObject<CurioItem> WOODCUTTING_CLOAK = REGISTRY.register("woodcutting_cloak", WoodcuttingCloakItem::new);
     public static final RegistryObject<CurioItem> MAX_CLOAK = REGISTRY.register("max_cloak", MaxCloakItem::new);
+    public static final RegistryObject<CurioItem> INFERNAL_CLOAK = REGISTRY.register("infernal_cloak", InfernalCloakItem::new);
 }

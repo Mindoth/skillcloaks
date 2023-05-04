@@ -36,6 +36,7 @@
   "item.skillcloaks.thieving_cloak": "Thieving Cloak",
   "item.skillcloaks.woodcutting_cloak": "Woodcutting Cloak",
   "item.skillcloaks.max_cloak": "Max Cloak",
+  "item.skillcloaks.infernal_cloak": "Infernal Cloak",
 
   "item.skillcloaks.agility_hood": "Agility Hood",
   "item.skillcloaks.attack_hood": "Attack Hood",
@@ -63,6 +64,7 @@
   "item.skillcloaks.max_hood": "Max Hood",
 
   "tooltip.skillcloaks.armor_value": "\u00A79Armor\u00A7r",
+  "tooltip.skillcloaks.attack_value": "\u00A79Attack\u00A7r",
   "tooltip.skillcloaks.black_sack": "\u00A77Takes Cloaks from your inventory. Hold SHIFT to see missing Cloaks\u00A7r",
   "tooltip.skillcloaks.loot_sack": "\u00A77Hold SHIFT to see possible items:\u00A7r",
   "tooltip.skillcloaks.agility_cloak": "\u00A77Grants the ability to double jump\u00A7r",
