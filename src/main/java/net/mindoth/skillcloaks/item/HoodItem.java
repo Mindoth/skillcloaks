@@ -6,6 +6,7 @@ import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,6 +18,11 @@ import java.util.function.Supplier;
 public class HoodItem extends ArmorItem {
     public HoodItem(ArmorMaterial pMaterial, Type pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack p_77616_1_) {
+        return true;
     }
 
     public enum MaterialHood implements ArmorMaterial {
