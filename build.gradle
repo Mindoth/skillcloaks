@@ -20,7 +20,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.18.2-1.1.1'
+version = '1.18.2-1.1.2'
 group = 'net.mindoth.skillcloaks' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'skillcloaks'
 
