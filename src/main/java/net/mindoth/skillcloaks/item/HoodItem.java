@@ -20,6 +20,11 @@ public class HoodItem extends ArmorItem {
         super(pMaterial, pSlot, pProperties);
     }
 
+    @Override
+    public boolean isEnchantable(ItemStack p_77616_1_) {
+        return true;
+    }
+
     public enum MaterialHood implements IArmorMaterial {
 
         HOOD("hood", 0, new int[]{1, 2, 3, 1}, 15, SoundEvents.ARMOR_EQUIP_LEATHER,
