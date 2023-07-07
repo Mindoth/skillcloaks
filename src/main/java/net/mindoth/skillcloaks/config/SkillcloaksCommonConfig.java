@@ -8,6 +8,10 @@ public class SkillcloaksCommonConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> COSMETIC_ONLY;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SACK_TRADES;
+<<<<<<< Updated upstream
+=======
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BLACK_SACK_TRADE;
+>>>>>>> Stashed changes
     public static final ForgeConfigSpec.ConfigValue<Integer> SKILL_CLOAK_ARMOR;
     public static final ForgeConfigSpec.ConfigValue<Integer> INFERNAL_CLOAK_ARMOR;
     public static final ForgeConfigSpec.ConfigValue<Integer> INFERNAL_CLOAK_ATTACK;
@@ -29,6 +33,12 @@ public class SkillcloaksCommonConfig {
         SACK_TRADES = BUILDER.comment("Will villagers have a chance to offer a sack in a trade (Default = true)")
                 .define("Sack trades", true);
 
+<<<<<<< Updated upstream
+=======
+        BLACK_SACK_TRADE = BUILDER.comment("Will the Nitwit give the Black Sack if offered a stack of Emeralds? (Default = true)")
+                .define("Black Sack trade", true);
+
+>>>>>>> Stashed changes
         SKILL_CLOAK_ARMOR = BUILDER.comment("How much armor will the cloaks give to the wearer. Only values greater than 0 will have any effect (Default = 0)")
                 .define("Skill Cloak armor", 0);
 

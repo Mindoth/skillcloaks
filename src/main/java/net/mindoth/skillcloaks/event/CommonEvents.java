@@ -67,7 +67,7 @@ public class CommonEvents {
     @SubscribeEvent
     public static void getBlackSack(PlayerInteractEvent.EntityInteract event) {
         Player player = event.getEntity();
-        if (SkillcloaksCommonConfig.SACK_TRADES.get()) {
+        if (SkillcloaksCommonConfig.BLACK_SACK_TRADE.get()) {
             if (event.getTarget() instanceof Villager) {
                 Villager target = (Villager) event.getTarget();
                 if (target.getVillagerData().getProfession() == VillagerProfession.NITWIT) {
