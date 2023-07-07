@@ -23,12 +23,10 @@ public class Skillcloaks {
 
     public Skillcloaks() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
         if (FMLEnvironment.dist == Dist.CLIENT) {
             SkillcloaksClient.registerHandlers();
         }
         addRegistries(modEventBus);
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SkillcloaksCommonConfig.SPEC, "skillcloaks-common.toml");
     }
 

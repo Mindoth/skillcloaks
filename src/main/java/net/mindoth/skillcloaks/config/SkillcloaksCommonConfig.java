@@ -8,6 +8,7 @@ public class SkillcloaksCommonConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> COSMETIC_ONLY;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SACK_TRADES;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BLACK_SACK_TRADE;
     public static final ForgeConfigSpec.ConfigValue<Integer> CLOAK_ARMOR;
     public static final ForgeConfigSpec.ConfigValue<Double> SLAYER_THRESHOLD;
     public static final ForgeConfigSpec.ConfigValue<Double> ARROW_RETURN_CHANCE;
@@ -26,6 +27,9 @@ public class SkillcloaksCommonConfig {
 
         SACK_TRADES = BUILDER.comment("Will villagers have a chance to offer a sack in a trade (Default = true)")
                 .define("Sack trades", true);
+
+        BLACK_SACK_TRADE = BUILDER.comment("Will the Nitwit give the Black Sack if offered a stack of Emeralds? (Default = true)")
+                .define("Black Sack trade", true);
 
         CLOAK_ARMOR = BUILDER.comment("How much armor will the cloaks give to the wearer. Only values greater than 0 will have any effect (Default = 0)")
                 .define("Cloak armor", 0);
