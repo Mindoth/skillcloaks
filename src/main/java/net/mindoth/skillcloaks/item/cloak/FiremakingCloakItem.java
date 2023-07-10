@@ -39,6 +39,7 @@ import top.theillusivec4.curios.api.SlotContext;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.UUID;
 
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
@@ -52,7 +53,7 @@ public class FiremakingCloakItem extends CurioItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) {
-            if (ModList.get().isLoaded("lucent")) {
+            if (ModList.get().isLoaded("lucent") && SkillcloaksCommonConfig.LUCENT_COMPAT.get()) {
                 tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.firemaking_cloak_lucent"));
             }
             else tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.firemaking_cloak"));
@@ -95,7 +96,9 @@ public class FiremakingCloakItem extends CurioItem {
                     if ( face == Direction.UP && torchState.canSurvive(world, setBlockPos) ) {
                         world.playSound(null, setBlockPos.getX(), setBlockPos.getY(), setBlockPos.getZ(), SoundEvents.WOOD_PLACE, SoundCategory.BLOCKS, 1, 0.8f);
                         if ( !player.abilities.instabuild ) {
-                            itemStack.shrink(1);
+                            if ( (new Random().nextInt(100) + 1) <= SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() ) {
+                                itemStack.shrink(1);
+                            }
                         }
                         world.setBlock(setBlockPos, torchState, 3);
                     }
@@ -104,7 +107,9 @@ public class FiremakingCloakItem extends CurioItem {
                         if ( torchState.setValue(HORIZONTAL_FACING, face).canSurvive(world, setBlockPos) ) {
                             world.playSound(null, setBlockPos.getX(), setBlockPos.getY(), setBlockPos.getZ(), SoundEvents.WOOD_PLACE, SoundCategory.BLOCKS, 1, 0.8f);
                             if ( !player.abilities.instabuild ) {
-                                itemStack.shrink(1);
+                                if ( (new Random().nextInt(100) + 1) <= SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() ) {
+                                    itemStack.shrink(1);
+                                }
                             }
                             world.setBlock(setBlockPos, torchState.setValue(HORIZONTAL_FACING, face), 3);
                         }

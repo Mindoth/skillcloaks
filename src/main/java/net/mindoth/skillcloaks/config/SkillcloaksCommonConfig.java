@@ -18,6 +18,9 @@ public class SkillcloaksCommonConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> THIEVING_MULTIPLIER;
     public static final ForgeConfigSpec.ConfigValue<Integer> FISHING_LUCK;
     public static final ForgeConfigSpec.ConfigValue<Integer> STRENGTH_KNOCKBACK_RESISTANCE;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FIREMAKING_STICK_CHANCE;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LUCENT_COMPAT;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DEFENCE_COOLDOWN;
 
     static {
         BUILDER.push("Configs for Skillcloaks");
@@ -57,6 +60,15 @@ public class SkillcloaksCommonConfig {
 
         STRENGTH_KNOCKBACK_RESISTANCE = BUILDER.comment("The Amount of knockback resistance the Strength Cloak gives (Default = 1)")
                 .define("Strength knockback resistance", 10);
+
+        FIREMAKING_STICK_CHANCE = BUILDER.comment("The chance for a stick to be used when placing down a torch with the Firemaking Cloak (Default = 100 = 100%)")
+                .defineInRange("Firemaking stick chance", 100, 0, 100);
+
+        LUCENT_COMPAT = BUILDER.comment("Should wearing the Firemaking Cloak give light if Lucent is installed (Default = true)")
+                .define("Lucent compat", true);
+
+        DEFENCE_COOLDOWN = BUILDER.comment("The amount of time in ticks for the cooldown of Defence Cloak (Default = 24000)")
+                .define("Defence cooldown", 24000);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

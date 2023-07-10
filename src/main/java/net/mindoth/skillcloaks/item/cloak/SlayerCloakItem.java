@@ -78,7 +78,7 @@ public class SlayerCloakItem extends CurioItem {
                             //Particles
                             ServerWorld level = (ServerWorld)world;
                             for (int i = 0; i < 8; ++i) {
-                                level.sendParticles(ParticleTypes.CRIT, target.getX(), target.getY() + 1, target.getZ(), 10, 0, 0, 0, 1);
+                                level.sendParticles(ParticleTypes.CRIT, target.getBoundingBox().getCenter().x, target.getBoundingBox().getCenter().y, target.getBoundingBox().getCenter().z, 10, 0, 0, 0, 1);
                             }
                         }
                     }

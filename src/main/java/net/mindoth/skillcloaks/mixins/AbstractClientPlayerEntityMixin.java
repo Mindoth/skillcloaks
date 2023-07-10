@@ -17,7 +17,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 public abstract class AbstractClientPlayerEntityMixin {
 
     @Inject(method = "isCapeLoaded", at = @At("HEAD"), cancellable = true)
-    private boolean hideCape(CallbackInfoReturnable callback) {
+    private void hideCape(CallbackInfoReturnable<Boolean> callback) {
         if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.AGILITY_CLOAK.get(), (AbstractClientPlayerEntity) (Object) this).isPresent()
                 || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.ATTACK_CLOAK.get(), (AbstractClientPlayerEntity) (Object) this).isPresent()
                 || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.CONSTRUCTION_CLOAK.get(), (AbstractClientPlayerEntity) (Object) this).isPresent()
@@ -43,11 +43,7 @@ public abstract class AbstractClientPlayerEntityMixin {
                 || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.WOODCUTTING_CLOAK.get(), (AbstractClientPlayerEntity) (Object) this).isPresent()
                 || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), (AbstractClientPlayerEntity) (Object) this).isPresent()
         ) {
-            callback.cancel();
-            return false;
-        }
-        else {
-            return this.getPlayerInfo() != null;
+            callback.setReturnValue(false);
         }
     }
 

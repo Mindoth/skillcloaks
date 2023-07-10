@@ -86,8 +86,8 @@ public class DefenceCloakItem extends CurioItem {
                     player.addEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 800, 0));
                     player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.TOTEM_USE, SoundCategory.PLAYERS, 1, 1);
 
-                    //Add cooldown of 24000
-                    data.putInt(TAG_DEFENCE_COOLDOWN, 24000);
+                    //Add cooldown
+                    data.putInt(TAG_DEFENCE_COOLDOWN, Math.abs(SkillcloaksCommonConfig.DEFENCE_COOLDOWN.get()));
                     playerData.put(PlayerEntity.PERSISTED_NBT_TAG, data);
                 }
             }
