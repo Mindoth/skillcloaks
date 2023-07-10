@@ -17,7 +17,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 public abstract class AbstractClientPlayerMixin {
 
     @Inject(method = "isCapeLoaded", at = @At("HEAD"), cancellable = true)
-    private boolean hideCape(CallbackInfoReturnable info) {
+    private void hideCape(CallbackInfoReturnable<Boolean> callback) {
         if ( CuriosApi.getCuriosHelper().findFirstCurio((AbstractClientPlayer) (Object) this, SkillcloaksItems.AGILITY_CLOAK.get()).isPresent()
                 || CuriosApi.getCuriosHelper().findFirstCurio((AbstractClientPlayer) (Object) this, SkillcloaksItems.ATTACK_CLOAK.get()).isPresent()
                 || CuriosApi.getCuriosHelper().findFirstCurio((AbstractClientPlayer) (Object) this, SkillcloaksItems.CONSTRUCTION_CLOAK.get()).isPresent()
@@ -42,12 +42,9 @@ public abstract class AbstractClientPlayerMixin {
                 || CuriosApi.getCuriosHelper().findFirstCurio((AbstractClientPlayer) (Object) this, SkillcloaksItems.THIEVING_CLOAK.get()).isPresent()
                 || CuriosApi.getCuriosHelper().findFirstCurio((AbstractClientPlayer) (Object) this, SkillcloaksItems.WOODCUTTING_CLOAK.get()).isPresent()
                 || CuriosApi.getCuriosHelper().findFirstCurio((AbstractClientPlayer) (Object) this, SkillcloaksItems.MAX_CLOAK.get()).isPresent()
+                || CuriosApi.getCuriosHelper().findFirstCurio((AbstractClientPlayer) (Object) this, SkillcloaksItems.INFERNAL_CLOAK.get()).isPresent()
         ) {
-            info.cancel();
-            return false;
-        }
-        else {
-            return this.getPlayerInfo() != null;
+            callback.setReturnValue(false);
         }
     }
 
@@ -83,9 +80,9 @@ public abstract class AbstractClientPlayerMixin {
     private static final ResourceLocation STRENGTH_ELYTRA = new ResourceLocation(Skillcloaks.MOD_ID + ":textures/entity/curio/cloak/strength_elytra.png");
     private static final ResourceLocation THIEVING_ELYTRA = new ResourceLocation(Skillcloaks.MOD_ID + ":textures/entity/curio/cloak/thieving_elytra.png");
     private static final ResourceLocation MAX_ELYTRA = new ResourceLocation(Skillcloaks.MOD_ID + ":textures/entity/curio/cloak/max_elytra.png");
+    private static final ResourceLocation INFERNAL_ELYTRA = new ResourceLocation(Skillcloaks.MOD_ID + ":textures/entity/curio/cloak/infernal_elytra.png");
 
-    private void findElytra(CallbackInfoReturnable<ResourceLocation> cir)
-    {
+    private void findElytra(CallbackInfoReturnable<ResourceLocation> cir) {
         CuriosApi.getCuriosHelper().findFirstCurio((AbstractClientPlayer) (Object) this, SkillcloaksItems.AGILITY_CLOAK.get())
                 .map(t -> AGILITY_ELYTRA).ifPresent(cir::setReturnValue);
 
@@ -157,5 +154,8 @@ public abstract class AbstractClientPlayerMixin {
 
         CuriosApi.getCuriosHelper().findFirstCurio((AbstractClientPlayer) (Object) this, SkillcloaksItems.MAX_CLOAK.get())
                 .map(t -> MAX_ELYTRA).ifPresent(cir::setReturnValue);
+
+        CuriosApi.getCuriosHelper().findFirstCurio((AbstractClientPlayer) (Object) this, SkillcloaksItems.INFERNAL_CLOAK.get())
+                .map(t -> INFERNAL_ELYTRA).ifPresent(cir::setReturnValue);
     }
 }

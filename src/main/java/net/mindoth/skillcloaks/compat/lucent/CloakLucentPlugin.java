@@ -26,11 +26,11 @@ public class CloakLucentPlugin implements ILucentPlugin {
 
         if (entity instanceof Player) {
             Player player = (Player)entity;
-            if (ModList.get().isLoaded("curios")) {
-                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FIREMAKING_CLOAK.get()).isPresent()) {
+            if ( ModList.get().isLoaded("curios") ) {
+                if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FIREMAKING_CLOAK.get()).isPresent() && SkillcloaksCommonConfig.LUCENT_COMPAT.get() ) {
                     entityBrightness.setLightLevel(15);
                 }
-                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent()) {
+                if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
                     entityBrightness.setLightLevel(15);
                 }
             }

@@ -14,6 +14,5 @@ public class SkillcloaksNetwork {
 
     public static void init() {
         CHANNEL.registerMessage(0, CloakAbilityPacket.class, CloakAbilityPacket::encode, CloakAbilityPacket::decode, CloakAbilityPacket::handle);
-        CHANNEL.registerMessage(1, DoubleJumpPacket.class, DoubleJumpPacket::encode, DoubleJumpPacket::new, DoubleJumpPacket::handle);
     }
 }

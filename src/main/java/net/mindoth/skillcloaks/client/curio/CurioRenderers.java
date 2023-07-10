@@ -37,6 +37,7 @@ public class CurioRenderers {
         CuriosRendererRegistry.register(SkillcloaksItems.STRENGTH_CLOAK.get(), () -> new CloakRenderer("cloak/strength_cloak", new CloakModel(bakeLayer(CurioLayers.SKILLCLOAK), RenderType::entityCutoutNoCull)));
         CuriosRendererRegistry.register(SkillcloaksItems.THIEVING_CLOAK.get(), () -> new CloakRenderer("cloak/thieving_cloak", new CloakModel(bakeLayer(CurioLayers.SKILLCLOAK), RenderType::entityCutoutNoCull)));
         CuriosRendererRegistry.register(SkillcloaksItems.MAX_CLOAK.get(), () -> new CloakRenderer("cloak/max_cloak", new CloakModel(bakeLayer(CurioLayers.SKILLCLOAK), RenderType::entityCutoutNoCull)));
+        CuriosRendererRegistry.register(SkillcloaksItems.INFERNAL_CLOAK.get(), () -> new CloakRenderer("cloak/infernal_cloak", new CloakModel(bakeLayer(CurioLayers.SKILLCLOAK), RenderType::entityCutoutNoCull)));
     }
 
     public static ModelPart bakeLayer(ModelLayerLocation layerLocation) {

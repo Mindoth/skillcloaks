@@ -15,11 +15,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RespawnAnchorBlock;
@@ -81,34 +78,17 @@ public class CloakAbilityPacket {
                     && !player.getCooldowns().isOnCooldown(SkillcloaksItems.MAX_CLOAK.get())
                     && player.isCrouching() ) {
 
-                switch ( maxData.getInt(TAG_MAX_MODE) ) {
-                    case 1:
-                        maxData.putInt(TAG_MAX_MODE, 2);
-                        playerMaxData.put(Player.PERSISTED_NBT_TAG, maxData);
-                        player.displayClientMessage(Component.translatable("message.skillcloaks.max.mode.construction"), true);
-                        player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
-                        break;
-                    case 2:
-                        if (ModList.get().isLoaded("lucent")) {
-                            maxData.putInt(TAG_MAX_MODE, 1);
-                        }
-                        else maxData.putInt(TAG_MAX_MODE, 3);
-                        playerMaxData.put(Player.PERSISTED_NBT_TAG, maxData);
-                        player.displayClientMessage(Component.translatable("message.skillcloaks.max.mode.crafting"), true);
-                        player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
-                        break;
-                    case 3:
-                        maxData.putInt(TAG_MAX_MODE, 1);
-                        playerMaxData.put(Player.PERSISTED_NBT_TAG, maxData);
-                        player.displayClientMessage(Component.translatable("message.skillcloaks.max.mode.firemaking"), true);
-                        player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
-                        break;
-                    default:
-                        maxData.putInt(TAG_MAX_MODE, 2);
-                        playerMaxData.put(Player.PERSISTED_NBT_TAG, maxData);
-                        player.displayClientMessage(Component.translatable("message.skillcloaks.max.mode.construction"), true);
-                        player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
-                        break;
+                if (maxData.getInt(TAG_MAX_MODE) == 2) {
+                    maxData.putInt(TAG_MAX_MODE, 1);
+                    playerMaxData.put(Player.PERSISTED_NBT_TAG, maxData);
+                    player.displayClientMessage(Component.translatable("message.skillcloaks.max.mode.construction"), true);
+                    player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
+                }
+                else {
+                    maxData.putInt(TAG_MAX_MODE, 2);
+                    playerMaxData.put(Player.PERSISTED_NBT_TAG, maxData);
+                    player.displayClientMessage(Component.translatable("message.skillcloaks.max.mode.crafting"), true);
+                    player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
                 }
             }
 
@@ -116,23 +96,19 @@ public class CloakAbilityPacket {
 
             //Crafting Cloak, open a crafting menu
             if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.CRAFTING_CLOAK.get()).isPresent()
-                    || (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() && !player.isCrouching()) ) {
-                if (ModList.get().isLoaded("lucent")) {
-                    if (maxData.getInt(TAG_MAX_MODE) == 1 || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.CRAFTING_CLOAK.get()).isPresent()) {
-                        player.openMenu(getMenuProvider(player.level, player.blockPosition()));
-                    }
-                }
-                else if (maxData.getInt(TAG_MAX_MODE) == 3 || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.CRAFTING_CLOAK.get()).isPresent()) {
-                    player.openMenu(getMenuProvider(player.level, player.blockPosition()));
-                }
+                    || (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent()
+                    && maxData.getInt(TAG_MAX_MODE) == 2
+                    && !player.isCrouching())) {
+                player.openMenu(getMenuProvider(player.level, player.blockPosition()));
             }
 
 
 
             //Construction cloak, TP player to their bed and give them the cooldown
-            if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.CONSTRUCTION_CLOAK.get()).isPresent()
-                    || ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() && maxData.getInt(TAG_MAX_MODE) == 2
-                    && !player.isCrouching()) ) {
+            if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.CONSTRUCTION_CLOAK.get()).isPresent()
+                    || ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent()
+                    && maxData.getInt(TAG_MAX_MODE) == 1
+                    && !player.isCrouching())) {
 
                 if (!player.getCooldowns().isOnCooldown(SkillcloaksItems.CONSTRUCTION_CLOAK.get()) && !player.getCooldowns().isOnCooldown(SkillcloaksItems.MAX_CLOAK.get())) {
 
@@ -187,32 +163,6 @@ public class CloakAbilityPacket {
                     else {
                         player.displayClientMessage(Component.translatable("message.skillcloaks.construction.cantfind"), true);
                         player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE, SoundSource.PLAYERS, 1, 0.5f);
-                    }
-                }
-            }
-
-
-
-            if (!ModList.get().isLoaded("lucent")) {
-                //Firemaking Cloak, give the player a torch and put the ability on cooldown
-                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FIREMAKING_CLOAK.get()).isPresent()
-                        || (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() && maxData.getInt(TAG_MAX_MODE) == 1
-                        && !player.isCrouching()) ) {
-
-                    //Either give the player a torch or drop it on them
-                    if (!player.getCooldowns().isOnCooldown(SkillcloaksItems.FIREMAKING_CLOAK.get()) && !player.getCooldowns().isOnCooldown(SkillcloaksItems.MAX_CLOAK.get())) {
-
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
-
-                        //Drop a torch on the player
-                        ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(Items.TORCH));
-                        drop.setDeltaMovement(0, 0, 0);
-                        drop.setNoPickUpDelay();
-                        player.level.addFreshEntity(drop);
-
-                        //Add cooldown to player
-                        player.getCooldowns().addCooldown(SkillcloaksItems.FIREMAKING_CLOAK.get(), 20);
-                        player.getCooldowns().addCooldown(SkillcloaksItems.MAX_CLOAK.get(), 20);
                     }
                 }
             }

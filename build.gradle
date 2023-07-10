@@ -13,10 +13,11 @@ plugins {
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.19.2-1.1.1'
+version = '1.19.2-1.1.5'
 group = 'net.mindoth.skillcloaks' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'skillcloaks'
 
