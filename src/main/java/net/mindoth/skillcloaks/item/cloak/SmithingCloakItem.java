@@ -118,7 +118,7 @@ public class SmithingCloakItem extends CurioItem {
                             ItemStack result = recipe.assemble(slotInv);
                             if (!result.isEmpty()) {
                                 mainHandItemStack.shrink(1);
-                                ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), result);
+                                ItemEntity drop = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, result);
                                 drop.setDeltaMovement(0, 0, 0);
                                 drop.setNoPickUpDelay();
                                 player.level.addFreshEntity(drop);
@@ -128,7 +128,7 @@ public class SmithingCloakItem extends CurioItem {
                         }
                     }
                     //Sound
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(),
+                    world.playSound(null, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z,
                             SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
                 }
                 else if (mainHandItemStack.getItem() instanceof FlintAndSteelItem) {
@@ -140,7 +140,7 @@ public class SmithingCloakItem extends CurioItem {
                             ItemStack result = recipeOff.assemble(slotInv);
                             if (!result.isEmpty()) {
                                 offHandItemStack.shrink(1);
-                                ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), result);
+                                ItemEntity drop = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, result);
                                 drop.setDeltaMovement(0, 0, 0);
                                 drop.setNoPickUpDelay();
                                 player.level.addFreshEntity(drop);
@@ -149,7 +149,7 @@ public class SmithingCloakItem extends CurioItem {
                         }
                     }
                     //Sound
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(),
+                    world.playSound(null, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z,
                             SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
                 }
             }

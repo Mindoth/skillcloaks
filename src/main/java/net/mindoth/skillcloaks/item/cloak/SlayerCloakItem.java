@@ -72,7 +72,7 @@ public class SlayerCloakItem extends CurioItem {
                         if ( (target.getHealth() <= target.getMaxHealth() * SkillcloaksCommonConfig.SLAYER_THRESHOLD.get()) || (event.getAmount() >= target.getMaxHealth() * (1.0 - SkillcloaksCommonConfig.SLAYER_THRESHOLD.get())) || (event.getAmount() >= target.getHealth()) ) {
                             event.setAmount(Float.MAX_VALUE);
                             //Sound
-                            world.playSound(null, target.getX(), target.getY(), target.getZ(),
+                            world.playSound(null, target.getBoundingBox().getCenter().x, target.getBoundingBox().getCenter().y, target.getBoundingBox().getCenter().z,
                                     SoundEvents.BLAZE_HURT, SoundSource.PLAYERS, 1, 1);
                             //Particles
                             ServerLevel level = (ServerLevel)world;

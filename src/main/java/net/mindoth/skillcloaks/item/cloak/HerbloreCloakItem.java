@@ -68,10 +68,10 @@ public class HerbloreCloakItem extends CurioItem {
                 || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
 
             ItemStack potionStack = BrewingRecipeRegistry.getOutput(player.getItemBySlot(EquipmentSlot.MAINHAND), player.getItemBySlot(EquipmentSlot.OFFHAND));
-            ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), potionStack);
+            ItemEntity drop = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, potionStack);
 
             ItemStack potionStack2 = BrewingRecipeRegistry.getOutput(player.getItemBySlot(EquipmentSlot.OFFHAND), player.getItemBySlot(EquipmentSlot.MAINHAND));
-            ItemEntity drop2 = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), potionStack2);
+            ItemEntity drop2 = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, potionStack2);
 
             if ( potionStack.getItem() instanceof PotionItem || potionStack2.getItem() instanceof PotionItem) {
                 player.getItemBySlot(EquipmentSlot.MAINHAND).shrink(1);
@@ -84,7 +84,7 @@ public class HerbloreCloakItem extends CurioItem {
                 player.level.addFreshEntity(drop2);
 
                 //Sound
-                player.level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                player.level.playSound(null, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z,
                         SoundEvents.BREWING_STAND_BREW, SoundSource.PLAYERS, 1, 1);
             }
         }

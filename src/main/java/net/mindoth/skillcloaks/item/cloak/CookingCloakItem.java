@@ -6,10 +6,8 @@ import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
 import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -36,13 +34,10 @@ import top.theillusivec4.curios.api.SlotContext;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)
 public class CookingCloakItem extends CurioItem {
-    //Most of the code is in skillcloaks/network/message/CloakAbilityPacket
-    public static final UUID MINDOTH_UUID = UUID.fromString("3e2da4bc-fb81-4750-a5d5-dd34e3d28b0f");
 
     @OnlyIn(Dist.CLIENT)
     @Override
@@ -122,7 +117,7 @@ public class CookingCloakItem extends CurioItem {
                             ItemStack result = recipe.assemble(slotInv);
                             if (!result.isEmpty()) {
                                 mainHandItemStack.shrink(1);
-                                ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), result);
+                                ItemEntity drop = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, result);
                                 drop.setDeltaMovement(0, 0, 0);
                                 drop.setNoPickUpDelay();
                                 player.level.addFreshEntity(drop);
@@ -131,29 +126,8 @@ public class CookingCloakItem extends CurioItem {
                             }
                         }
                     }
-
-                    if (Objects.equals(player.getUUID(), MINDOTH_UUID)) {
-                        //Particles
-                        if (!world.isClientSide) {
-                            ServerLevel level = (ServerLevel) world;
-                            for (int i = 0; i < 8; ++i) {
-                                level.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, player.getX(), player.getY() + 1, player.getZ(), 1, 0, 0, 0, 0.1f);
-                            }
-                            for (int i = 0; i < 4; ++i) {
-                                level.sendParticles(ParticleTypes.FLAME, player.getX(), player.getY() + 1, player.getZ(), 1, 0, 0, 0, 0.1f);
-                            }
-                        }
-
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                                SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1, 1);
-
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                                SoundEvents.FIRECHARGE_USE, SoundSource.PLAYERS, 1, 1);
-                    }
-                    else {
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                                SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
-                    }
+                    world.playSound(null, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z,
+                            SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
                 }
                 else if (mainHandItemStack.getItem() instanceof FlintAndSteelItem) {
                     int size = offHandItemStack.getCount();
@@ -164,7 +138,7 @@ public class CookingCloakItem extends CurioItem {
                             ItemStack result = recipeOff.assemble(slotInv);
                             if (!result.isEmpty()) {
                                 offHandItemStack.shrink(1);
-                                ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), result);
+                                ItemEntity drop = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, result);
                                 drop.setDeltaMovement(0, 0, 0);
                                 drop.setNoPickUpDelay();
                                 player.level.addFreshEntity(drop);
@@ -172,29 +146,8 @@ public class CookingCloakItem extends CurioItem {
                             }
                         }
                     }
-
-                    if (Objects.equals(player.getUUID(), MINDOTH_UUID)) {
-                        //Particles
-                        if (!world.isClientSide) {
-                            ServerLevel level = (ServerLevel) world;
-                            for (int i = 0; i < 8; ++i) {
-                                level.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, player.getX(), player.getY() + 1, player.getZ(), 1, 0, 0, 0, 0.1f);
-                            }
-                            for (int i = 0; i < 4; ++i) {
-                                level.sendParticles(ParticleTypes.FLAME, player.getX(), player.getY() + 1, player.getZ(), 1, 0, 0, 0, 0.1f);
-                            }
-                        }
-
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                                SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1, 1);
-
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                                SoundEvents.FIRECHARGE_USE, SoundSource.PLAYERS, 1, 1);
-                    }
-                    else {
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                                SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
-                    }
+                    world.playSound(null, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z,
+                            SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
                 }
             }
         }

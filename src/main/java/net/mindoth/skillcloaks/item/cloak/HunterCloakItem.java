@@ -68,7 +68,7 @@ public class HunterCloakItem extends CurioItem {
             if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.HUNTER_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
                 Collection<ItemEntity> drops = event.getDrops();
                 for (ItemEntity drop : drops) {
-                    drop.moveTo(player.getX(), player.getY(), player.getZ());
+                    drop.moveTo(player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z);
                     drop.setDeltaMovement(0, 0, 0);
                     drop.setNoPickUpDelay();
                 }
@@ -79,12 +79,12 @@ public class HunterCloakItem extends CurioItem {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onHunterCloakXpDrop(final LivingExperienceDropEvent event) {
         if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
-        if ( event.getAttackingPlayer() instanceof Player) {
+        if ( event.getAttackingPlayer() instanceof Player ) {
             Player player = event.getAttackingPlayer();
             if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.HUNTER_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
                 Level world = player.level;
                 int experience = event.getDroppedExperience();
-                ExperienceOrb experienceOrbEntity = new ExperienceOrb(world, player.getX(), player.getY(), player.getZ(), experience);
+                ExperienceOrb experienceOrbEntity = new ExperienceOrb(world, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, experience);
                 experienceOrbEntity.setDeltaMovement(0, 0, 0);
                 world.addFreshEntity(experienceOrbEntity);
                 event.setCanceled(true);

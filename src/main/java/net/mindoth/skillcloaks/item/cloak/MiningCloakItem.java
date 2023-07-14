@@ -52,6 +52,6 @@ public class MiningCloakItem extends CurioItem {
     @Override
     public int getFortuneLevel(SlotContext slotContext, LootContext lootContext, ItemStack stack) {
         if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return 0;
-        else return 1;
+        else return SkillcloaksCommonConfig.MINING_LUCK.get();
     }
 }

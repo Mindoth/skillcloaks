@@ -83,14 +83,13 @@ public class FletchingCloakItem extends CurioItem {
                             boolean flag1 = player.getAbilities().instabuild || (pAmmoStack.getItem() instanceof ArrowItem && ((ArrowItem) pAmmoStack.getItem()).isInfinite(pAmmoStack, pStack, player));
                             if (!flag1 && !player.getAbilities().instabuild) {
 
-                                Random r = new Random();
-                                double randomValue = r.nextDouble();
+                                double randomValue = new Random().nextDouble();
 
-                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FLETCHING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) && randomValue < SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() ) {
+                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FLETCHING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) && randomValue <= SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() && randomValue > 0.0 ) {
                                     ItemStack returnArrow = new ItemStack(pAmmoStack.getItem(), 1);
                                     PotionUtils.setPotion(returnArrow, PotionUtils.getPotion(pAmmoStack));
                                     PotionUtils.setCustomEffects(returnArrow, PotionUtils.getCustomEffects(pAmmoStack));
-                                    ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), returnArrow);
+                                    ItemEntity drop = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, returnArrow);
                                     drop.setDeltaMovement(0, 0, 0);
                                     drop.setNoPickUpDelay();
                                     player.level.addFreshEntity(drop);
