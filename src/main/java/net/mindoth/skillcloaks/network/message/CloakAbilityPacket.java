@@ -6,13 +6,10 @@ import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.RespawnAnchorBlock;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.ParticleTypes;
@@ -25,17 +22,12 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.network.NetworkEvent;
 import top.theillusivec4.curios.api.CuriosApi;
 
-import java.util.Objects;
-import java.util.UUID;
 import java.util.function.Supplier;
 
 public class CloakAbilityPacket {
-
-    public static final UUID UNION_UUID = UUID.fromString("e8ef4b7d-f91a-4a40-b020-c44386355641");
     private static final String TAG_MAX_MODE = ("skillcloak.mode");
 
     public int key;
@@ -134,30 +126,19 @@ public class CloakAbilityPacket {
                                 if (blockstate.is(Blocks.RESPAWN_ANCHOR)) {
                                     respawnWorld.setBlock(spawn, blockstate.setValue(RespawnAnchorBlock.CHARGE, blockstate.getValue(RespawnAnchorBlock.CHARGE) - 1), 3);
                                 }
-
-                                if (Objects.equals(player.getUUID(), UNION_UUID)) {
-                                    //Sound
-                                    world.playSound(null, spawn.getX() + 0.5, spawn.getY() + 1.5D, spawn.getZ() + 0.5, SoundEvents.BLAZE_SHOOT, SoundCategory.PLAYERS, 1, 0.5f);
-
-                                    //Particles
-                                    for (int i = 0; i < 360; i++) {
-                                        if (i % 20 == 0) {
-                                            respawnWorld.sendParticles(ParticleTypes.FLAME, spawn.getX() + 0.5 + Math.cos(i) * 1.5D, spawn.getY() + 1.5D, spawn.getZ() + 0.5 + Math.sin(i) * 1.5D, 1, 0, 0, 0, 0);
-                                        }
-                                    }
-                                } else {
-                                    //Sound
-                                    world.playSound(null, spawn.getX() + 0.5, spawn.getY() + 1.5D, spawn.getZ() + 0.5, SoundEvents.CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1, 1);
-                                    //Particles
-                                    for (int i = 0; i < 10; ++i) {
-                                        respawnWorld.sendParticles(ParticleTypes.PORTAL, spawn.getX() + 0.5, spawn.getY() + 1, spawn.getZ() + 0.5, (int) (player.getRandom().nextDouble() * 10), (player.getRandom().nextDouble() - 0.5D) * 1.5D, -player.getRandom().nextDouble() + 1, (player.getRandom().nextDouble() - 0.5D) * 1.5D, 0);
-                                    }
+                                //Sound
+                                world.playSound(null, spawn.getX() + 0.5, spawn.getY() + 1.5D, spawn.getZ() + 0.5, SoundEvents.CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1, 1);
+                                //Particles
+                                for (int i = 0; i < 10; ++i) {
+                                    respawnWorld.sendParticles(ParticleTypes.PORTAL, spawn.getX() + 0.5, spawn.getY() + 1, spawn.getZ() + 0.5, (int) (player.getRandom().nextDouble() * 10), (player.getRandom().nextDouble() - 0.5D) * 1.5D, -player.getRandom().nextDouble() + 1, (player.getRandom().nextDouble() - 0.5D) * 1.5D, 0);
                                 }
-                            } else {
+                            }
+                            else {
                                 player.displayClientMessage(new TranslationTextComponent("message.skillcloaks.construction.cantfind"), true);
                                 player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE, SoundCategory.PLAYERS, 1, 0.5f);
                             }
-                        } else {
+                        }
+                        else {
                             player.displayClientMessage(new TranslationTextComponent("message.skillcloaks.construction.wrongdim"), true);
                             player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE, SoundCategory.PLAYERS, 1, 0.5f);
                         }

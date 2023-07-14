@@ -73,7 +73,7 @@ public class CommonEvents {
                 if (target.getVillagerData().getProfession() == VillagerProfession.NITWIT) {
                     if (player.getItemInHand(event.getHand()).getItem() == Items.EMERALD && player.getItemInHand(event.getHand()).getCount() >= 64) {
                         player.getItemInHand(event.getHand()).shrink(64);
-                        ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.BLACK_SACK.get()));
+                        ItemEntity drop = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, new ItemStack(SkillcloaksItems.BLACK_SACK.get()));
                         drop.setDeltaMovement(0, 0, 0);
                         drop.setNoPickUpDelay();
                         player.level.addFreshEntity(drop);

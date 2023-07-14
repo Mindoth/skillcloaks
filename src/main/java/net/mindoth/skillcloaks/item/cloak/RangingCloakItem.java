@@ -83,37 +83,16 @@ public class RangingCloakItem extends CurioItem {
                             boolean flag1 = player.abilities.instabuild || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, pStack, player));
                             if (!flag1 && !player.abilities.instabuild) {
 
-                                Random r = new Random();
-                                double randomValue = r.nextDouble();
+                                double randomValue = new Random().nextDouble();
 
-                                if ( ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.RANGING_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) && randomValue < SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get()) {
+                                if ( ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.RANGING_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) && randomValue <= SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() && SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() > 0.0 ) {
                                     ItemStack returnArrow = new ItemStack(itemstack.getItem(), 1);
                                     PotionUtils.setPotion(returnArrow, PotionUtils.getPotion(itemstack));
                                     PotionUtils.setCustomEffects(returnArrow, PotionUtils.getCustomEffects(itemstack));
-                                    ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), returnArrow);
+                                    ItemEntity drop = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, returnArrow);
                                     drop.setDeltaMovement(0, 0, 0);
                                     drop.setNoPickUpDelay();
                                     player.level.addFreshEntity(drop);
-
-                                /*
-                                if ( player.inventory.getFreeSlot() > -1 ) {
-                                    player.addItem(returnArrow);
-                                }
-                                else player.spawnAtLocation(returnArrow, 0);
-                                if ( itemstack.getCount() != itemstack.getMaxStackSize() ) {
-                                    itemstack.grow(1);
-                                }
-                                if ( player.getInventory().getFreeSlot() > -1 ) {
-                                    player.addItem(returnArrow);
-                                }
-                                else if ( player.getOffhandItem().getItem().equals(itemstack.getItem()) || player.getOffhandItem().isEmpty() ) {
-                                    player.setItemSlot(EquipmentSlot.OFFHAND, returnArrow);
-                                    if (!player.level.isClientSide) System.out.println("Offhand new item");
-                                }
-                                else {
-                                    player.spawnAtLocation(returnArrow);
-                                }
-                                */
                                 }
 
                                 if (itemstack.isEmpty()) {

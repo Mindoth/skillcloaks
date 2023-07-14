@@ -53,6 +53,6 @@ public class MiningCloakItem extends CurioItem {
     @Override
     public int getFortuneBonus(String identifier, LivingEntity livingEntity, ItemStack curio, int index) {
         if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return 0;
-        else return 1;
+        else return SkillcloaksCommonConfig.MINING_LUCK.get();
     }
 }

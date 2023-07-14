@@ -17,11 +17,11 @@ public abstract class PlayerEntityMixin {
         if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() ) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             if ( !player.level.isClientSide ) {
-                if (CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.AGILITY_CLOAK.get(), (PlayerEntity) (Object) this).isPresent()
-                        || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), (PlayerEntity) (Object) this).isPresent()) {
+                if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.AGILITY_CLOAK.get(), (PlayerEntity) (Object) this).isPresent()
+                        || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), (PlayerEntity) (Object) this).isPresent() ) {
                     callback.cancel();
-                    if (!player.abilities.invulnerable) {
-                        pExhaustion *= 0.5f;
+                    if ( !player.abilities.invulnerable ) {
+                        pExhaustion *= SkillcloaksCommonConfig.AGILITY_REDUCER.get();
                         player.getFoodData().addExhaustion(pExhaustion);
                     }
                 }

@@ -85,14 +85,13 @@ public class FletchingCloakItem extends CurioItem {
                             boolean flag1 = player.abilities.instabuild || (pAmmoStack.getItem() instanceof ArrowItem && ((ArrowItem) pAmmoStack.getItem()).isInfinite(pAmmoStack, pStack, player));
                             if (!flag1 && !player.abilities.instabuild) {
 
-                                Random r = new Random();
-                                double randomValue = r.nextDouble();
+                                double randomValue = new Random().nextDouble();
 
-                                if ( ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.FLETCHING_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) && randomValue < SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() ) {
+                                if ( ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.FLETCHING_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) && randomValue <= SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() && SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() > 0.0 ) {
                                     ItemStack returnArrow = new ItemStack(pAmmoStack.getItem(), 1);
                                     PotionUtils.setPotion(returnArrow, PotionUtils.getPotion(pAmmoStack));
                                     PotionUtils.setCustomEffects(returnArrow, PotionUtils.getCustomEffects(pAmmoStack));
-                                    ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), returnArrow);
+                                    ItemEntity drop = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, returnArrow);
                                     drop.setDeltaMovement(0, 0, 0);
                                     drop.setNoPickUpDelay();
                                     player.level.addFreshEntity(drop);
@@ -104,25 +103,4 @@ public class FletchingCloakItem extends CurioItem {
             }
         }
     }
-    /*
-        //Damage by arrow is 0 and moves target towards shooter
-        @SubscribeEvent
-        public static void onArrowHit(final LivingAttackEvent event) {
-            World world = event.getEntityLiving().level;
-            if ( !world.isClientSide && ( event.getSource().getEntity() instanceof LivingEntity) ) {
-                LivingEntity entity = event.getEntityLiving();
-                LivingEntity player = (LivingEntity)event.getSource().getEntity();
-                if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillCloaksItems.FLETCHING_CLOAK.get(), (LivingEntity)event.getSource().getEntity()).isPresent() ) {
-                    if ( player.level.equals(world) ) {
-                        if ( event.getSource().getDirectEntity() instanceof ArrowEntity && !(entity instanceof PlayerEntity) ) {
-                            event.setCanceled(true);
-                            event.getSource().getDirectEntity().remove();
-                            Vector3d origin = new Vector3d(player.getX(), player.getY() + player.getEyeHeight() - 0.25, player.getZ());
-                            entity.setDeltaMovement((origin.x - entity.getX()) / 5, Math.min((origin.y - entity.getY()) / 5, 2), (origin.z - entity.getZ()) / 5);
-                            player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundCategory.PLAYERS, 1, 0.1F);
-                        }
-                    }
-                }
-            }
-        }*/
 }

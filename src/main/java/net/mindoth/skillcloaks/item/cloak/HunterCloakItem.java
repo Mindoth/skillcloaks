@@ -69,7 +69,7 @@ public class HunterCloakItem extends CurioItem {
             if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.HUNTER_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
                 Collection<ItemEntity> drops = event.getDrops();
                 for ( ItemEntity drop : drops ) {
-                    drop.moveTo(player.getX(), player.getY(), player.getZ());
+                    drop.moveTo(player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z);
                     drop.setDeltaMovement(0, 0, 0);
                     drop.setNoPickUpDelay();
                 }
@@ -85,7 +85,7 @@ public class HunterCloakItem extends CurioItem {
             if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.HUNTER_CLOAK.get(), player).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
                 World world = player.level;
                 int experience = event.getDroppedExperience();
-                ExperienceOrbEntity experienceOrbEntity = new ExperienceOrbEntity(world, player.getX(), player.getY(), player.getZ(), experience);
+                ExperienceOrbEntity experienceOrbEntity = new ExperienceOrbEntity(world, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, experience);
                 experienceOrbEntity.setDeltaMovement(0, 0, 0);
                 world.addFreshEntity(experienceOrbEntity);
                 event.setCanceled(true);

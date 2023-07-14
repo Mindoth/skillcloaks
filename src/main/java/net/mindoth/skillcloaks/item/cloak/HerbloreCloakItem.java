@@ -69,10 +69,10 @@ public class HerbloreCloakItem extends CurioItem {
                 || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
 
             ItemStack potionStack = BrewingRecipeRegistry.getOutput(event.getPlayer().getItemBySlot(EquipmentSlotType.MAINHAND), event.getPlayer().getItemBySlot(EquipmentSlotType.OFFHAND));
-            ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), potionStack);
+            ItemEntity drop = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, potionStack);
 
             ItemStack potionStack2 = BrewingRecipeRegistry.getOutput(event.getPlayer().getItemBySlot(EquipmentSlotType.OFFHAND), event.getPlayer().getItemBySlot(EquipmentSlotType.MAINHAND));
-            ItemEntity drop2 = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), potionStack2);
+            ItemEntity drop2 = new ItemEntity(player.level, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, potionStack2);
 
             if ( potionStack.getItem() instanceof PotionItem || potionStack2.getItem() instanceof PotionItem ) {
                 event.getPlayer().getItemBySlot(EquipmentSlotType.MAINHAND).shrink(1);
