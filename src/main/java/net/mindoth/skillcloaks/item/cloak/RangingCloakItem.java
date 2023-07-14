@@ -83,7 +83,7 @@ public class RangingCloakItem extends CurioItem {
 
                                 double randomValue = new Random().nextDouble();
 
-                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.RANGING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) && randomValue <= SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() && randomValue > 0.0 ) {
+                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.RANGING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) && randomValue <= SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() && SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() > 0.0 ) {
                                     ItemStack returnArrow = new ItemStack(itemstack.getItem(), 1);
                                     PotionUtils.setPotion(returnArrow, PotionUtils.getPotion(itemstack));
                                     PotionUtils.setCustomEffects(returnArrow, PotionUtils.getCustomEffects(itemstack));

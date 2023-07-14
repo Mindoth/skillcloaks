@@ -24,13 +24,13 @@ public abstract class ItemStackMixin {
         if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() ) {
             if ( CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.ATTACK_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
                 double r = new Random().nextDouble();
-                if ( this.getItem() instanceof ArmorItem && r <= SkillcloaksCommonConfig.ARMOR_DURABILITY_CHANCE.get() && r > 0.0 ) {
+                if ( this.getItem() instanceof ArmorItem && r <= SkillcloaksCommonConfig.ARMOR_DURABILITY_CHANCE.get() && SkillcloaksCommonConfig.ARMOR_DURABILITY_CHANCE.get() > 0.0 ) {
                     callback.cancel();
                 }
             }
             if ( CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.RUNECRAFT_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
                 double r = new Random().nextDouble();
-                if ( !(this.getItem() instanceof ArmorItem) && r < SkillcloaksCommonConfig.TOOL_DURABILITY_CHANCE.get() && r > 0.0 ) {
+                if ( !(this.getItem() instanceof ArmorItem) && r <= SkillcloaksCommonConfig.TOOL_DURABILITY_CHANCE.get() && SkillcloaksCommonConfig.TOOL_DURABILITY_CHANCE.get() > 0.0 ) {
                     callback.cancel();
                 }
             }

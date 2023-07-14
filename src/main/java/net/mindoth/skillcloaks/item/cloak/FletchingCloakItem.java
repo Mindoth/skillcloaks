@@ -85,7 +85,7 @@ public class FletchingCloakItem extends CurioItem {
 
                                 double randomValue = new Random().nextDouble();
 
-                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FLETCHING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) && randomValue <= SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() && randomValue > 0.0 ) {
+                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FLETCHING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) && randomValue <= SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() && SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() > 0.0 ) {
                                     ItemStack returnArrow = new ItemStack(pAmmoStack.getItem(), 1);
                                     PotionUtils.setPotion(returnArrow, PotionUtils.getPotion(pAmmoStack));
                                     PotionUtils.setCustomEffects(returnArrow, PotionUtils.getCustomEffects(pAmmoStack));

@@ -93,7 +93,7 @@ public class FiremakingCloakItem extends CurioItem {
                     if ( face == Direction.UP && torchState.canSurvive(world, setBlockPos) ) {
                         if ( !player.getAbilities().instabuild ) {
                             double r = player.getRandom().nextDouble();
-                            if ( r <= SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() && r > 0.0 ) {
+                            if ( r <= SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() && SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() > 0.0 ) {
                                 itemStack.shrink(1);
                             }
                         }
@@ -105,7 +105,7 @@ public class FiremakingCloakItem extends CurioItem {
                         if ( torchState.setValue(HORIZONTAL_FACING, face).canSurvive(world, setBlockPos) ) {
                             if ( !player.getAbilities().instabuild ) {
                                 double r = player.getRandom().nextDouble();
-                                if ( r <= SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() && r > 0.0 ) {
+                                if ( r <= SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() && SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() > 0.0 ) {
                                     itemStack.shrink(1);
                                 }
                             }
