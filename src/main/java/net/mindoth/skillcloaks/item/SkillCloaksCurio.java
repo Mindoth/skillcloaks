@@ -2,13 +2,13 @@ package net.mindoth.skillcloaks.item;
 
 import net.minecraft.world.item.Item;
 
-public class SkillCloaksCurio extends Item {
+public class SkillcloaksCurio extends Item {
 
-    public SkillCloaksCurio(Properties properties) {
+    public SkillcloaksCurio(Properties properties) {
         super(properties.stacksTo(1).fireResistant());
     }
 
-    public SkillCloaksCurio() {
+    public SkillcloaksCurio() {
         this(new Properties());
     }
 }

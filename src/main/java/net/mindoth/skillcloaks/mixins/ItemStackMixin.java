@@ -22,15 +22,15 @@ public abstract class ItemStackMixin {
     @Inject(method = "hurtAndBreak", at = @At("HEAD"), cancellable = true)
     public <T extends LivingEntity> void hurtAndBreak(int pAmount, T pEntity, Consumer<T> pOnBroken, CallbackInfo callback) {
         if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() ) {
-            if (CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.ATTACK_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.MAX_CLOAK.get()).isPresent()) {
-                Random r = new Random();
-                if (this.getItem() instanceof ArmorItem && r.nextDouble() < SkillcloaksCommonConfig.ARMOR_DURABILITY_CHANCE.get()) {
+            if ( CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.ATTACK_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
+                double r = new Random().nextDouble();
+                if ( this.getItem() instanceof ArmorItem && r <= SkillcloaksCommonConfig.ARMOR_DURABILITY_CHANCE.get() && SkillcloaksCommonConfig.ARMOR_DURABILITY_CHANCE.get() > 0.0 ) {
                     callback.cancel();
                 }
             }
-            if (CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.RUNECRAFT_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.MAX_CLOAK.get()).isPresent()) {
-                Random r = new Random();
-                if (!(this.getItem() instanceof ArmorItem) && r.nextDouble() < SkillcloaksCommonConfig.TOOL_DURABILITY_CHANCE.get()) {
+            if ( CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.RUNECRAFT_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(pEntity, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
+                double r = new Random().nextDouble();
+                if ( !(this.getItem() instanceof ArmorItem) && r <= SkillcloaksCommonConfig.TOOL_DURABILITY_CHANCE.get() && SkillcloaksCommonConfig.TOOL_DURABILITY_CHANCE.get() > 0.0 ) {
                     callback.cancel();
                 }
             }

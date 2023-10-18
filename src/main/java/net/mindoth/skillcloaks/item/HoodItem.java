@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 
 public class HoodItem extends ArmorItem {
     public HoodItem(ArmorMaterial pMaterial, Type pSlot, Properties pProperties) {
-        super(pMaterial, pSlot, pProperties);
+        super(pMaterial, pSlot, pProperties.fireResistant().stacksTo(1).durability(0));
     }
 
     @Override
@@ -29,7 +29,7 @@ public class HoodItem extends ArmorItem {
 
         HOOD("hood", 0, new int[]{1, 2, 3, 1}, 15, SoundEvents.ARMOR_EQUIP_LEATHER,
                 0.0F, 0.0F, () -> {
-            return Ingredient.of(Items.STRING);
+            return Ingredient.of(Items.LEATHER);
         });
 
         private static final int[] MAX_DAMAGE_ARRAY = new int[] { 0, 0, 0, 0 };
@@ -54,12 +54,12 @@ public class HoodItem extends ArmorItem {
         }
 
         @Override
-        public int getDurabilityForType(Type p_266807_) {
+        public int getDurabilityForType(Type slotIn) {
             return 0;
         }
 
         @Override
-        public int getDefenseForType(Type p_267168_) {
+        public int getDefenseForType(Type slotIn) {
             return 1;
         }
 

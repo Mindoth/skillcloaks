@@ -40,9 +40,9 @@ public class SlayerCloakItem extends CurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
         if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(Component.translatable("tooltip.skillcloaks.slayer_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get() > 0 ) {
             tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
+            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
                     .append(Component.translatable("tooltip.skillcloaks.armor_value")));
         }
 
@@ -53,8 +53,8 @@ public class SlayerCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
@@ -63,7 +63,7 @@ public class SlayerCloakItem extends CurioItem {
     public static void onSlayerHurt(final LivingDamageEvent event) {
         if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         if (event.getEntity() instanceof Monster) {
-            Level world = event.getEntity().level;
+            Level world = event.getEntity().level();
             if (!world.isClientSide) {
                 if (event.getSource().getEntity() instanceof LivingEntity) {
                     LivingEntity attacker = (LivingEntity) event.getSource().getEntity();
@@ -72,12 +72,12 @@ public class SlayerCloakItem extends CurioItem {
                         if ( (target.getHealth() <= target.getMaxHealth() * SkillcloaksCommonConfig.SLAYER_THRESHOLD.get()) || (event.getAmount() >= target.getMaxHealth() * (1.0 - SkillcloaksCommonConfig.SLAYER_THRESHOLD.get())) || (event.getAmount() >= target.getHealth()) ) {
                             event.setAmount(Float.MAX_VALUE);
                             //Sound
-                            world.playSound(null, target.getX(), target.getY(), target.getZ(),
+                            world.playSound(null, target.getBoundingBox().getCenter().x, target.getBoundingBox().getCenter().y, target.getBoundingBox().getCenter().z,
                                     SoundEvents.BLAZE_HURT, SoundSource.PLAYERS, 1, 1);
                             //Particles
                             ServerLevel level = (ServerLevel)world;
                             for (int i = 0; i < 8; ++i) {
-                                level.sendParticles(ParticleTypes.CRIT, target.getX(), target.getY() + 1, target.getZ(), 10, 0, 0, 0, 1);
+                                level.sendParticles(ParticleTypes.CRIT, target.getBoundingBox().getCenter().x, target.getBoundingBox().getCenter().y, target.getBoundingBox().getCenter().z, 10, 0, 0, 0, 1);
                             }
                         }
                     }

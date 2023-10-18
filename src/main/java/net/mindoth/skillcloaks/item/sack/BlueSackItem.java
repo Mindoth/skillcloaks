@@ -48,32 +48,29 @@ public class BlueSackItem extends SackItem {
             Random r = new Random();
             int number = r.nextInt(5);
             if (number == 0) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.AGILITY_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.AGILITY_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.AGILITY_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.AGILITY_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 1) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.CONSTRUCTION_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.CONSTRUCTION_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.CONSTRUCTION_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.CONSTRUCTION_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 2) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.FIREMAKING_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.FIREMAKING_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.FIREMAKING_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.FIREMAKING_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 3) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.SLAYER_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.SLAYER_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.SLAYER_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.SLAYER_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
             if (number == 4) {
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.THIEVING_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.THIEVING_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.THIEVING_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.THIEVING_HOOD.get()));
                 this.giveItem(player, cloak, hood);
-            }
-            else {
-                System.out.println("NO ITEM FROM SACK FOR " + player.getName() + ". REPORT TO THE MOD AUTHOR");
             }
             heldStack.shrink(1);
             return new InteractionResultHolder<>(InteractionResult.SUCCESS, heldStack);

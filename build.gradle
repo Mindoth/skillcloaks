@@ -1,22 +1,11 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net/' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.spongepowered:mixingradle:0.7.+'
-    }
-}
-
 plugins {
-    id 'eclipse'
+    // id 'eclipse'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '5.1+'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
-apply plugin: 'org.spongepowered.mixin'
 
-version = '1.19.4-1.1.2'
+version = '1.20.1-1.2.1'
 group = 'net.mindoth.skillcloaks' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'skillcloaks'
 
@@ -38,7 +27,7 @@ minecraft {
     //
     // Use non-default mappings at your own risk. They may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'official', version: '1.19.4'
+    mappings channel: 'official', version: '1.20.1'
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
@@ -143,11 +132,12 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.19.4-45.0.50'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.1.29'
 
-    implementation fg.deobf("curse.maven:curios-309927:4510371")
-    implementation fg.deobf("curse.maven:caelus-308989:4442066")
-    implementation fg.deobf("curse.maven:lucent-493280:4445259")
+    implementation fg.deobf("curse.maven:curios-309927:4583413")
+    implementation fg.deobf("curse.maven:caelus-308989:4581481")
+    implementation fg.deobf("curse.maven:lucent-493280:4773798")
+    implementation fg.deobf("curse.maven:shadowizardlib-887125:4803271")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 

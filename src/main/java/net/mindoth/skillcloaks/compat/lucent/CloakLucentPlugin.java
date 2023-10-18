@@ -1,5 +1,6 @@
 package net.mindoth.skillcloaks.compat.lucent;
 
+
 import com.legacy.lucent.api.EntityBrightness;
 import com.legacy.lucent.api.plugin.ILucentPlugin;
 import com.legacy.lucent.api.plugin.LucentPlugin;
@@ -26,11 +27,11 @@ public class CloakLucentPlugin implements ILucentPlugin {
 
         if (entity instanceof Player) {
             Player player = (Player)entity;
-            if (ModList.get().isLoaded("curios")) {
-                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FIREMAKING_CLOAK.get()).isPresent()) {
+            if ( ModList.get().isLoaded("curios") && ModList.get().isLoaded("lucent") && SkillcloaksCommonConfig.LUCENT_COMPAT.get() ) {
+                if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.FIREMAKING_CLOAK.get()).isPresent() ) {
                     entityBrightness.setLightLevel(15);
                 }
-                if (CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent()) {
+                if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
                     entityBrightness.setLightLevel(15);
                 }
             }

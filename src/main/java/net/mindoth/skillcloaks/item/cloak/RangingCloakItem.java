@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -38,9 +39,9 @@ public class RangingCloakItem extends CurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
         if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(Component.translatable("tooltip.skillcloaks.ranging_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get() > 0 ) {
             tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
+            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
                     .append(Component.translatable("tooltip.skillcloaks.armor_value")));
         }
 
@@ -51,8 +52,8 @@ public class RangingCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
@@ -61,7 +62,7 @@ public class RangingCloakItem extends CurioItem {
     public static void onItemUseFinish(final LivingEntityUseItemEvent.Stop event) {
         if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         if (event.getEntity() instanceof Player player) {
-            if (!player.level.isClientSide) {
+            if (!player.level().isClientSide) {
                 ItemStack pStack = event.getItem();
                 boolean flag = player.getAbilities().instabuild || EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, pStack) > 0;
                 Item bow = pStack.getItem();
@@ -80,32 +81,16 @@ public class RangingCloakItem extends CurioItem {
                             boolean flag1 = player.getAbilities().instabuild || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, pStack, player));
                             if (!flag1 && !player.getAbilities().instabuild) {
 
-                                Random r = new Random();
-                                double randomValue = r.nextDouble();
+                                double randomValue = new Random().nextDouble();
 
-                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.RANGING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) && randomValue < SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get()) {
+                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.RANGING_CLOAK.get()).isPresent() || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) && randomValue <= SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() && SkillcloaksCommonConfig.ARROW_RETURN_CHANCE.get() > 0.0 ) {
                                     ItemStack returnArrow = new ItemStack(itemstack.getItem(), 1);
                                     PotionUtils.setPotion(returnArrow, PotionUtils.getPotion(itemstack));
                                     PotionUtils.setCustomEffects(returnArrow, PotionUtils.getCustomEffects(itemstack));
-                                    if (player.getInventory().getFreeSlot() > -1) {
-                                        player.addItem(returnArrow);
-                                    } else player.spawnAtLocation(returnArrow, 0);
-
-                                /*
-                                if ( itemstack.getCount() != itemstack.getMaxStackSize() ) {
-                                    itemstack.grow(1);
-                                }
-                                if ( player.getInventory().getFreeSlot() > -1 ) {
-                                    player.addItem(returnArrow);
-                                }
-                                else if ( player.getOffhandItem().getItem().equals(itemstack.getItem()) || player.getOffhandItem().isEmpty() ) {
-                                    player.setItemSlot(EquipmentSlot.OFFHAND, returnArrow);
-                                    if (!player.level.isClientSide) System.out.println("Offhand new item");
-                                }
-                                else {
-                                    player.spawnAtLocation(returnArrow);
-                                }
-                                */
+                                    ItemEntity drop = new ItemEntity(player.level(), player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, returnArrow);
+                                    drop.setDeltaMovement(0, 0, 0);
+                                    drop.setNoPickUpDelay();
+                                    player.level().addFreshEntity(drop);
                                 }
 
                                 if (itemstack.isEmpty()) {

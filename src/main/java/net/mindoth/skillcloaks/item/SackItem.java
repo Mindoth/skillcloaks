@@ -19,9 +19,9 @@ public class SackItem extends Item {
     public void giveItem(Player player, @Nonnull ItemEntity cloak, @Nonnull ItemEntity hood) {
         cloak.setDeltaMovement(0, 0, 0);
         cloak.setNoPickUpDelay();
-        player.level.addFreshEntity(cloak);
+        player.level().addFreshEntity(cloak);
         hood.setDeltaMovement(0, 0, 0);
         hood.setNoPickUpDelay();
-        player.level.addFreshEntity(hood);
+        player.level().addFreshEntity(hood);
     }
 }

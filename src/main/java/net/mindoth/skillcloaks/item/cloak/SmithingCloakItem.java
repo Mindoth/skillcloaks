@@ -45,9 +45,9 @@ public class SmithingCloakItem extends CurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
         if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(Component.translatable("tooltip.skillcloaks.smithing_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get() > 0 ) {
             tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
+            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
                     .append(Component.translatable("tooltip.skillcloaks.armor_value")));
         }
 
@@ -58,15 +58,15 @@ public class SmithingCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
 
     private static BlastingRecipe getBlastingRecipe(Player player, Container inv)
     {
-        return player.level.getRecipeManager().getRecipeFor(RecipeType.BLASTING, inv, player.level).orElse(null);
+        return player.level().getRecipeManager().getRecipeFor(RecipeType.BLASTING, inv, player.level()).orElse(null);
     }
 
     @SubscribeEvent
@@ -94,7 +94,7 @@ public class SmithingCloakItem extends CurioItem {
     public static void onPlayerUseSmithing(final PlayerInteractEvent.RightClickItem event) {
         if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         Player player = event.getEntity();
-        Level world = player.level;
+        Level world = player.level();
         if ( CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.SMITHING_CLOAK.get()).isPresent()
                 || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
 
@@ -118,17 +118,17 @@ public class SmithingCloakItem extends CurioItem {
                             ItemStack result = recipe.assemble(slotInv, world.registryAccess());
                             if (!result.isEmpty()) {
                                 mainHandItemStack.shrink(1);
-                                ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), result);
+                                ItemEntity drop = new ItemEntity(player.level(), player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, result);
                                 drop.setDeltaMovement(0, 0, 0);
                                 drop.setNoPickUpDelay();
-                                player.level.addFreshEntity(drop);
+                                player.level().addFreshEntity(drop);
 
                                 offHandItemStack.hurtAndBreak(1, player, (holder) -> holder.broadcastBreakEvent(EquipmentSlot.OFFHAND));
                             }
                         }
                     }
                     //Sound
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(),
+                    world.playSound(null, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z,
                             SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
                 }
                 else if (mainHandItemStack.getItem() instanceof FlintAndSteelItem) {
@@ -140,16 +140,16 @@ public class SmithingCloakItem extends CurioItem {
                             ItemStack result = recipeOff.assemble(slotInv, world.registryAccess());
                             if (!result.isEmpty()) {
                                 offHandItemStack.shrink(1);
-                                ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), result);
+                                ItemEntity drop = new ItemEntity(player.level(), player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, result);
                                 drop.setDeltaMovement(0, 0, 0);
                                 drop.setNoPickUpDelay();
-                                player.level.addFreshEntity(drop);
+                                player.level().addFreshEntity(drop);
                                 mainHandItemStack.hurtAndBreak(1, player, (holder) -> holder.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                             }
                         }
                     }
                     //Sound
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(),
+                    world.playSound(null, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z,
                             SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1, 1);
                 }
             }

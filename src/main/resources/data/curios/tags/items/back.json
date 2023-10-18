@@ -24,6 +24,7 @@
     "skillcloaks:hitpoints_cloak",
     "skillcloaks:strength_cloak",
     "skillcloaks:thieving_cloak",
-    "skillcloaks:max_cloak"
+    "skillcloaks:max_cloak",
+    "skillcloaks:infernal_cloak"
   ]
 }

@@ -1,6 +1,7 @@
 package net.mindoth.skillcloaks.client.curio;
 
-import net.mindoth.skillcloaks.client.model.CloakModel;
+import net.mindoth.shadowizardlib.client.curio.CurioLayers;
+import net.mindoth.shadowizardlib.client.models.CloakModel;
 import net.mindoth.skillcloaks.client.renderer.CloakRenderer;
 import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.client.Minecraft;

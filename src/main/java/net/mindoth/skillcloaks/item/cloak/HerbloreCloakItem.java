@@ -41,9 +41,9 @@ public class HerbloreCloakItem extends CurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
         if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(Component.translatable("tooltip.skillcloaks.herblore_cloak"));
 
-        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
+        if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get() > 0 ) {
             tooltip.add(Component.translatable("curios.modifiers.cloak").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
+            tooltip.add(Component.literal("+" + (SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get()).toString() + " ").withStyle(ChatFormatting.BLUE)
                     .append(Component.translatable("tooltip.skillcloaks.armor_value")));
         }
 
@@ -54,8 +54,8 @@ public class HerbloreCloakItem extends CurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> result = super.getAttributeModifiers(slotContext, uuid, stack);
 
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
-            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get() > 0 ) {
+            result.put(Attributes.ARMOR, new AttributeModifier(uuid, new ResourceLocation(Skillcloaks.MOD_ID, "cloak_armor").toString(), SkillcloaksCommonConfig.SKILL_CLOAK_ARMOR.get(), AttributeModifier.Operation.ADDITION));
         }
         return result;
     }
@@ -68,23 +68,23 @@ public class HerbloreCloakItem extends CurioItem {
                 || CuriosApi.getCuriosHelper().findFirstCurio(player, SkillcloaksItems.MAX_CLOAK.get()).isPresent() ) {
 
             ItemStack potionStack = BrewingRecipeRegistry.getOutput(player.getItemBySlot(EquipmentSlot.MAINHAND), player.getItemBySlot(EquipmentSlot.OFFHAND));
-            ItemEntity drop = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), potionStack);
+            ItemEntity drop = new ItemEntity(player.level(), player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, potionStack);
 
             ItemStack potionStack2 = BrewingRecipeRegistry.getOutput(player.getItemBySlot(EquipmentSlot.OFFHAND), player.getItemBySlot(EquipmentSlot.MAINHAND));
-            ItemEntity drop2 = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), potionStack2);
+            ItemEntity drop2 = new ItemEntity(player.level(), player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, potionStack2);
 
             if ( potionStack.getItem() instanceof PotionItem || potionStack2.getItem() instanceof PotionItem) {
                 player.getItemBySlot(EquipmentSlot.MAINHAND).shrink(1);
                 player.getItemBySlot(EquipmentSlot.OFFHAND).shrink(1);
                 drop.setDeltaMovement(0, 0, 0);
                 drop.setNoPickUpDelay();
-                player.level.addFreshEntity(drop);
-                drop2.setDeltaMovement(0, 0, 0);
-                drop2.setNoPickUpDelay();
-                player.level.addFreshEntity(drop2);
+                player.level().addFreshEntity(drop);
+                drop.setDeltaMovement(0, 0, 0);
+                drop.setNoPickUpDelay();
+                player.level().addFreshEntity(drop2);
 
                 //Sound
-                player.level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                player.level().playSound(null, player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z,
                         SoundEvents.BREWING_STAND_BREW, SoundSource.PLAYERS, 1, 1);
             }
         }

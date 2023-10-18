@@ -193,8 +193,8 @@ public class BlackSackItem extends SackItem {
                     && tag.contains("prayer") && tag.contains("ranging") && tag.contains("runecraft") && tag.contains("slayer") && tag.contains("smithing")
                     && tag.contains("strength") && tag.contains("thieving") && tag.contains("woodcutting") ) {
                 heldStack.shrink(1);
-                ItemEntity cloak = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.MAX_CLOAK.get()));
-                ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.MAX_HOOD.get()));
+                ItemEntity cloak = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.MAX_CLOAK.get()));
+                ItemEntity hood = new ItemEntity(player.level(), player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.MAX_HOOD.get()));
                 this.giveItem(player, cloak, hood);
                 return new InteractionResultHolder<>(InteractionResult.SUCCESS, heldStack);
             }
