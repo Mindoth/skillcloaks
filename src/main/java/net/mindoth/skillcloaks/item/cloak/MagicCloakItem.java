@@ -67,7 +67,7 @@ public class MagicCloakItem extends CurioItem {
 
     @SubscribeEvent
     public static void onPlayerUseMagic(final PlayerInteractEvent.RightClickItem event) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if ( SkillcloaksCommonConfig.COSMETIC_ONLY.get() ) return;
         PlayerEntity player = event.getPlayer();
         if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAGIC_CLOAK.get(), player).isPresent()
                 || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) {

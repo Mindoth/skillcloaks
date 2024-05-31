@@ -27,7 +27,7 @@ displayName="Skillcloaks" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="examplemod.png" #optional
+logoFile="skillcloaks.png" #optional
 # A text field displayed in the mod UI
 credits="Inspiration from Jagex's Runescape." #optional
 # A text field displayed in the mod UI
@@ -36,23 +36,23 @@ authors="Mindoth" #optional
 description='''
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.curios]]
+[[dependencies.skillcloaks]]
     modId="curios"
     mandatory=true
     versionRange="[1.16.5-4.0.5.3,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.caelus]]
+[[dependencies.skillcloaks]]
     modId="caelus"
     mandatory=false
     versionRange="[1.16.5-2.1.3.2,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.lucent]]
+[[dependencies.skillcloaks]]
     modId="lucent"
     mandatory=false
-    versionRange="[1.16.5-1.0.0,]"
+    versionRange="[1.0.0,)"
     ordering="NONE"
     side="CLIENT"

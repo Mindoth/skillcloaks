@@ -133,16 +133,26 @@ public class DefenceCloakItem extends CurioItem {
             PlayerEntity player = (PlayerEntity) livingEntity;
             CompoundNBT playerData = player.getPersistentData();
             CompoundNBT data = playerData.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
-            if ( !player.level.isClientSide && ( data.getInt(TAG_DEFENCE_COOLDOWN) > 0 ) ) {
+            if ( !player.level.isClientSide && (data.getInt(TAG_DEFENCE_COOLDOWN) > 0) ) {
                 int totalSecs = data.getInt(TAG_DEFENCE_COOLDOWN) / 20;
+                int days = totalSecs / 86400;
+                int hours = (totalSecs % 86400) / 3600;
                 int mins = (totalSecs % 3600) / 60;
                 int secs = totalSecs % 60;
-                if ( mins > 0 ) {
+                if ( days > 0 ) {
+                    player.displayClientMessage(new TranslationTextComponent("message.skillcloaks.defence.cooldown")
+                            .append(new TranslationTextComponent(days + "d " + hours + "h " + mins + "m " + secs + "s")), true);
+                }
+                else if ( hours > 0 ) {
+                    player.displayClientMessage(new TranslationTextComponent("message.skillcloaks.defence.cooldown")
+                            .append(new TranslationTextComponent(hours + "h " + mins + "m " + secs + "s")), true);
+                }
+                else if ( mins > 0 ) {
                     player.displayClientMessage(new TranslationTextComponent("message.skillcloaks.defence.cooldown")
                             .append(new TranslationTextComponent(mins + "m " + secs + "s")), true);
                 }
                 else player.displayClientMessage(new TranslationTextComponent("message.skillcloaks.defence.cooldown")
-                        .append(new TranslationTextComponent( secs + "s")), true);
+                            .append(new TranslationTextComponent( secs + "s")), true);
                 player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE, SoundCategory.PLAYERS, 1, 0.5f);
             }
         }

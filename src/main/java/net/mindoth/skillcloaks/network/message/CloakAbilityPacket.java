@@ -106,30 +106,31 @@ public class CloakAbilityPacket {
                     && maxData.getInt(TAG_MAX_MODE) == 1
                     && !player.isCrouching()) ) {
 
-                if (!player.getCooldowns().isOnCooldown(SkillcloaksItems.CONSTRUCTION_CLOAK.get()) && !player.getCooldowns().isOnCooldown(SkillcloaksItems.MAX_CLOAK.get())) {
+                if ( !player.getCooldowns().isOnCooldown(SkillcloaksItems.CONSTRUCTION_CLOAK.get()) && !player.getCooldowns().isOnCooldown(SkillcloaksItems.MAX_CLOAK.get()) ) {
 
                     //Getting player's bed location
                     ServerWorld respawnWorld = player.server.getLevel(player.getRespawnDimension());
                     BlockPos spawn = player.getRespawnPosition();
 
-                    if (spawn != null && respawnWorld != null) {
+                    if ( spawn != null && respawnWorld != null ) {
                         BlockState blockstate = respawnWorld.getBlockState(spawn);
 
                         //Check if player's bed exists in the same dimension
-                        if (respawnWorld == world) {
+                        if ( respawnWorld == world ) {
                             //Check if player has set a spawnpoint
-                            if (blockstate.is(Blocks.RESPAWN_ANCHOR) && blockstate.getValue(RespawnAnchorBlock.CHARGE) > 0 && RespawnAnchorBlock.canSetSpawn(respawnWorld) || blockstate.is(BlockTags.BEDS)) {
+                            if ( blockstate.is(Blocks.RESPAWN_ANCHOR) && blockstate.getValue(RespawnAnchorBlock.CHARGE) > 0
+                                    && RespawnAnchorBlock.canSetSpawn(respawnWorld) || blockstate.is(BlockTags.BEDS) ) {
 
                                 //TP player
                                 player.moveTo(spawn.getX() + 0.5, spawn.getY() + 1, spawn.getZ() + 0.5);
                                 //Reduce anchor usage
-                                if (blockstate.is(Blocks.RESPAWN_ANCHOR)) {
+                                if ( blockstate.is(Blocks.RESPAWN_ANCHOR) ) {
                                     respawnWorld.setBlock(spawn, blockstate.setValue(RespawnAnchorBlock.CHARGE, blockstate.getValue(RespawnAnchorBlock.CHARGE) - 1), 3);
                                 }
                                 //Sound
                                 world.playSound(null, spawn.getX() + 0.5, spawn.getY() + 1.5D, spawn.getZ() + 0.5, SoundEvents.CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1, 1);
                                 //Particles
-                                for (int i = 0; i < 10; ++i) {
+                                for ( int i = 0; i < 10; ++i ) {
                                     respawnWorld.sendParticles(ParticleTypes.PORTAL, spawn.getX() + 0.5, spawn.getY() + 1, spawn.getZ() + 0.5, (int) (player.getRandom().nextDouble() * 10), (player.getRandom().nextDouble() - 0.5D) * 1.5D, -player.getRandom().nextDouble() + 1, (player.getRandom().nextDouble() - 0.5D) * 1.5D, 0);
                                 }
                             }

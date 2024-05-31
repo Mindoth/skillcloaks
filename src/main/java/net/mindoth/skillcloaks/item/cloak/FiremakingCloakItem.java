@@ -78,11 +78,11 @@ public class FiremakingCloakItem extends CurioItem {
     public static void placeTorchWithStick(final PlayerInteractEvent.RightClickBlock event) {
         if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         if (!SkillcloaksCommonConfig.FIREMAKING_TORCH.get()) return;
-        PlayerEntity player = (PlayerEntity)event.getEntity();
+        PlayerEntity player = event.getPlayer();
         World world = player.level;
         ItemStack itemStack = event.getItemStack();
         if ( !world.isClientSide ) {
-            if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.FIREMAKING_CLOAK.get(), player).isPresent()
+            if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.FIREMAKING_CLOAK.get(),player).isPresent()
                     || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), player).isPresent() ) {
                 if ( itemStack.getItem().is(Tags.Items.RODS_WOODEN) ) {
                     BlockRayTraceResult rtr = event.getHitVec();
@@ -91,27 +91,54 @@ public class FiremakingCloakItem extends CurioItem {
                     BlockState torchState = Blocks.TORCH.defaultBlockState();
                     BlockPos setBlockPos = getPosOfFace(pos, face);
                     boolean flag = false;
-                    if ( face == Direction.UP && torchState.canSurvive(world, setBlockPos) ) {
-                        if ( !player.abilities.instabuild ) {
-                            double r = player.getRandom().nextDouble();
-                            if ( r <= SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() && SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() > 0.0 ) {
-                                itemStack.shrink(1);
+                    if ( face == Direction.UP ) {
+                        if ( world.getBlockState(pos).getMaterial().isReplaceable() ) {
+                            setBlockPos = pos;
+                        }
+                        if ( torchState.canSurvive(world, setBlockPos) ) {
+                            if ( world.getBlockState(setBlockPos).getMaterial().isReplaceable() ) {
+                                if ( !player.abilities.instabuild ) {
+                                    double r = player.getRandom().nextDouble();
+                                    if ( r <= SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() && SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() > 0.0 ) {
+                                        itemStack.shrink(1);
+                                    }
+                                }
+                                world.setBlock(setBlockPos, torchState, 3);
+                                flag = true;
                             }
                         }
-                        world.setBlock(setBlockPos, torchState, 3);
-                        flag = true;
                     }
                     else if ( face != Direction.DOWN ) {
+                        if ( world.getBlockState(pos).getMaterial().isReplaceable() ) {
+                            setBlockPos = pos;
+                        }
                         torchState = Blocks.WALL_TORCH.defaultBlockState();
                         if ( torchState.setValue(HORIZONTAL_FACING, face).canSurvive(world, setBlockPos) ) {
-                            if ( !player.abilities.instabuild ) {
-                                double r = player.getRandom().nextDouble();
-                                if ( r <= SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() && SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() > 0.0 ) {
-                                    itemStack.shrink(1);
+                            if ( world.getBlockState(setBlockPos).getMaterial().isReplaceable() ) {
+                                if ( !player.abilities.instabuild ) {
+                                    double r = player.getRandom().nextDouble();
+                                    if ( r <= SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() && SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() > 0.0 ) {
+                                        itemStack.shrink(1);
+                                    }
+                                }
+                                world.setBlock(setBlockPos, torchState.setValue(HORIZONTAL_FACING, face), 3);
+                                flag = true;
+                            }
+                        }
+                        else {
+                            torchState = Blocks.TORCH.defaultBlockState();
+                            if ( torchState.canSurvive(world, setBlockPos) ) {
+                                if ( world.getBlockState(setBlockPos).getMaterial().isReplaceable() ) {
+                                    if ( !player.abilities.instabuild ) {
+                                        double r = player.getRandom().nextDouble();
+                                        if ( r <= SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() && SkillcloaksCommonConfig.FIREMAKING_STICK_CHANCE.get() > 0.0 ) {
+                                            itemStack.shrink(1);
+                                        }
+                                    }
+                                    world.setBlock(setBlockPos, torchState, 3);
+                                    flag = true;
                                 }
                             }
-                            world.setBlock(setBlockPos, torchState.setValue(HORIZONTAL_FACING, face), 3);
-                            flag = true;
                         }
                     }
                     if ( flag ) {
@@ -119,7 +146,7 @@ public class FiremakingCloakItem extends CurioItem {
                                 setBlockPos.getX(),
                                 setBlockPos.getY(),
                                 setBlockPos.getZ(),
-                                SoundEvents.WOOD_PLACE, SoundCategory.BLOCKS, 1, 0.8f);
+                                SoundEvents.WOOD_PLACE, SoundCategory.PLAYERS, 1, 0.8f);
                     }
                 }
             }

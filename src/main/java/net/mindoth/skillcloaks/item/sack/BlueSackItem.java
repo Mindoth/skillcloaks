@@ -73,10 +73,6 @@ public class BlueSackItem extends SackItem {
                 ItemEntity hood = new ItemEntity(player.level, player.getX(), player.getY() + 1, player.getZ(), new ItemStack(SkillcloaksItems.THIEVING_HOOD.get()));
                 this.giveItem(player, cloak, hood);
             }
-            else {
-                System.out.println("NO ITEM FROM SACK FOR " + player.getName() + ". REPORT TO THE MOD AUTHOR");
-            }
-
             heldStack.shrink(1);
             return new ActionResult<>(ActionResultType.SUCCESS, heldStack);
         }

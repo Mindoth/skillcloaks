@@ -13,9 +13,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -60,13 +58,19 @@ public class SlayerCloakItem extends CurioItem {
         return result;
     }
 
+    public static boolean isMeleeAttack(DamageSource source) {
+        return source instanceof EntityDamageSource
+                && !(source instanceof IndirectEntityDamageSource)
+                && !((EntityDamageSource) source).isThorns();
+    }
+
     @SubscribeEvent
     public static void onSlayerHurt(final LivingDamageEvent event) {
-        if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
+        if ( SkillcloaksCommonConfig.COSMETIC_ONLY.get() ) return;
         if ( event.getEntityLiving() instanceof MonsterEntity ) {
             World world = event.getEntityLiving().level;
             if ( !world.isClientSide ) {
-                if ( event.getSource().getEntity() instanceof LivingEntity ) {
+                if ( event.getSource().getDirectEntity() instanceof LivingEntity && isMeleeAttack(event.getSource()) ) {
                     LivingEntity attacker = (LivingEntity)event.getSource().getEntity();
                     if ( attacker != null && ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.SLAYER_CLOAK.get(), attacker).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), attacker).isPresent() ) ) {
                         LivingEntity target = event.getEntityLiving();

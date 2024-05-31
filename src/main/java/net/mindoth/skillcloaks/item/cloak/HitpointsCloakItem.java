@@ -33,7 +33,14 @@ public class HitpointsCloakItem extends CurioItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.hitpoints_cloak"));
+        if (!SkillcloaksCommonConfig.COSMETIC_ONLY.get()) {
+            if ( SkillcloaksCommonConfig.HITPOINTS_MAX.get() == 0 ) {
+                tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.hitpoints_cloak"));
+            }
+            else {
+                tooltip.add(new TranslationTextComponent("tooltip.skillcloaks.hitpoints_cloak_value").append( " " + SkillcloaksCommonConfig.HITPOINTS_MAX.get()).withStyle(TextFormatting.GRAY));
+            }
+        }
 
         if ( !SkillcloaksCommonConfig.COSMETIC_ONLY.get() && SkillcloaksCommonConfig.CLOAK_ARMOR.get() > 0 ) {
             tooltip.add(new TranslationTextComponent("curios.modifiers.cloak").withStyle(TextFormatting.GRAY));
@@ -58,7 +65,9 @@ public class HitpointsCloakItem extends CurioItem {
     public static void onPlayerHeal(final LivingHealEvent event) {
         if (SkillcloaksCommonConfig.COSMETIC_ONLY.get()) return;
         if ( CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.HITPOINTS_CLOAK.get(), event.getEntityLiving()).isPresent() || CuriosApi.getCuriosHelper().findEquippedCurio(SkillcloaksItems.MAX_CLOAK.get(), event.getEntityLiving()).isPresent() ) {
-            event.setAmount(event.getAmount() * 2);
+            if ( event.getAmount() <= SkillcloaksCommonConfig.HITPOINTS_MAX.get() || SkillcloaksCommonConfig.HITPOINTS_MAX.get() == 0 ) {
+                event.setAmount(event.getAmount() * 2);
+            }
         }
     }
 }

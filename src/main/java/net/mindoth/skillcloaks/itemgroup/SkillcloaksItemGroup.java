@@ -8,7 +8,6 @@ public class SkillcloaksItemGroup extends ItemGroup {
 
     public static final SkillcloaksItemGroup SKILL_CLOAKS_TAB = new SkillcloaksItemGroup(ItemGroup.TABS.length, "skill_cloaks_tab");
 
-
     public SkillcloaksItemGroup(int index, String label) {
         super(index, label);
     }

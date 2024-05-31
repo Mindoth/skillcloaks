@@ -24,6 +24,7 @@ public class SkillcloaksCommonConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> LUCENT_COMPAT;
     public static final ForgeConfigSpec.ConfigValue<Integer> DEFENCE_COOLDOWN;
     public static final ForgeConfigSpec.ConfigValue<Double> AGILITY_REDUCER;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HITPOINTS_MAX;
 
     static {
         BUILDER.push("Configs for Skillcloaks");
@@ -81,6 +82,9 @@ public class SkillcloaksCommonConfig {
 
         AGILITY_REDUCER = BUILDER.comment("The amount your gained exhaustion is multiplied by when wearing the Agility Cloak. Lower numbers mean you get less exhaustion (Default = 0.5 = 50%)")
                 .defineInRange("Agility exhaustion reducer", 0.5, 0.0, 1.0);
+
+        HITPOINTS_MAX = BUILDER.comment("If the healing is more than this it won't be doubled. Set to 0 to for all healing to be doubled (Default = 0)")
+                .define("Hitpoints maximum", 0);
 
         BUILDER.pop();
         SPEC = BUILDER.build();
