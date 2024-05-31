@@ -138,21 +138,20 @@ public class DefenceCloakItem extends CurioItem {
                 int hours = (totalSecs % 86400) / 3600;
                 int mins = (totalSecs % 3600) / 60;
                 int secs = totalSecs % 60;
-
-                if (days > 0) {
+                if ( days > 0 ) {
                     player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
                             .append(Component.literal(days + "d " + hours + "h " + mins + "m " + secs + "s")), true);
-                } else if (hours > 0) {
+                }
+                else if ( hours > 0 ) {
                     player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
                             .append(Component.literal(hours + "h " + mins + "m " + secs + "s")), true);
-                } else if (mins > 0) {
+                }
+                else if ( mins > 0 ) {
                     player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
                             .append(Component.literal(mins + "m " + secs + "s")), true);
-                } else {
-                    player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
-                            .append(Component.literal(secs + "s")), true);
                 }
-
+                else player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
+                        .append(Component.literal(secs + "s")), true);
                 player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE.get(), SoundSource.PLAYERS, 1, 0.5f);
             }
         }

@@ -4,29 +4,22 @@ import com.google.common.collect.Multimap;
 import net.mindoth.skillcloaks.Skillcloaks;
 import net.mindoth.skillcloaks.config.SkillcloaksCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
-import net.mindoth.skillcloaks.registries.SkillcloaksItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Skillcloaks.MOD_ID)

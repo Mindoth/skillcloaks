@@ -100,7 +100,7 @@ public class Skillcloaks {
 
     @SubscribeEvent
     public void enqueueIMC(final InterModEnqueueEvent event) {
-        SlotTypePreset[] types = {SlotTypePreset.BACK };
+        SlotTypePreset[] types = { SlotTypePreset.BACK };
         for (SlotTypePreset type : types) {
             InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> type.getMessageBuilder().build());
         }
