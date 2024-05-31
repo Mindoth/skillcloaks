@@ -134,14 +134,25 @@ public class DefenceCloakItem extends CurioItem {
             CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
             if ( !player.level().isClientSide && ( data.getInt(TAG_DEFENCE_COOLDOWN) > 0 ) ) {
                 int totalSecs = data.getInt(TAG_DEFENCE_COOLDOWN) / 20;
+                int days = totalSecs / 86400;
+                int hours = (totalSecs % 86400) / 3600;
                 int mins = (totalSecs % 3600) / 60;
                 int secs = totalSecs % 60;
-                if ( mins > 0 ) {
+
+                if (days > 0) {
+                    player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
+                            .append(Component.literal(days + "d " + hours + "h " + mins + "m " + secs + "s")), true);
+                } else if (hours > 0) {
+                    player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
+                            .append(Component.literal(hours + "h " + mins + "m " + secs + "s")), true);
+                } else if (mins > 0) {
                     player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
                             .append(Component.literal(mins + "m " + secs + "s")), true);
+                } else {
+                    player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
+                            .append(Component.literal(secs + "s")), true);
                 }
-                else player.displayClientMessage(Component.translatable("message.skillcloaks.defence.cooldown")
-                        .append(Component.literal( secs + "s")), true);
+
                 player.playNotifySound(SoundEvents.NOTE_BLOCK_SNARE.get(), SoundSource.PLAYERS, 1, 0.5f);
             }
         }
