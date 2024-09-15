@@ -129,7 +129,7 @@ public class DefenceCloakItem extends CurioItem {
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         LivingEntity livingEntity = slotContext.getWearer();
         if ( livingEntity instanceof Player ) {
-            Player player = (Player) livingEntity;
+            Player player = (Player)livingEntity;
             CompoundTag playerData = player.getPersistentData();
             CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
             if ( !player.level().isClientSide && ( data.getInt(TAG_DEFENCE_COOLDOWN) > 0 ) ) {

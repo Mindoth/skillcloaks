@@ -73,14 +73,14 @@ public class HerbloreCloakItem extends CurioItem {
             ItemStack potionStack2 = BrewingRecipeRegistry.getOutput(player.getItemBySlot(EquipmentSlot.OFFHAND), player.getItemBySlot(EquipmentSlot.MAINHAND));
             ItemEntity drop2 = new ItemEntity(player.level(), player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, potionStack2);
 
-            if ( potionStack.getItem() instanceof PotionItem || potionStack2.getItem() instanceof PotionItem) {
+            if ( potionStack.getItem() instanceof PotionItem || potionStack2.getItem() instanceof PotionItem ) {
                 player.getItemBySlot(EquipmentSlot.MAINHAND).shrink(1);
                 player.getItemBySlot(EquipmentSlot.OFFHAND).shrink(1);
                 drop.setDeltaMovement(0, 0, 0);
                 drop.setNoPickUpDelay();
                 player.level().addFreshEntity(drop);
-                drop.setDeltaMovement(0, 0, 0);
-                drop.setNoPickUpDelay();
+                drop2.setDeltaMovement(0, 0, 0);
+                drop2.setNoPickUpDelay();
                 player.level().addFreshEntity(drop2);
 
                 //Sound

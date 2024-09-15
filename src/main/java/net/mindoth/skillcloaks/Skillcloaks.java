@@ -25,7 +25,7 @@ public class Skillcloaks {
 
     public Skillcloaks() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        if (FMLEnvironment.dist == Dist.CLIENT) {
+        if ( FMLEnvironment.dist == Dist.CLIENT ) {
             SkillcloaksClient.registerHandlers();
         }
         SkillcloaksItemGroup.register(modEventBus);
