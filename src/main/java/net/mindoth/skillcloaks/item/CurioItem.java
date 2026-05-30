@@ -19,11 +19,11 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.List;
 
-public class CloakCurio extends Item implements ICurioItem {
+public class CurioItem extends Item implements ICurioItem {
 
     private final String name;
 
-    public CloakCurio(String name) {
+    public CurioItem(String name) {
         super(new Item.Properties().stacksTo(1).fireResistant());
         this.name = name;
     }

@@ -1,17 +1,14 @@
 package net.mindoth.skillcloaks.registries;
 
 import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.item.CloakCurio;
+import net.mindoth.skillcloaks.item.CurioItem;
 import net.mindoth.skillcloaks.item.armor.HoodItem;
 import net.mindoth.skillcloaks.item.armor.ModArmorMaterials;
-import net.mindoth.skillcloaks.item.cloak.AgilityCloakItem;
 import net.mindoth.skillcloaks.item.sack.*;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import top.theillusivec4.curios.api.CuriosApi;
 
 public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Skillcloaks.MOD_ID);
@@ -121,28 +118,28 @@ public class ModItems {
     
     //Cloaks
     //When making a new cloak, create required fields to: textures, model, lang, AbstractClientPlayerMixin, ClientRenderers,
-    public static final DeferredItem<CloakCurio> AGILITY_CLOAK = ITEMS.register("agility_cloak", () -> new CloakCurio("agility_cloak"));
-    public static final DeferredItem<CloakCurio> ATTACK_CLOAK = ITEMS.register("attack_cloak", () -> new CloakCurio("attack_cloak"));
-    public static final DeferredItem<CloakCurio> CONSTRUCTION_CLOAK = ITEMS.register("construction_cloak", () -> new CloakCurio("construction_cloak"));
-    public static final DeferredItem<CloakCurio> COOKING_CLOAK = ITEMS.register("cooking_cloak", () -> new CloakCurio("cooking_cloak"));
-    public static final DeferredItem<CloakCurio> CRAFTING_CLOAK = ITEMS.register("crafting_cloak", () -> new CloakCurio("crafting_cloak"));
-    public static final DeferredItem<CloakCurio> DEFENCE_CLOAK = ITEMS.register("defence_cloak", () -> new CloakCurio("defence_cloak"));
-    public static final DeferredItem<CloakCurio> FARMING_CLOAK = ITEMS.register("farming_cloak", () -> new CloakCurio("farming_cloak"));
-    public static final DeferredItem<CloakCurio> FIREMAKING_CLOAK = ITEMS.register("firemaking_cloak", () -> new CloakCurio("firemaking_cloak"));
-    public static final DeferredItem<CloakCurio> FISHING_CLOAK = ITEMS.register("fishing_cloak", () -> new CloakCurio("fishing_cloak"));
-    public static final DeferredItem<CloakCurio> FLETCHING_CLOAK = ITEMS.register("fletching_cloak", () -> new CloakCurio("fletching_cloak"));
-    public static final DeferredItem<CloakCurio> HERBLORE_CLOAK = ITEMS.register("herblore_cloak", () -> new CloakCurio("herblore_cloak"));
-    public static final DeferredItem<CloakCurio> HITPOINTS_CLOAK = ITEMS.register("hitpoints_cloak", () -> new CloakCurio("hitpoints_cloak"));
-    public static final DeferredItem<CloakCurio> HUNTER_CLOAK = ITEMS.register("hunter_cloak", () -> new CloakCurio("hunter_cloak"));
-    public static final DeferredItem<CloakCurio> MAGIC_CLOAK = ITEMS.register("magic_cloak", () -> new CloakCurio("magic_cloak"));
-    public static final DeferredItem<CloakCurio> MINING_CLOAK = ITEMS.register("mining_cloak", () -> new CloakCurio("mining_cloak"));
-    public static final DeferredItem<CloakCurio> PRAYER_CLOAK = ITEMS.register("prayer_cloak", () -> new CloakCurio("prayer_cloak"));
-    public static final DeferredItem<CloakCurio> RANGING_CLOAK = ITEMS.register("ranging_cloak", () -> new CloakCurio("ranging_cloak"));
-    public static final DeferredItem<CloakCurio> RUNECRAFT_CLOAK = ITEMS.register("runecraft_cloak", () -> new CloakCurio("runecraft_cloak"));
-    public static final DeferredItem<CloakCurio> SLAYER_CLOAK = ITEMS.register("slayer_cloak", () -> new CloakCurio("slayer_cloak"));
-    public static final DeferredItem<CloakCurio> SMITHING_CLOAK = ITEMS.register("smithing_cloak", () -> new CloakCurio("smithing_cloak"));
-    public static final DeferredItem<CloakCurio> STRENGTH_CLOAK = ITEMS.register("strength_cloak", () -> new CloakCurio("strength_cloak"));
-    public static final DeferredItem<CloakCurio> THIEVING_CLOAK = ITEMS.register("thieving_cloak", () -> new CloakCurio("thieving_cloak"));
-    public static final DeferredItem<CloakCurio> WOODCUTTING_CLOAK = ITEMS.register("woodcutting_cloak", () -> new CloakCurio("woodcutting_cloak"));
-    public static final DeferredItem<CloakCurio> MAX_CLOAK = ITEMS.register("max_cloak", () -> new CloakCurio("max_cloak"));
+    public static final DeferredItem<CurioItem> AGILITY_CLOAK = ITEMS.register("agility_cloak", () -> new CurioItem("agility_cloak"));
+    public static final DeferredItem<CurioItem> ATTACK_CLOAK = ITEMS.register("attack_cloak", () -> new CurioItem("attack_cloak"));
+    public static final DeferredItem<CurioItem> CONSTRUCTION_CLOAK = ITEMS.register("construction_cloak", () -> new CurioItem("construction_cloak"));
+    public static final DeferredItem<CurioItem> COOKING_CLOAK = ITEMS.register("cooking_cloak", () -> new CurioItem("cooking_cloak"));
+    public static final DeferredItem<CurioItem> CRAFTING_CLOAK = ITEMS.register("crafting_cloak", () -> new CurioItem("crafting_cloak"));
+    public static final DeferredItem<CurioItem> DEFENCE_CLOAK = ITEMS.register("defence_cloak", () -> new CurioItem("defence_cloak"));
+    public static final DeferredItem<CurioItem> FARMING_CLOAK = ITEMS.register("farming_cloak", () -> new CurioItem("farming_cloak"));
+    public static final DeferredItem<CurioItem> FIREMAKING_CLOAK = ITEMS.register("firemaking_cloak", () -> new CurioItem("firemaking_cloak"));
+    public static final DeferredItem<CurioItem> FISHING_CLOAK = ITEMS.register("fishing_cloak", () -> new CurioItem("fishing_cloak"));
+    public static final DeferredItem<CurioItem> FLETCHING_CLOAK = ITEMS.register("fletching_cloak", () -> new CurioItem("fletching_cloak"));
+    public static final DeferredItem<CurioItem> HERBLORE_CLOAK = ITEMS.register("herblore_cloak", () -> new CurioItem("herblore_cloak"));
+    public static final DeferredItem<CurioItem> HITPOINTS_CLOAK = ITEMS.register("hitpoints_cloak", () -> new CurioItem("hitpoints_cloak"));
+    public static final DeferredItem<CurioItem> HUNTER_CLOAK = ITEMS.register("hunter_cloak", () -> new CurioItem("hunter_cloak"));
+    public static final DeferredItem<CurioItem> MAGIC_CLOAK = ITEMS.register("magic_cloak", () -> new CurioItem("magic_cloak"));
+    public static final DeferredItem<CurioItem> MINING_CLOAK = ITEMS.register("mining_cloak", () -> new CurioItem("mining_cloak"));
+    public static final DeferredItem<CurioItem> PRAYER_CLOAK = ITEMS.register("prayer_cloak", () -> new CurioItem("prayer_cloak"));
+    public static final DeferredItem<CurioItem> RANGING_CLOAK = ITEMS.register("ranging_cloak", () -> new CurioItem("ranging_cloak"));
+    public static final DeferredItem<CurioItem> RUNECRAFT_CLOAK = ITEMS.register("runecraft_cloak", () -> new CurioItem("runecraft_cloak"));
+    public static final DeferredItem<CurioItem> SLAYER_CLOAK = ITEMS.register("slayer_cloak", () -> new CurioItem("slayer_cloak"));
+    public static final DeferredItem<CurioItem> SMITHING_CLOAK = ITEMS.register("smithing_cloak", () -> new CurioItem("smithing_cloak"));
+    public static final DeferredItem<CurioItem> STRENGTH_CLOAK = ITEMS.register("strength_cloak", () -> new CurioItem("strength_cloak"));
+    public static final DeferredItem<CurioItem> THIEVING_CLOAK = ITEMS.register("thieving_cloak", () -> new CurioItem("thieving_cloak"));
+    public static final DeferredItem<CurioItem> WOODCUTTING_CLOAK = ITEMS.register("woodcutting_cloak", () -> new CurioItem("woodcutting_cloak"));
+    public static final DeferredItem<CurioItem> MAX_CLOAK = ITEMS.register("max_cloak", () -> new CurioItem("max_cloak"));
 }
