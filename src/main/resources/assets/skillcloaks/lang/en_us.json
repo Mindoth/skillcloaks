@@ -1,5 +1,5 @@
 {
-  "creativemodetab.skillcloaks_tab": "Skillcloaks",
+  "itemGroup.skillcloaks_tab": "Skillcloaks",
   "curios.identifier.cloak": "Cloak",
   "curios.modifiers.cloak": "When worn:",
 
@@ -13,6 +13,7 @@
   "item.skillcloaks.red_sack": "Red Sack",
   "item.skillcloaks.blue_sack": "Blue Sack",
   "item.skillcloaks.black_sack": "Black Sack",
+
   "item.skillcloaks.agility_cloak": "Agility Cloak",
   "item.skillcloaks.attack_cloak": "Attack Cloak",
   "item.skillcloaks.construction_cloak": "Construction Cloak",
