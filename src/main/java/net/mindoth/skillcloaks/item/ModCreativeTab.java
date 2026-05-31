@@ -18,7 +18,7 @@ public class ModCreativeTab {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Skillcloaks.MOD_ID);
 
     public static final Supplier<CreativeModeTab> SKILLCLOAKS_TAB = CREATIVE_MODE_TABS.register("skillcloaks_tab", () ->
-            CreativeModeTab.builder().icon(() -> new ItemStack(Items.STICK)).title(Component.translatable("itemGroup.skillcloaks_tab"))
+            CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.ATTACK_CLOAK.get())).title(Component.translatable("itemGroup.skillcloaks_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
                         for ( DeferredHolder<Item, ? extends Item> item : ModItems.ITEMS.getEntries() ) output.accept(item.get());
                     }).build());

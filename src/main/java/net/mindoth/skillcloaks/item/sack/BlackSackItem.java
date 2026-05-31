@@ -23,29 +23,29 @@ import java.util.List;
 
 public class BlackSackItem extends SackItem {
 
-    private String AGILITY = "agility";
-    private String ATTACK = "attack";
-    private String CONSTRUCTION = "construction";
-    private String COOKING = "cooking";
-    private String CRAFTING = "crafting";
-    private String DEFENCE = "defence";
-    private String FARMING = "farming";
-    private String FIREMAKING = "firemaking";
-    private String FISHING = "fishing";
-    private String FLETCHING = "fletching";
-    private String HERBLORE = "herblore";
-    private String HITPOINTS = "hitpoints";
-    private String HUNTER = "hunter";
-    private String MAGIC = "magic";
-    private String MINING = "mining";
-    private String PRAYER = "prayer";
-    private String RANGING = "ranging";
-    private String RUNECRAFT = "runecraft";
-    private String SLAYER = "slayer";
-    private String SMITHING = "smithing";
-    private String STRENGTH = "strength";
-    private String THIEVING = "thieving";
-    private String WOODCUTTING = "woodcutting";
+    private final String AGILITY = "agility";
+    private final String ATTACK = "attack";
+    private final String CONSTRUCTION = "construction";
+    private final String COOKING = "cooking";
+    private final String CRAFTING = "crafting";
+    private final String DEFENCE = "defence";
+    private final String FARMING = "farming";
+    private final String FIREMAKING = "firemaking";
+    private final String FISHING = "fishing";
+    private final String FLETCHING = "fletching";
+    private final String HERBLORE = "herblore";
+    private final String HITPOINTS = "hitpoints";
+    private final String HUNTER = "hunter";
+    private final String MAGIC = "magic";
+    private final String MINING = "mining";
+    private final String PRAYER = "prayer";
+    private final String RANGING = "ranging";
+    private final String RUNECRAFT = "runecraft";
+    private final String SLAYER = "slayer";
+    private final String SMITHING = "smithing";
+    private final String STRENGTH = "strength";
+    private final String THIEVING = "thieving";
+    private final String WOODCUTTING = "woodcutting";
 
     @OnlyIn(Dist.CLIENT)
     @Override
