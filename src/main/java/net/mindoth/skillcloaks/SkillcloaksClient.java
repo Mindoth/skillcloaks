@@ -1,5 +1,6 @@
 package net.mindoth.skillcloaks;
 
+import net.mindoth.skillcloaks.client.renderer.CurioRenderers;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -11,5 +12,6 @@ public class SkillcloaksClient {
     }
 
     private static void clientSetup(final FMLClientSetupEvent event) {
+        CurioRenderers.register();
     }
 }
