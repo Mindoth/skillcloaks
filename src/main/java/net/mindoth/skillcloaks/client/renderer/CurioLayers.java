@@ -1,7 +1,7 @@
 package net.mindoth.skillcloaks.client.renderer;
 
 import net.mindoth.skillcloaks.Skillcloaks;
-import net.mindoth.skillcloaks.client.model.CloakModel;
+import net.mindoth.shadowizardlib.client.model.CloakModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;

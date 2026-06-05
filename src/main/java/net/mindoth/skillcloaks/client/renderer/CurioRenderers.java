@@ -1,6 +1,6 @@
 package net.mindoth.skillcloaks.client.renderer;
 
-import net.mindoth.skillcloaks.client.model.CloakModel;
+import net.mindoth.shadowizardlib.client.model.CloakModel;
 import net.mindoth.skillcloaks.registries.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
