@@ -14,6 +14,12 @@ public class ModCommonConfig {
             .comment("How much armor will the cloaks give to the wearer. Only values greater than 0 will have any effect (Default = 0)")
             .define("Skillcloak armor", 0);
 
+    public static final ModConfigSpec.ConfigValue<Boolean> SACK_TRADES = BUILDER.comment("Will villagers have a chance to offer a sack in a trade (Default = true)")
+            .define("Sack trades", true);
+
+    public static final ModConfigSpec.ConfigValue<Boolean> BLACK_SACK_TRADE = BUILDER.comment("Will the Nitwit give the Black Sack if offered a stack of Emeralds? (Default = true)")
+            .define("Black Sack trade", true);
+
     public static final ModConfigSpec.ConfigValue<Double> AGILITY_REDUCER = BUILDER
             .comment("The amount your gained exhaustion is multiplied by when wearing the Agility Cloak. Lower numbers mean you get less exhaustion (Default = 0.5 = 50%)")
             .defineInRange("Agility exhaustion reducer", 0.5, 0.0, 1.0);
@@ -44,8 +50,17 @@ public class ModCommonConfig {
     public static final ModConfigSpec.ConfigValue<Double> ARROW_RETURN_CHANCE = BUILDER.comment("The percent chance for the Ranging Cloak or the Fletching Cloak to return an arrow (Default = 0.5 = 50%)")
             .defineInRange("Arrow return chance", 0.5, 0.0, 1.0);
 
+    public static final ModConfigSpec.ConfigValue<Integer> MINING_LUCK = BUILDER.comment("The Amount of fortune the Mining Cloak gives (Default = 1)")
+            .define("Mining luck", 1);
+
+    public static final ModConfigSpec.ConfigValue<Double> SLAYER_THRESHOLD = BUILDER.comment("The percentage of health the target has to have left for Slayer Cloak to activate (Default = 0.25 = 25%)")
+            .defineInRange("Slayer threshold", 0.25, 0.0, 1.0);
+
     public static final ModConfigSpec.ConfigValue<Integer> STRENGTH_KNOCKBACK_RESISTANCE = BUILDER.comment("The Amount of knockback resistance the Strength Cloak gives (Default = 1)")
             .define("Strength knockback resistance", 1);
+
+    public static final ModConfigSpec.ConfigValue<Double> THIEVING_MULTIPLIER = BUILDER.comment("The amount your visibility value is multiplied by while wearing the Thieving Cloak. Lower values makes you less likely to be spotted by enemies (Default = 0.2 = 20%)")
+            .defineInRange("Thieving cloak visibility multiplier", 0.2, 0.0, 1.0);
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 }

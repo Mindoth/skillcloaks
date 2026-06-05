@@ -30,6 +30,7 @@ public class DefenceCloakItem extends CurioItem {
     public static final String TAG_DEFENCE_COOLDOWN = ("preventDeath");
 
     //Prevent death
+    @SuppressWarnings("ALL")
     @SubscribeEvent
     public static void onDamageEvent(final LivingDamageEvent.Pre event) {
         if ( ModCommonConfig.COSMETIC_ONLY.get() ) return;

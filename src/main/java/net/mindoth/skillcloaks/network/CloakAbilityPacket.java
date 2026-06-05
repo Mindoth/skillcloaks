@@ -66,6 +66,7 @@ public class CloakAbilityPacket implements CustomPacketPayload {
 
     private static final String TAG_MAX_MODE = ("skillcloak.mode");
 
+    @SuppressWarnings("ALL")
     public static void handle(CloakAbilityPacket packet, IPayloadContext context) {
         if ( ModCommonConfig.COSMETIC_ONLY.get() ) return;
         context.enqueueWork(() -> {

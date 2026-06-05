@@ -101,9 +101,9 @@ public class BlackSackItem extends SackItem {
                 return new InteractionResultHolder<>(InteractionResult.SUCCESS, heldStack);
             }
             else {
-                for ( int i = 0; i < player.getInventory().getContainerSize(); ++i ) {
+                for ( int i = 0; i < player.getInventory().getContainerSize(); i++ ) {
                     ItemStack cloakStack = player.getInventory().getItem(i);
-                    if (cloakStack.getItem() instanceof CurioItem) {
+                    if ( cloakStack.getItem() instanceof CurioItem ) {
                         if ( cloakStack.getItem() == ModItems.AGILITY_CLOAK.get() ) {
                             TagSet(tag, AGILITY, heldStack, cloakStack);
                         }
@@ -181,7 +181,8 @@ public class BlackSackItem extends SackItem {
     }
 
     private void TagSet(CompoundTag tag, String string, ItemStack heldStack, ItemStack cloakStack) {
-        if (tag.contains(string)) return;
+        if ( tag.contains(string) ) return;
+        System.out.println("FOUND: " + cloakStack);
         tag.putBoolean(string, true);
         ModData.setLegacyTag(heldStack, tag);
         cloakStack.shrink(1);

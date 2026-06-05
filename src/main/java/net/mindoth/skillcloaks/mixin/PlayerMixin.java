@@ -12,6 +12,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 @Mixin(Player.class)
 public class PlayerMixin {
 
+    @SuppressWarnings("ALL")
     @Inject(method = "causeFoodExhaustion", at = @At("HEAD"), cancellable = true)
     public void causeFoodExhaustion(float pExhaustion, CallbackInfo callback) {
         if ( !ModCommonConfig.COSMETIC_ONLY.get() ) {

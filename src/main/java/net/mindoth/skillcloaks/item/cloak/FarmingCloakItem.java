@@ -34,6 +34,7 @@ public class FarmingCloakItem extends CurioItem {
         super(name);
     }
 
+    @SuppressWarnings("ALL")
     @SubscribeEvent
     public static void doBonemealEvent(final PlayerInteractEvent.RightClickBlock event) {
         if ( ModCommonConfig.COSMETIC_ONLY.get() ) return;

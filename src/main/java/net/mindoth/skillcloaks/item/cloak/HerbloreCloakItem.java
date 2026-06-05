@@ -25,6 +25,7 @@ public class HerbloreCloakItem extends CurioItem {
         super(name);
     }
 
+    @SuppressWarnings("ALL")
     @SubscribeEvent
     public static void onPlayerUse(final PlayerInteractEvent.RightClickItem event) {
         if (ModCommonConfig.COSMETIC_ONLY.get()) return;

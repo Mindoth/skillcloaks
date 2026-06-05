@@ -29,6 +29,7 @@ public class FiremakingCloakItem extends CurioItem {
         super(name);
     }
 
+    @SuppressWarnings("ALL")
     @SubscribeEvent
     public static void placeTorchWithStick(final PlayerInteractEvent.RightClickBlock event) {
         if ( ModCommonConfig.COSMETIC_ONLY.get() ) return;

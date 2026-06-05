@@ -36,6 +36,7 @@ public class SmithingCloakItem extends CurioItem {
         return optional.map(RecipeHolder::value).orElse(null);
     }
 
+    @SuppressWarnings("ALL")
     @SubscribeEvent
     public static void onPlayerUseSmithingBlock(final PlayerInteractEvent.RightClickBlock event) {
         if (ModCommonConfig.COSMETIC_ONLY.get()) return;
@@ -57,6 +58,7 @@ public class SmithingCloakItem extends CurioItem {
         }
     }
 
+    @SuppressWarnings("ALL")
     @SubscribeEvent
     public static void onPlayerUseSmithing(final PlayerInteractEvent.RightClickItem event) {
         if (ModCommonConfig.COSMETIC_ONLY.get()) return;

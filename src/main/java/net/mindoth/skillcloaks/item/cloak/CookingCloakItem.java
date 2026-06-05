@@ -37,6 +37,7 @@ public class CookingCloakItem extends CurioItem {
         return optional.map(RecipeHolder::value).orElse(null);
     }
 
+    @SuppressWarnings("ALL")
     @SubscribeEvent
     public static void onPlayerUseCookingBlock(final PlayerInteractEvent.RightClickBlock event) {
         if (ModCommonConfig.COSMETIC_ONLY.get()) return;
@@ -58,6 +59,7 @@ public class CookingCloakItem extends CurioItem {
         }
     }
 
+    @SuppressWarnings("ALL")
     @SubscribeEvent
     public static void onPlayerUseCooking(final PlayerInteractEvent.RightClickItem event) {
         if (ModCommonConfig.COSMETIC_ONLY.get()) return;

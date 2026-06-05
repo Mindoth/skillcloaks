@@ -19,50 +19,53 @@ import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.Random;
 
-import static net.minecraft.world.item.CrossbowItem.getChargeDuration;
-
 @EventBusSubscriber(modid = Skillcloaks.MOD_ID)
-public class FletchingCloakItem extends CurioItem {
-
-    public FletchingCloakItem(String name) {
+public class RangingCloakItem extends CurioItem {
+    
+    public RangingCloakItem(String name) {
         super(name);
     }
 
     @SuppressWarnings("ALL")
     @SubscribeEvent
-    public static void onCrossbowUseFinish(final LivingEntityUseItemEvent.Stop event) {
+    public static void onItemUseFinish(final LivingEntityUseItemEvent.Stop event) {
         if ( ModCommonConfig.COSMETIC_ONLY.get() ) return;
         if ( event.getEntity() instanceof Player player ) {
-            if ( !player.level().isClientSide ) {
+            if (!player.level().isClientSide) {
                 ItemStack pStack = event.getItem();
                 boolean flag = player.getAbilities().instabuild
                         || (EnchantmentHelper.hasAnyEnchantments(pStack) && EnchantmentHelper.getItemEnchantmentLevel((Holder<Enchantment>) Enchantments.INFINITY, pStack) > 0);
-                Item crossbow = pStack.getItem();
-                ItemStack pAmmoStack = player.getProjectile(pStack);
+                Item bow = pStack.getItem();
+                ItemStack itemstack = player.getProjectile(pStack);
 
-                if ( !pAmmoStack.isEmpty() || flag ) {
-                    if (pAmmoStack.isEmpty()) {
-                        pAmmoStack = new ItemStack(Items.ARROW);
+
+                if (!itemstack.isEmpty() || flag) {
+                    if (itemstack.isEmpty()) {
+                        itemstack = new ItemStack(Items.ARROW);
                     }
 
-                    if ( crossbow instanceof CrossbowItem ) {
-                        int pCount = event.getDuration();
-                        float f = (float) (pStack.getUseDuration(player) - pCount) / (float) getChargeDuration(pStack, player);
-                        if (f >= 1.0f) {
-                            boolean flag1 = player.getAbilities().instabuild || (pAmmoStack.getItem() instanceof ArrowItem && ((ArrowItem) pAmmoStack.getItem()).isInfinite(pAmmoStack, pStack, player));
+                    int i = 72000 - event.getDuration();
+                    float f = BowItem.getPowerForTime(i);
+                    if (bow instanceof BowItem) {
+                        if (!((double) f < 0.1D)) {
+                            boolean flag1 = player.getAbilities().instabuild || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, pStack, player));
                             if (!flag1 && !player.getAbilities().instabuild) {
 
                                 double randomValue = new Random().nextDouble();
 
-                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, ModItems.FLETCHING_CLOAK.get()).isPresent() 
+                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, ModItems.RANGING_CLOAK.get()).isPresent()
                                         || CuriosApi.getCuriosHelper().findFirstCurio(player, ModItems.MAX_CLOAK.get()).isPresent() )
                                         && randomValue <= ModCommonConfig.ARROW_RETURN_CHANCE.get() && ModCommonConfig.ARROW_RETURN_CHANCE.get() > 0.0 ) {
-                                    ItemStack returnArrow = new ItemStack(pAmmoStack.getItem(), 1);
-                                    setPotionContents(returnArrow, pAmmoStack);
+                                    ItemStack returnArrow = new ItemStack(itemstack.getItem(), 1);
+                                    setPotionContents(returnArrow, itemstack);
                                     ItemEntity drop = new ItemEntity(player.level(), player.getBoundingBox().getCenter().x, player.getBoundingBox().getCenter().y, player.getBoundingBox().getCenter().z, returnArrow);
                                     drop.setDeltaMovement(0, 0, 0);
                                     drop.setNoPickUpDelay();
                                     player.level().addFreshEntity(drop);
+                                }
+
+                                if (itemstack.isEmpty()) {
+                                    player.getInventory().removeItem(itemstack);
                                 }
                             }
                         }

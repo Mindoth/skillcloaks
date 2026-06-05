@@ -23,6 +23,7 @@ import java.util.function.Consumer;
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
 
+    @SuppressWarnings("ALL")
     @Inject(method = "hurtAndBreak", at = @At("HEAD"), cancellable = true)
     public void hurtAndBreak(int pAmount, ServerLevel level, @Nullable ServerPlayer pEntity, Consumer<Item> consumer, CallbackInfo callback) {
         if ( !ModCommonConfig.COSMETIC_ONLY.get() ) {
