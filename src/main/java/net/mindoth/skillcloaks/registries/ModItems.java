@@ -4,9 +4,7 @@ import net.mindoth.skillcloaks.Skillcloaks;
 import net.mindoth.skillcloaks.item.CurioItem;
 import net.mindoth.skillcloaks.item.armor.HoodItem;
 import net.mindoth.skillcloaks.item.armor.ModArmorMaterials;
-import net.mindoth.skillcloaks.item.cloak.CookingCloakItem;
-import net.mindoth.skillcloaks.item.cloak.DefenceCloakItem;
-import net.mindoth.skillcloaks.item.cloak.SmithingCloakItem;
+import net.mindoth.skillcloaks.item.cloak.*;
 import net.mindoth.skillcloaks.item.sack.*;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
@@ -127,11 +125,11 @@ public class ModItems {
     public static final DeferredItem<CurioItem> COOKING_CLOAK = ITEMS.register("cooking_cloak", () -> new CookingCloakItem("cooking_cloak"));
     public static final DeferredItem<CurioItem> CRAFTING_CLOAK = ITEMS.register("crafting_cloak", () -> new CurioItem("crafting_cloak"));
     public static final DeferredItem<CurioItem> DEFENCE_CLOAK = ITEMS.register("defence_cloak", () -> new DefenceCloakItem("defence_cloak"));
-    public static final DeferredItem<CurioItem> FARMING_CLOAK = ITEMS.register("farming_cloak", () -> new CurioItem("farming_cloak"));
-    public static final DeferredItem<CurioItem> FIREMAKING_CLOAK = ITEMS.register("firemaking_cloak", () -> new CurioItem("firemaking_cloak"));
-    public static final DeferredItem<CurioItem> FISHING_CLOAK = ITEMS.register("fishing_cloak", () -> new CurioItem("fishing_cloak"));
-    public static final DeferredItem<CurioItem> FLETCHING_CLOAK = ITEMS.register("fletching_cloak", () -> new CurioItem("fletching_cloak"));
-    public static final DeferredItem<CurioItem> HERBLORE_CLOAK = ITEMS.register("herblore_cloak", () -> new CurioItem("herblore_cloak"));
+    public static final DeferredItem<CurioItem> FARMING_CLOAK = ITEMS.register("farming_cloak", () -> new FarmingCloakItem("farming_cloak"));
+    public static final DeferredItem<CurioItem> FIREMAKING_CLOAK = ITEMS.register("firemaking_cloak", () -> new FiremakingCloakItem("firemaking_cloak"));
+    public static final DeferredItem<CurioItem> FISHING_CLOAK = ITEMS.register("fishing_cloak", () -> new FishingCloakItem("fishing_cloak"));
+    public static final DeferredItem<CurioItem> FLETCHING_CLOAK = ITEMS.register("fletching_cloak", () -> new FletchingCloakItem("fletching_cloak"));
+    public static final DeferredItem<CurioItem> HERBLORE_CLOAK = ITEMS.register("herblore_cloak", () -> new HerbloreCloakItem("herblore_cloak"));
     public static final DeferredItem<CurioItem> HITPOINTS_CLOAK = ITEMS.register("hitpoints_cloak", () -> new CurioItem("hitpoints_cloak"));
     public static final DeferredItem<CurioItem> HUNTER_CLOAK = ITEMS.register("hunter_cloak", () -> new CurioItem("hunter_cloak"));
     public static final DeferredItem<CurioItem> MAGIC_CLOAK = ITEMS.register("magic_cloak", () -> new CurioItem("magic_cloak"));
@@ -141,8 +139,8 @@ public class ModItems {
     public static final DeferredItem<CurioItem> RUNECRAFT_CLOAK = ITEMS.register("runecraft_cloak", () -> new CurioItem("runecraft_cloak"));
     public static final DeferredItem<CurioItem> SLAYER_CLOAK = ITEMS.register("slayer_cloak", () -> new CurioItem("slayer_cloak"));
     public static final DeferredItem<CurioItem> SMITHING_CLOAK = ITEMS.register("smithing_cloak", () -> new SmithingCloakItem("smithing_cloak"));
-    public static final DeferredItem<CurioItem> STRENGTH_CLOAK = ITEMS.register("strength_cloak", () -> new CurioItem("strength_cloak"));
+    public static final DeferredItem<CurioItem> STRENGTH_CLOAK = ITEMS.register("strength_cloak", () -> new StrengthCloakItem("strength_cloak"));
     public static final DeferredItem<CurioItem> THIEVING_CLOAK = ITEMS.register("thieving_cloak", () -> new CurioItem("thieving_cloak"));
     public static final DeferredItem<CurioItem> WOODCUTTING_CLOAK = ITEMS.register("woodcutting_cloak", () -> new CurioItem("woodcutting_cloak"));
-    public static final DeferredItem<CurioItem> MAX_CLOAK = ITEMS.register("max_cloak", () -> new CurioItem("max_cloak"));
+    public static final DeferredItem<CurioItem> MAX_CLOAK = ITEMS.register("max_cloak", () -> new MaxCloakItem("max_cloak"));
 }

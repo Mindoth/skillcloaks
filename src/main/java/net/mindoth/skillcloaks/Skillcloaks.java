@@ -4,6 +4,7 @@ import net.mindoth.skillcloaks.client.renderer.CurioLayers;
 import net.mindoth.skillcloaks.config.ModCommonConfig;
 import net.mindoth.skillcloaks.item.ModCreativeTab;
 import net.mindoth.skillcloaks.item.armor.ModArmorMaterials;
+import net.mindoth.skillcloaks.item.cloak.DefenceCloakItem;
 import net.mindoth.skillcloaks.registries.ModData;
 import net.mindoth.skillcloaks.registries.ModItems;
 import net.neoforged.api.distmarker.Dist;
@@ -13,6 +14,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(Skillcloaks.MOD_ID)
 public class Skillcloaks {
@@ -23,6 +25,7 @@ public class Skillcloaks {
         addRegistries(modBus);
         modContainer.registerConfig(ModConfig.Type.COMMON, ModCommonConfig.SPEC);
         modBus.addListener(this::onRegisterLayerDefinitions);
+        NeoForge.EVENT_BUS.addListener(DefenceCloakItem::onPlayerTick);
     }
 
     private void addRegistries(final IEventBus modBus) {

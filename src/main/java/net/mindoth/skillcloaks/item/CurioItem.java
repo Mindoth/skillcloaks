@@ -50,9 +50,14 @@ public class CurioItem extends Item implements ICurioItem {
     public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id, ItemStack stack) {
         Multimap<Holder<Attribute>, AttributeModifier> result = ICurioItem.super.getAttributeModifiers(slotContext, id, stack);
 
+        extraAttributes(result, slotContext, id, stack);
+
         if (!ModCommonConfig.COSMETIC_ONLY.get() && ModCommonConfig.SKILL_CLOAK_ARMOR.get() > 0 ) {
             result.put(Attributes.ARMOR, new AttributeModifier(id, ModCommonConfig.SKILL_CLOAK_ARMOR.get(), AttributeModifier.Operation.ADD_VALUE));
         }
         return result;
+    }
+
+    protected void extraAttributes(Multimap<Holder<Attribute>, AttributeModifier> result, SlotContext slotContext, ResourceLocation id, ItemStack stack) {
     }
 }
