@@ -3,9 +3,10 @@
   "package": "net.mindoth.skillcloaks.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AbstractClientPlayerMixin",
     "ItemStackMixin",
-    "PlayerMixin"
+    "PlayerMixin",
+    "CapeLayerMixin",
+    "ElytraLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
