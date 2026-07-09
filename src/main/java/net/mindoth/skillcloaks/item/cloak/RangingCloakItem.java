@@ -4,8 +4,9 @@ import net.mindoth.skillcloaks.Skillcloaks;
 import net.mindoth.skillcloaks.config.ModCommonConfig;
 import net.mindoth.skillcloaks.item.CurioItem;
 import net.mindoth.skillcloaks.registries.ModItems;
-import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -33,11 +34,11 @@ public class RangingCloakItem extends CurioItem {
         if ( event.getEntity() instanceof Player player ) {
             if (!player.level().isClientSide) {
                 ItemStack pStack = event.getItem();
-                boolean flag = player.getAbilities().instabuild
-                        || (EnchantmentHelper.hasAnyEnchantments(pStack) && EnchantmentHelper.getItemEnchantmentLevel((Holder<Enchantment>) Enchantments.INFINITY, pStack) > 0);
+                HolderLookup.RegistryLookup<Enchantment> lookup = player.level().registryAccess().lookup(Registries.ENCHANTMENT).get();
+                int enchantLvl = EnchantmentHelper.getItemEnchantmentLevel(lookup.getOrThrow(Enchantments.INFINITY), pStack);
+                boolean flag = player.getAbilities().instabuild || enchantLvl > 0;
                 Item bow = pStack.getItem();
                 ItemStack itemstack = player.getProjectile(pStack);
-
 
                 if (!itemstack.isEmpty() || flag) {
                     if (itemstack.isEmpty()) {
@@ -53,7 +54,7 @@ public class RangingCloakItem extends CurioItem {
 
                                 double randomValue = new Random().nextDouble();
 
-                                if ( ( CuriosApi.getCuriosHelper().findFirstCurio(player, ModItems.RANGING_CLOAK.get()).isPresent()
+                                if ( !flag && ( CuriosApi.getCuriosHelper().findFirstCurio(player, ModItems.RANGING_CLOAK.get()).isPresent()
                                         || CuriosApi.getCuriosHelper().findFirstCurio(player, ModItems.MAX_CLOAK.get()).isPresent() )
                                         && randomValue <= ModCommonConfig.ARROW_RETURN_CHANCE.get() && ModCommonConfig.ARROW_RETURN_CHANCE.get() > 0.0 ) {
                                     ItemStack returnArrow = new ItemStack(itemstack.getItem(), 1);
@@ -62,10 +63,6 @@ public class RangingCloakItem extends CurioItem {
                                     drop.setDeltaMovement(0, 0, 0);
                                     drop.setNoPickUpDelay();
                                     player.level().addFreshEntity(drop);
-                                }
-
-                                if (itemstack.isEmpty()) {
-                                    player.getInventory().removeItem(itemstack);
                                 }
                             }
                         }

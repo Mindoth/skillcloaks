@@ -44,7 +44,7 @@ public class FarmingCloakItem extends CurioItem {
         if ( CuriosApi.getCuriosHelper().findFirstCurio(player, ModItems.FARMING_CLOAK.get()).isPresent()
                 || CuriosApi.getCuriosHelper().findFirstCurio(player, ModItems.MAX_CLOAK.get()).isPresent() ) {
             if ( event.getItemStack().getItem() instanceof BoneMealItem) {
-                if ( pos == player.getOnPos() || level.getBlockState(pos).getBlock() instanceof BonemealableBlock) {
+                if ( pos == player.getOnPos() || level.getBlockState(pos).getBlock() instanceof BonemealableBlock ) {
                     event.setCancellationResult(InteractionResult.SUCCESS);
                     event.setCanceled(true);
                 }
